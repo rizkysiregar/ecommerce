@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
         <TextView
-            android:id="@+id/btn_lewati"
+            android:id="@+id/tv_lewati"
             android:layout_width="42dp"
             android:layout_height="20dp"
             android:background="@null"
@@ -50,7 +50,7 @@
 
 
         <TextView
-            android:id="@+id/btn_next"
+            android:id="@+id/tv_next"
             android:layout_width="74dp"
             android:layout_height="20dp"
             android:layout_marginEnd="20.5dp"
@@ -59,19 +59,19 @@
             android:text="@string/title_next"
             android:textColor="#6750A4"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_lewati"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lewati"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_lewati" />
+            app:layout_constraintTop_toTopOf="@+id/tv_lewati" />
 
         <LinearLayout
             android:id="@+id/container_slider_pointer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_lewati"
-            app:layout_constraintEnd_toStartOf="@+id/btn_next"
-            app:layout_constraintStart_toEndOf="@+id/btn_lewati"
-            app:layout_constraintTop_toTopOf="@+id/btn_lewati">
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lewati"
+            app:layout_constraintEnd_toStartOf="@+id/tv_next"
+            app:layout_constraintStart_toEndOf="@+id/tv_lewati"
+            app:layout_constraintTop_toTopOf="@+id/tv_lewati">
 
             <View
                 android:id="@+id/indicator1"

@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/thumbnail" />
 
         <TextView
-            android:id="@+id/btn_lewati"
+            android:id="@+id/tv_lewati"
             android:layout_width="42dp"
             android:layout_height="20dp"
             android:textSize="14sp"
@@ -55,10 +55,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginEnd="30dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_lewati"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_lewati"
             app:layout_constraintEnd_toEndOf="@+id/btn_done"
-            app:layout_constraintStart_toEndOf="@+id/btn_lewati"
-            app:layout_constraintTop_toTopOf="@+id/btn_lewati">
+            app:layout_constraintStart_toEndOf="@+id/tv_lewati"
+            app:layout_constraintTop_toTopOf="@+id/tv_lewati">
 
             <View
                 android:id="@+id/indicator1"

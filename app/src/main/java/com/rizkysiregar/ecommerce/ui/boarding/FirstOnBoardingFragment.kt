@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.databinding.FragmentFirstOnBoardingBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
@@ -20,8 +23,14 @@ class FirstOnBoardingFragment : Fragment() {
 
         val btnJoin = binding.btnDone
         btnJoin.setOnClickListener {
-            startActivity(Intent(requireActivity(), RegisterActivity::class.java))
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
         }
+
+        binding.tvLewati.setOnClickListener {
+            startActivity(Intent(requireActivity(), LoginActivity::class.java))
+            requireActivity().finish()
+        }
+
     }
 
     override fun onCreateView(

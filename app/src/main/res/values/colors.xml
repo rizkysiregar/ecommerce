@@ -14,4 +14,5 @@
     <color name="button_color">#6750A4</color>
     <color name="grey_divider">#A0A0A0</color>
     <color name="bg_button">#4F378B</color>
+    <color name="text_error">#B3261E</color>
 </resources>
