@@ -26,6 +26,6 @@ interface ApiService {
     suspend fun postRegister(
         @Field("email") email: String,
         @Field("password") password: String
-    ): Call<RegisterResponse>
+    ): RegisterResponse
 
 }

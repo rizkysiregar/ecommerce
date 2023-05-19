@@ -13,6 +13,10 @@ import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
@@ -28,22 +32,25 @@ class RegisterActivity : AppCompatActivity() {
         // check input edit text and password
         checkInput()
 
-        // hit register api
-        try {
-            register()
-        } catch (e: Exception) {
-            Toast.makeText(this, e.message.toString(), Toast.LENGTH_SHORT).show()
-        }
 
         // show loading
         registerViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        // button event
+
         binding.btnDaftarRegister.setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
             finish()
+//            try {
+//                val email = binding.edtEmail.text.toString()
+//                val password = binding.edtPassword.text.toString()
+//                CoroutineScope(Dispatchers.IO).launch {
+//                    registerViewModel.userRegister(email, password)
+//                }
+//            }catch (e : Exception){
+//                Toast.makeText(this,e.message.toString(), Toast.LENGTH_SHORT).show()
+//            }
         }
 
         binding.btnMasukRegister.setOnClickListener {
@@ -67,13 +74,12 @@ class RegisterActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val isValidEmail: Boolean = Patterns.EMAIL_ADDRESS.matcher(s).matches()
-                if (s.toString().isEmpty()){
+                if (s.toString().isEmpty()) {
                     binding.textInputLayoutEmail.boxStrokeColor =
                         ContextCompat.getColor(this@RegisterActivity, R.color.indicator_filled)
                     binding.tvEmailError.visibility = View.GONE
                     binding.btnDaftarRegister.isEnabled = false
-                }
-                else if (isValidEmail) {
+                } else if (isValidEmail) {
                     binding.textInputLayoutEmail.boxStrokeColor =
                         ContextCompat.getColor(this@RegisterActivity, R.color.indicator_filled)
                     binding.tvEmailError.visibility = View.GONE
@@ -98,6 +104,7 @@ class RegisterActivity : AppCompatActivity() {
                     binding.edtPassword.error = null
                 }
             }
+
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (s.toString().isEmpty()) {
                     binding.tvPasswordMessage.visibility = View.GONE
@@ -125,11 +132,6 @@ class RegisterActivity : AppCompatActivity() {
 
     }
 
-    private fun register() {
-        val email = binding.edtEmail.toString()
-        val password = binding.edtPassword.toString()
-        registerViewModel.postRegister(email, password)
-    }
 
     private fun showLoading(isLoading: Boolean) {
         binding.pbRegister.visibility = if (isLoading) View.VISIBLE else View.GONE

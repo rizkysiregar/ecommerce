@@ -9,6 +9,8 @@ import com.rizkysiregar.ecommerce.data.model.RegisterRequestModel
 import com.rizkysiregar.ecommerce.data.network.response.Data
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,31 +24,37 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading : LiveData<Boolean> = _isLoading
 
-
-    fun postRegister(email: String, password: String) {
-        userRepository.registerUser(email, password , object : Callback<RegisterResponse> {
-            override fun onResponse(
-                call: Call<RegisterResponse>,
-                response: Response<RegisterResponse>
-            ) {
-                _isLoading.value = false
-                val responseBody = response.body()
-                if (response.isSuccessful && responseBody != null) {
-                    sessionUser(data = responseBody.data)
-                }
-            }
-
-            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message}")
-            }
-
-        })
+    suspend fun userRegister(email: String, password: String){
+        withContext(Dispatchers.IO){
+            userRepository.postRegisterUser(email,password)
+        }
     }
 
-    fun sessionUser(data: Data){
 
-    }
+//    fun postRegister(email: String, password: String) {
+//        userRepository.registerUser(email, password , object : Callback<RegisterResponse> {
+//            override fun onResponse(
+//                call: Call<RegisterResponse>,
+//                response: Response<RegisterResponse>
+//            ) {
+//                _isLoading.value = false
+//                val responseBody = response.body()
+//                if (response.isSuccessful && responseBody != null) {
+//                    sessionUser(data = responseBody.data)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+//                _isLoading.value = false
+//                Log.e(TAG, "onFailure: ${t.message}")
+//            }
+//
+//        })
+//    }
+
+//    fun sessionUser(data: Data){
+//        Log.d(TAG, data.accessToken)
+//    }
 
 
 }
