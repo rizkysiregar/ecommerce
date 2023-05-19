@@ -9,6 +9,8 @@ import android.provider.MediaStore
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.ImageCapture
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.databinding.ActivityProfileBinding
 import com.rizkysiregar.ecommerce.ui.camera.CameraActivity
@@ -72,10 +74,17 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
+            val selectedImage = data.data
+            Glide.with(this)
+                .load(selectedImage)
+                .apply(RequestOptions.circleCropTransform())
+                .into(binding.imgProfile)
             // Handle the captured image here
             // The image file path is stored in 'currentPhotoPath'
             // Do something with the captured image
