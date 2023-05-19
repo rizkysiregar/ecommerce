@@ -88,11 +88,12 @@
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_masuk_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/btn_register"
+        android:textAllCaps="false"
+        android:text="@string/btn_masuk"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/text_input_layout_password"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout_password"
@@ -104,9 +105,9 @@
         android:layout_height="30dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/btn_register"
-        app:layout_constraintStart_toStartOf="@+id/btn_register"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register">
+        app:layout_constraintEnd_toEndOf="@+id/btn_masuk_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_masuk_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_masuk_login">
 
         <View
             android:id="@+id/view_start"
@@ -131,14 +132,17 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_daftar_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/btn_masuk"
+        android:text="@string/btn_register"
+        android:textColor="@color/indicator_filled"
+        android:background="@drawable/button_border"
+        android:textAllCaps="false"
         app:cornerRadius="100dp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_register"
-        app:layout_constraintStart_toStartOf="@+id/btn_register"
+        app:layout_constraintEnd_toEndOf="@+id/btn_masuk_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_masuk_login"
         app:layout_constraintTop_toBottomOf="@+id/container_divider" />
 
     <TextView
@@ -148,8 +152,8 @@
         android:text="@string/tv_bottom_btn_masuk"
         android:layout_marginTop="24dp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_masuk"
-        app:layout_constraintStart_toStartOf="@+id/btn_masuk"
-        app:layout_constraintTop_toBottomOf="@+id/btn_masuk" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_daftar_login"
+        app:layout_constraintStart_toStartOf="@+id/btn_daftar_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_daftar_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

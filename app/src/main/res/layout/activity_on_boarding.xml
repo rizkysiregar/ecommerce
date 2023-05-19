@@ -19,20 +19,17 @@
         android:id="@+id/spring_dots_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
         app:dampingRatio="0.5"
         app:dotsColor="@color/selected_dots"
         app:dotsCornerRadius="2dp"
         app:dotsSize="16dp"
         app:dotsSpacing="6dp"
-        android:layout_marginBottom="100dp"
         app:dotsStrokeColor="@color/dots"
         app:dotsStrokeWidth="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:stiffness="300" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

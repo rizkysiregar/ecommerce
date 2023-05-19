@@ -88,10 +88,11 @@
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_daftar_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:textAllCaps="false"
         android:text="@string/btn_register"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/text_input_layout_password"
@@ -102,11 +103,12 @@
         android:id="@+id/container_divider"
         android:layout_width="0dp"
         android:layout_height="30dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/btn_register"
-        app:layout_constraintStart_toStartOf="@+id/btn_register"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register">
+        app:layout_constraintEnd_toEndOf="@+id/btn_daftar_register"
+        app:layout_constraintStart_toStartOf="@+id/btn_daftar_register"
+        app:layout_constraintTop_toBottomOf="@+id/btn_daftar_register">
 
         <View
             android:id="@+id/view_start"
@@ -131,14 +133,17 @@
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_masuk_register"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/btn_masuk"
+        android:textAllCaps="false"
         app:cornerRadius="100dp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_register"
-        app:layout_constraintStart_toStartOf="@+id/btn_register"
+        android:textColor="@color/indicator_filled"
+        android:background="@drawable/button_border"
+        app:layout_constraintEnd_toEndOf="@+id/btn_daftar_register"
+        app:layout_constraintStart_toStartOf="@+id/btn_daftar_register"
         app:layout_constraintTop_toBottomOf="@+id/container_divider" />
 
     <TextView
@@ -148,9 +153,18 @@
         android:text="@string/tv_bottom_btn_masuk"
         android:layout_marginTop="24dp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_masuk"
-        app:layout_constraintStart_toStartOf="@+id/btn_masuk"
-        app:layout_constraintTop_toBottomOf="@+id/btn_masuk" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_masuk_register"
+        app:layout_constraintStart_toStartOf="@+id/btn_masuk_register"
+        app:layout_constraintTop_toBottomOf="@+id/btn_masuk_register" />
 
+    <ProgressBar
+        android:id="@+id/pb_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.databinding.ActivityLoginBinding
@@ -23,15 +24,14 @@ class LoginActivity : AppCompatActivity() {
         checkInput()
 
         // event to mainActivity
-        val btnLogin = binding.btnMasuk
+        val btnLogin = binding.btnMasukLogin
         btnLogin.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
-        binding.btnRegister.setOnClickListener {
+        binding.btnDaftarLogin.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
-            finish()
         }
     }
 
@@ -43,18 +43,30 @@ class LoginActivity : AppCompatActivity() {
         // listener for change in edtEmail
         edtEmail.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                edtEmail.error = null
+                if (s.isNullOrEmpty()) {
+                    binding.edtEmail.error = null
+                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val isValidEmail: Boolean = Patterns.EMAIL_ADDRESS.matcher(s).matches()
-                if (isValidEmail) {
+                if (s.toString().isEmpty()){
+                    binding.textInputLayoutEmail.boxStrokeColor =
+                        ContextCompat.getColor(this@LoginActivity, R.color.indicator_filled)
+                    binding.tvEmailError.visibility = View.GONE
+                    binding.btnMasukLogin.isEnabled = false
+                }
+                else if (isValidEmail) {
+                    binding.textInputLayoutEmail.boxStrokeColor =
+                        ContextCompat.getColor(this@LoginActivity, R.color.indicator_filled)
                     binding.tvEmailError.visibility = View.GONE
                     binding.edtEmail.error = null
-                    binding.btnRegister.isEnabled = true
+                    binding.btnMasukLogin.isEnabled = true
                 } else {
+                    binding.textInputLayoutEmail.boxStrokeColor =
+                        ContextCompat.getColor(this@LoginActivity, R.color.text_error)
                     binding.tvEmailError.visibility = View.VISIBLE
-                    binding.btnRegister.isEnabled = false
+                    binding.btnMasukLogin.isEnabled = false
                 }
             }
 
@@ -64,17 +76,27 @@ class LoginActivity : AppCompatActivity() {
         })
 
         edtPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                edtPassword.error = null
+            override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (s.isNullOrEmpty()) {
+                    binding.edtPassword.error = null
+                }
             }
-
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (s.toString().length < 8) {
-                    binding.tvPasswordMessage.visibility = View.VISIBLE
-                    binding.btnMasuk.isEnabled = false
-                } else {
+                if (s.toString().isEmpty()) {
                     binding.tvPasswordMessage.visibility = View.GONE
-                    binding.btnMasuk.isEnabled = true
+                    binding.textInputLayoutPassword.boxStrokeColor =
+                        ContextCompat.getColor(this@LoginActivity, R.color.indicator_filled)
+                    binding.btnMasukLogin.isEnabled = false
+                } else if (s.toString().length < 8) {
+                    binding.textInputLayoutPassword.boxStrokeColor =
+                        ContextCompat.getColor(this@LoginActivity, R.color.text_error)
+                    binding.tvPasswordMessage.visibility = View.VISIBLE
+                    binding.btnMasukLogin.isEnabled = false
+                } else {
+                    binding.textInputLayoutPassword.boxStrokeColor =
+                        ContextCompat.getColor(this@LoginActivity, R.color.indicator_filled)
+                    binding.tvPasswordMessage.visibility = View.GONE
+                    binding.btnMasukLogin.isEnabled = true
                 }
             }
 
