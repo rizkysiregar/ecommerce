@@ -74,8 +74,6 @@ class ProfileActivity : AppCompatActivity() {
     }
 
 
-
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -92,7 +90,7 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun startCameraX() {
-        val intent = Intent(this,CameraActivity::class.java)
+        val intent = Intent(this, CameraActivity::class.java)
         startActivity(intent)
     }
 
