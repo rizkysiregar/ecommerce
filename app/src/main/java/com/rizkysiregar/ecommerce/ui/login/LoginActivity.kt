@@ -7,15 +7,21 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityLoginBinding
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
 import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel: LoginViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -26,8 +32,18 @@ class LoginActivity : AppCompatActivity() {
         // event to mainActivity
         val btnLogin = binding.btnMasukLogin
         btnLogin.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
+
+            val modelData = RegisterModel(email, password)
+            try {
+                loginViewModel.loginUser(modelData)
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error: ${e.message.toString()}", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.btnDaftarLogin.setOnClickListener {
@@ -50,13 +66,12 @@ class LoginActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val isValidEmail: Boolean = Patterns.EMAIL_ADDRESS.matcher(s).matches()
-                if (s.toString().isEmpty()){
+                if (s.toString().isEmpty()) {
                     binding.textInputLayoutEmail.boxStrokeColor =
                         ContextCompat.getColor(this@LoginActivity, R.color.indicator_filled)
                     binding.tvEmailError.visibility = View.GONE
                     binding.btnMasukLogin.isEnabled = false
-                }
-                else if (isValidEmail) {
+                } else if (isValidEmail) {
                     binding.textInputLayoutEmail.boxStrokeColor =
                         ContextCompat.getColor(this@LoginActivity, R.color.indicator_filled)
                     binding.tvEmailError.visibility = View.GONE
@@ -81,6 +96,7 @@ class LoginActivity : AppCompatActivity() {
                     binding.edtPassword.error = null
                 }
             }
+
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (s.toString().isEmpty()) {
                     binding.tvPasswordMessage.visibility = View.GONE

@@ -10,53 +10,48 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.Exception
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityRegisterBinding
 
+    private lateinit var binding: ActivityRegisterBinding
     private val registerViewModel: RegisterViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // check input edit text and password
         checkInput()
 
-
-        // show loading
-        registerViewModel.isLoading.observe(this) {
-            showLoading(it)
-        }
-
-
         binding.btnDaftarRegister.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
-            finish()
-//            try {
-//                val email = binding.edtEmail.text.toString()
-//                val password = binding.edtPassword.text.toString()
-//                CoroutineScope(Dispatchers.IO).launch {
-//                    registerViewModel.userRegister(email, password)
-//                }
-//            }catch (e : Exception){
-//                Toast.makeText(this,e.message.toString(), Toast.LENGTH_SHORT).show()
-//            }
+            try {
+                register()
+                startActivity(Intent(this, ProfileActivity::class.java))
+                finish()
+            }catch (e: Exception){
+                Toast.makeText(this,"Error: ${e}", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.btnMasukRegister.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
+    }
 
+    private fun register() {
+        val edtEmail = binding.edtEmail.text.toString()
+        val edtPassword = binding.edtPassword.text.toString()
+
+        val data = RegisterModel(edtEmail, edtPassword)
+        registerViewModel.registerNewUser(data)
+        registerViewModel.data.observe(this) {
+            Toast.makeText(this, "${it.message} ${it.data.accessToken}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun checkInput() {
@@ -66,7 +61,12 @@ class RegisterActivity : AppCompatActivity() {
 
         // listener for change in edtEmail
         edtEmail.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
                 if (s.isNullOrEmpty()) {
                     binding.edtEmail.error = null
                 }
@@ -131,10 +131,4 @@ class RegisterActivity : AppCompatActivity() {
         })
 
     }
-
-
-    private fun showLoading(isLoading: Boolean) {
-        binding.pbRegister.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
-
 }

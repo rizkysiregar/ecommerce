@@ -3,9 +3,12 @@ package com.rizkysiregar.ecommerce.data.di
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
+import com.google.gson.GsonBuilder
 import com.rizkysiregar.ecommerce.BuildConfig
-import com.rizkysiregar.ecommerce.data.network.RemoteDataSource
+import com.rizkysiregar.ecommerce.data.network.api.ApiHeadersInterceptor
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
+import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
+import com.rizkysiregar.ecommerce.data.network.response.RegisterResponseInstanceCreator
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,7 +33,6 @@ val networkModule = module {
             .alwaysReadResponseBody(true)
             .build()
 
-
         // logging interceptor
         val loggingInterceptor = if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -40,14 +42,20 @@ val networkModule = module {
 
         // Okhttp
         OkHttpClient.Builder()
+            .addInterceptor(ApiHeadersInterceptor())
+            .addInterceptor(loggingInterceptor)
             .addInterceptor(chuckerInterceptor)
             .build()
     }
 
     single {
+        val gson = GsonBuilder()
+            .registerTypeAdapter(RegisterResponse::class.java, RegisterResponseInstanceCreator())
+            .create()
+
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.226.87:8080/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("http://192.168.1.7:8080/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(get())
             .build()
         retrofit.create(ApiService::class.java)
@@ -55,6 +63,6 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
-    single { RemoteDataSource(get()) }
+
     single { UserRepository(get()) }
 }
