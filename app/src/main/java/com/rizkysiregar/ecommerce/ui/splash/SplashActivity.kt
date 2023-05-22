@@ -1,16 +1,18 @@
 package com.rizkysiregar.ecommerce.ui.splash
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.databinding.ActivitySplashBinding
 import com.rizkysiregar.ecommerce.ui.boarding.OnBoardingActivity
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 
+
+@SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {

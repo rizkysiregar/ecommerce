@@ -29,7 +29,6 @@
         android:id="@+id/img_profile"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:background="@drawable/circle_background"
         android:scaleType="centerCrop"
         android:src="@drawable/baseline_person_pin_24"
         app:layout_constraintEnd_toEndOf="parent"

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
@@ -28,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         checkInput()
+        coloredText()
 
         // event to mainActivity
         val btnLogin = binding.btnMasukLogin
@@ -122,5 +124,10 @@ class LoginActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    private fun coloredText() {
+        val coloredText = getString(R.string.colored_text)
+        binding.tvTermsLogin.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
     }
 }

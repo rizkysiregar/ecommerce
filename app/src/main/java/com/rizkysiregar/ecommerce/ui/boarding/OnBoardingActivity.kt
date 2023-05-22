@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
+import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
+import com.rizkysiregar.ecommerce.data.model.DataBoarding
 import com.rizkysiregar.ecommerce.databinding.ActivityOnBoardingBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import java.lang.Exception
@@ -36,10 +38,18 @@ class OnBoardingActivity : AppCompatActivity() {
         })
     }
 
+    private fun boardingData(): List<DataBoarding> {
+        return listOf(
+            DataBoarding(R.drawable.asset1),
+            DataBoarding(R.drawable.asset2),
+            DataBoarding(R.drawable.asset3),
+        )
+    }
 
     private fun prepareViewPager() {
+        val data = boardingData()
         val viewPager = binding.viewpager
-        viewPager.adapter = BoardingAdapter()
+        viewPager.adapter = BoardingAdapter(data = data)
         val dotsIndicator = binding.springDotsIndicator
         dotsIndicator.attachTo(viewPager)
     }
@@ -67,11 +77,10 @@ class OnBoardingActivity : AppCompatActivity() {
         try {
             // setOnboarding completed
             PreferenceManager.setOnboardoingPreference(this, true)
-
-            // check if onboarding  completed
-            val isOnboardingCompleted = PreferenceManager.isOnboardingCompleted(this)
         } catch (e: Exception) {
             Toast.makeText(this, "Error: ${e.message.toString()}", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 }

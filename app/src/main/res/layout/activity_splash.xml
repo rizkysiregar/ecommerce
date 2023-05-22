@@ -8,8 +8,8 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gift_splash"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:src="@drawable/splash_screen_news_avd_preview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

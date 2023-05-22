@@ -4,12 +4,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
+import android.text.SpannableString
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
@@ -27,6 +30,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         checkInput()
+        coloredText()
 
         binding.btnDaftarRegister.setOnClickListener {
             try {
@@ -51,6 +55,8 @@ class RegisterActivity : AppCompatActivity() {
         registerViewModel.registerNewUser(data)
         registerViewModel.data.observe(this) {
             Toast.makeText(this, "${it.message} ${it.data.accessToken}", Toast.LENGTH_SHORT).show()
+            PreferenceManager.setAccessToken(this,it.data.accessToken)
+            PreferenceManager.setRefreshToken(this,it.data.refreshToken)
         }
     }
 
@@ -131,4 +137,10 @@ class RegisterActivity : AppCompatActivity() {
         })
 
     }
+
+    private fun coloredText(){
+        val coloredText = getString(R.string.colored_text)
+        binding.tvTerms.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
+    }
+
 }
