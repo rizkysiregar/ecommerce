@@ -1,17 +1,19 @@
 package com.rizkysiregar.ecommerce.data.repository
 
-import com.rizkysiregar.ecommerce.data.network.api.AuthService
+import com.rizkysiregar.ecommerce.data.network.api.ApiService
+import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class UserRepository(private val authService: AuthService) {
+class UserRepository(private val apiService: ApiService) {
 
     fun registerUser(request: RequestBody, onResponse: (Boolean, RegisterResponse?) -> Unit) {
-        authService.postRegister(request).enqueue(object : Callback<RegisterResponse> {
+        apiService.postRegister(request).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
@@ -27,7 +29,7 @@ class UserRepository(private val authService: AuthService) {
     }
 
     fun loginUser(request: RequestBody, onResponse: (Boolean, RegisterResponse?) -> Unit) {
-        authService.postLoginUser(request).enqueue(object : Callback<RegisterResponse> {
+        apiService.postLoginUser(request).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
@@ -39,6 +41,23 @@ class UserRepository(private val authService: AuthService) {
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
                 onResponse(false, null)
             }
+        })
+    }
+
+    fun profileUser(image: MultipartBody.Part, request: RequestBody, onResponse: (Boolean, ProfileResponse?) -> Unit){
+        apiService.postProfile(image, request).enqueue(object : Callback<ProfileResponse> {
+            override fun onResponse(
+                call: Call<ProfileResponse>,
+                response: Response<ProfileResponse>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody)
+            }
+
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                onResponse(false, null)
+            }
+
         })
     }
 }

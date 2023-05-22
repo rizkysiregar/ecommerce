@@ -1,6 +1,6 @@
 package com.rizkysiregar.ecommerce.ui.register
 
-import androidx.lifecycle.LiveData
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,12 +8,9 @@ import com.google.gson.Gson
 import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
+
 import okhttp3.RequestBody.Companion.toRequestBody
 
 class RegisterViewModel(private val userRepository: UserRepository) : ViewModel() {

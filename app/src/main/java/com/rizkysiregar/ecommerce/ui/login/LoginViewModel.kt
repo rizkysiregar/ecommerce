@@ -21,7 +21,7 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
             val mediaType = "application/json".toMediaTypeOrNull()
             val requestBody = requestBodyString.toRequestBody(mediaType)
 
-            userRepository.registerUser(requestBody) { isSuccess, responseBody ->
+            userRepository.loginUser(requestBody) { isSuccess, responseBody ->
                 if (isSuccess) {
                     responseBody?.let {
                         _data.value = it

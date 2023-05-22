@@ -5,11 +5,13 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -18,12 +20,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.model.ProfileModel
 import com.rizkysiregar.ecommerce.databinding.ActivityProfileBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
+    private val profileViewModel : ProfileViewModel by viewModel()
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
@@ -58,8 +64,16 @@ class ProfileActivity : AppCompatActivity() {
 
 
         binding.btnProfile.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            val edtUserName = binding.edtName.text.toString()
+            val image: Drawable = binding.imgProfile.drawable
+            val data = ProfileModel(edtUserName, image)
+
+            try {
+                profileViewModel.postProfile(data)
+            }catch (e: Exception){
+                Toast.makeText(this,e.message.toString(),Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.imgProfile.setOnClickListener {
@@ -70,7 +84,9 @@ class ProfileActivity : AppCompatActivity() {
             ContextCompat.getColor(this@ProfileActivity, R.color.indicator_filled)
 
         binding.edtName.doOnTextChanged { text, start, before, count ->
-            binding.btnProfile.isEnabled = !text.toString().isEmpty()
+            if (text != null) {
+                binding.btnProfile.isEnabled = !text.isEmpty()
+            }
         }
     }
 

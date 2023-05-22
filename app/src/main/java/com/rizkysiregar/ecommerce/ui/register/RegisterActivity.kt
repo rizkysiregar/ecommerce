@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
-import android.text.SpannableString
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
@@ -133,9 +132,7 @@ class RegisterActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 //
             }
-
         })
-
     }
 
     private fun coloredText(){
