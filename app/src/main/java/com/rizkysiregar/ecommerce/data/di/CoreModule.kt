@@ -5,8 +5,8 @@ import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.GsonBuilder
 import com.rizkysiregar.ecommerce.BuildConfig
-import com.rizkysiregar.ecommerce.data.network.api.ApiHeadersInterceptor
-import com.rizkysiregar.ecommerce.data.network.api.ApiService
+import com.rizkysiregar.ecommerce.data.network.api.AuthHeadersInterceptor
+import com.rizkysiregar.ecommerce.data.network.api.AuthService
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponseInstanceCreator
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
@@ -41,28 +41,26 @@ val networkModule = module {
         }
 
         // Okhttp
-        OkHttpClient.Builder()
-            .addInterceptor(ApiHeadersInterceptor())
+        val authClient = OkHttpClient.Builder()
+            .addInterceptor(AuthHeadersInterceptor())
             .addInterceptor(loggingInterceptor)
             .addInterceptor(chuckerInterceptor)
             .build()
-    }
 
-    single {
         val gson = GsonBuilder()
             .registerTypeAdapter(RegisterResponse::class.java, RegisterResponseInstanceCreator())
             .create()
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.1.7:8080/")
+        val retrofitAuthService = Retrofit.Builder()
+            .baseUrl("http://172.17.20.210:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .client(get())
+            .client(authClient)
             .build()
-        retrofit.create(ApiService::class.java)
+        retrofitAuthService.create(AuthService::class.java)
     }
+
 }
 
 val repositoryModule = module {
-
     single { UserRepository(get()) }
 }
