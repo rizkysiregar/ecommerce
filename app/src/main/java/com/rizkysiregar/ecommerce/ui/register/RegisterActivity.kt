@@ -1,7 +1,6 @@
 package com.rizkysiregar.ecommerce.ui.register
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
@@ -9,6 +8,7 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
@@ -16,8 +16,8 @@ import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
+import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Exception
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -35,17 +35,19 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 register()
                 startActivity(Intent(this, ProfileActivity::class.java))
-                registerViewModel.data.observe(this){
-                    PreferenceManager.setAccessToken(this, it.data.accessToken)
-                }
                 finish()
-            }catch (e: Exception){
-                Toast.makeText(this,"Error: ${e}", Toast.LENGTH_SHORT).show()
+                registerViewModel.data.observe(this) {
+                    PreferenceManager.setAccessToken(this@RegisterActivity, it.data.accessToken)
+                }
+
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error: ${e}", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.btnMasukRegister.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
     }
 
@@ -56,9 +58,9 @@ class RegisterActivity : AppCompatActivity() {
         val data = RegisterModel(edtEmail, edtPassword)
         registerViewModel.registerNewUser(data)
         registerViewModel.data.observe(this) {
-            Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
-            PreferenceManager.setAccessToken(this,it.data.accessToken)
-            PreferenceManager.setRefreshToken(this,it.data.refreshToken)
+            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+            PreferenceManager.setAccessToken(this, it.data.accessToken)
+            PreferenceManager.setRefreshToken(this, it.data.refreshToken)
         }
     }
 
@@ -138,7 +140,7 @@ class RegisterActivity : AppCompatActivity() {
         })
     }
 
-    private fun coloredText(){
+    private fun coloredText() {
         val coloredText = getString(R.string.colored_text)
         binding.tvTerms.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
     }

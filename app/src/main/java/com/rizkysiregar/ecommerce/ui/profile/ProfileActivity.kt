@@ -1,14 +1,12 @@
 package com.rizkysiregar.ecommerce.ui.profile
 
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
@@ -16,34 +14,24 @@ import android.text.Html
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import androidx.documentfile.provider.DocumentFile
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rizkysiregar.ecommerce.MainActivity
-
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.ProfileModel
 import com.rizkysiregar.ecommerce.databinding.ActivityProfileBinding
-
-import okhttp3.MediaType.Companion.toMediaType
-
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.Exception
-
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private val profileViewModel: ProfileViewModel by viewModel()
-
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
@@ -55,8 +43,7 @@ class ProfileActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val imageBitmap = result.data?.extras?.get("data") as Bitmap?
-                val imageUri = result.data?.data
-                image = imageUri
+                image = result.data?.data
                 Glide.with(this)
                     .load(imageBitmap)
                     .apply(RequestOptions.circleCropTransform())
@@ -85,14 +72,12 @@ class ProfileActivity : AppCompatActivity() {
         // colored text
         coloredText()
 
-
         binding.btnProfile.setOnClickListener {
             try {
                 val edtUserName = binding.edtName.text.toString()
-                val userImageUri = image
+                var userImageUri = image
                 val userImageFile = convertUriToFile(this, userImageUri!!)
                 val provideModel = ProfileModel(edtUserName, userImageFile!!)
-                val token = PreferenceManager.getAccessToken(this)
                 // call profile viewmodel
                 profileViewModel.postProfile(provideModel)
                 profileViewModel.data.observe(this) {

@@ -36,7 +36,7 @@ object PreferenceManager {
     fun setAccessToken(context: Context, token: String) {
         val editor = getSharedPreference(context, ACCESS_T0KEN_PREF).edit()
         editor.putString(KEY_ACCESS_TOKEN, token)
-        editor.apply()
+        editor.commit()
     }
 
     fun getAccessToken(context: Context): String? {
@@ -54,6 +54,4 @@ object PreferenceManager {
     fun getRefreshToken(context: Context): String? {
         return getSharedPreference(context, REFRESH_TOKEN_PREF).getString(KEY_REFRESH_TOKEN, "")
     }
-
-
 }

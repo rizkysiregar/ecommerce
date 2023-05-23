@@ -1,7 +1,6 @@
 package com.rizkysiregar.ecommerce.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.Html
@@ -9,15 +8,14 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityLoginBinding
-import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
 import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
 
