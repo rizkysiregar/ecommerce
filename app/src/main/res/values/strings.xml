@@ -22,11 +22,17 @@
     <string name="profile_title">Profile</string>
     <string name="name">Nama</string>
     <string name="btn_profile_done">Selesai</string>
+    <string name="terms1">Dengan masuk disini, kamu menyetujui</string>
+    <string name="terms2">Syarat &amp; Ketentuan</string>
+    <string name="terms3">serta </string>
+    <string name="terms4">Kebijakan Privasi</string>
+    <string name="terms5">TokoPhincon</string>
     <string name="tv_bottom_btn_masuk">Dengan daftar disini, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TokoPhincon.</string>
     <string name="colored_text">
     <![CDATA[
         Dengan daftar disini, kamu menyetujui <font color="#6750A4">Syarat &amp; Ketentuan</font> serta <font color="#6750A4">Kebijakan Privasi</font> TokoPhincon.
     ]]>
 </string>
+
 
 </resources>
