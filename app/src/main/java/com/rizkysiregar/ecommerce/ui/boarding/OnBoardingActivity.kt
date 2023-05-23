@@ -11,6 +11,7 @@ import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.DataBoarding
 import com.rizkysiregar.ecommerce.databinding.ActivityOnBoardingBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
+import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
 import java.lang.Exception
 
 class OnBoardingActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class OnBoardingActivity : AppCompatActivity() {
         val viewPager2 = binding.viewpager
 
         prepareViewPager()
-        navigateToLoginActivity()
+        navigateToRegisterActivity()
 
         viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -54,10 +55,10 @@ class OnBoardingActivity : AppCompatActivity() {
         dotsIndicator.attachTo(viewPager)
     }
 
-    private fun navigateToLoginActivity() {
+    private fun navigateToRegisterActivity() {
         binding.materialButton.setOnClickListener {
             checkPreference()
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, RegisterActivity::class.java))
             finish()
         }
 

@@ -5,35 +5,48 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.provider.MediaStore.Audio.Media
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rizkysiregar.ecommerce.data.model.ProfileModel
+import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
+import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
-
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.net.URI
 
 class ProfileViewModel(private val userRepository: UserRepository) : ViewModel() {
 
-    fun postProfile(data: ProfileModel) {
+    private val _data = MutableLiveData<ProfileResponse>()
+    val data: MutableLiveData<ProfileResponse> = _data
+
+
+    private var filePart: MultipartBody.Part? = null
+    fun postProfile(token:String ,data: ProfileModel) {
         viewModelScope.launch {
-            val userName = data.userName
-            val userNameRequestBody = userName.toRequestBody(("text/plain".toMediaTypeOrNull()))
+            val userName = data.userName.toRequestBody()
+            data.userImage.let {
+                val requestBody = RequestBody.create("image/*".toMediaTypeOrNull(), it)
+                filePart = MultipartBody.Part.createFormData(
+                    "userImage",
+                    "profile.png",
+                    requestBody
+                )
+            }
 
-            val imageFile = File(URI.create(data.userName))
-            val imageRequestBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-            val imagePart = MultipartBody.Part.createFormData("image", imageFile.name, imageRequestBody)
-
-            userRepository.profileUser(imagePart, userNameRequestBody){isSuccess, responseBody ->
-                if (isSuccess){
-                    responseBody?.let {
+            filePart?.let {
+                userRepository.profileUser(token, userName, it) { isSuccess, responseBody ->
+                    if (isSuccess) {
+                        responseBody?.let {
+                            _data.value = it
+                        }
                     }
                 }
             }

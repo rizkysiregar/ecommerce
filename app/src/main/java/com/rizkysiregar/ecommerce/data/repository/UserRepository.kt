@@ -1,5 +1,6 @@
 package com.rizkysiregar.ecommerce.data.repository
 
+import com.rizkysiregar.ecommerce.data.model.ProfileModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
@@ -44,8 +45,8 @@ class UserRepository(private val apiService: ApiService) {
         })
     }
 
-    fun profileUser(image: MultipartBody.Part, request: RequestBody, onResponse: (Boolean, ProfileResponse?) -> Unit){
-        apiService.postProfile(image, request).enqueue(object : Callback<ProfileResponse> {
+    fun profileUser(token: String, userName: RequestBody, userImage: MultipartBody.Part , onResponse: (Boolean, ProfileResponse?) -> Unit){
+        apiService.postProfile(token, userImage, userName).enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
                 call: Call<ProfileResponse>,
                 response: Response<ProfileResponse>

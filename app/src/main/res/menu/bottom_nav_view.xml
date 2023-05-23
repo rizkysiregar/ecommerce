@@ -3,20 +3,24 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/baseline_home_24"
+        android:visible="true"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_store"
         android:icon="@drawable/baseline_store_24"
+        android:visible="true"
         android:title="@string/title_store" />
 
     <item
         android:id="@+id/navigation_wishlist"
         android:icon="@drawable/baseline_wishlist"
+        android:visible="true"
         android:title="@string/title_wishlist" />
 
     <item
         android:id="@+id/navigation_transaction"
         android:icon="@drawable/baseline_price_check_24"
+        android:visible="true"
         android:title="@string/title_transaction" />
 </menu>

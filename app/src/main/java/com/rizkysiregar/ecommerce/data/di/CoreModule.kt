@@ -41,7 +41,6 @@ val networkModule = module {
 
         // Okhttp
          OkHttpClient.Builder()
-            .addInterceptor(ApiServiceHeadersInterceptor(get()))
             .addInterceptor(loggingInterceptor)
             .addInterceptor(chuckerInterceptor)
             .build()
@@ -55,7 +54,7 @@ val networkModule = module {
 
         // retrofit
         val retrofitAuthService = Retrofit.Builder()
-            .baseUrl("http://172.17.20.210:8080/")
+            .baseUrl("http://172.17.20.85:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(get())
             .build()

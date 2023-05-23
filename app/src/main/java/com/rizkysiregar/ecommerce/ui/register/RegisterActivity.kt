@@ -35,6 +35,9 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 register()
                 startActivity(Intent(this, ProfileActivity::class.java))
+                registerViewModel.data.observe(this){
+                    PreferenceManager.setAccessToken(this, it.data.accessToken)
+                }
                 finish()
             }catch (e: Exception){
                 Toast.makeText(this,"Error: ${e}", Toast.LENGTH_SHORT).show()

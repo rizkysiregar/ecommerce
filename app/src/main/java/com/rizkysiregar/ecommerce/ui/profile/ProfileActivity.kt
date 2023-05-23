@@ -1,44 +1,61 @@
 package com.rizkysiregar.ecommerce.ui.profile
 
 import android.app.Activity
-
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.View
+import android.provider.OpenableColumns
+import android.text.Html
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.documentfile.provider.DocumentFile
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.rizkysiregar.ecommerce.MainActivity
+
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.ProfileModel
 import com.rizkysiregar.ecommerce.databinding.ActivityProfileBinding
+
+import okhttp3.MediaType.Companion.toMediaType
+
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.io.File
+import java.io.FileOutputStream
 import java.lang.Exception
 
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
-    private val profileViewModel : ProfileViewModel by viewModel()
+    private val profileViewModel: ProfileViewModel by viewModel()
+
 
     companion object {
         private const val CAMERA_PERMISSION_REQUEST_CODE = 100
     }
 
+    private var image: Uri? = null
+
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val imageBitmap = result.data?.extras?.get("data") as Bitmap?
+                val imageUri = result.data?.data
+                image = imageUri
                 Glide.with(this)
                     .load(imageBitmap)
                     .apply(RequestOptions.circleCropTransform())
@@ -50,10 +67,12 @@ class ProfileActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val imageUri = result.data?.data
+                image = imageUri
                 Glide.with(this)
                     .load(imageUri)
                     .apply(RequestOptions.circleCropTransform())
                     .into(binding.imgProfile)
+                Toast.makeText(this, imageUri.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -64,16 +83,20 @@ class ProfileActivity : AppCompatActivity() {
 
 
         binding.btnProfile.setOnClickListener {
-            val edtUserName = binding.edtName.text.toString()
-            val image: Drawable = binding.imgProfile.drawable
-            val data = ProfileModel(edtUserName, image)
-
             try {
-                profileViewModel.postProfile(data)
-            }catch (e: Exception){
-                Toast.makeText(this,e.message.toString(),Toast.LENGTH_SHORT).show()
+                val edtUserName = binding.edtName.text.toString()
+                val userImageUri = image
+                val userImageFile = convertUriToFile(this, userImageUri!!)
+                val provideModel = ProfileModel(edtUserName, userImageFile!!)
+                val token = PreferenceManager.getAccessToken(this)
+                // call profile viewmodel
+                profileViewModel.postProfile("Bearer $token", provideModel)
+                profileViewModel.data.observe(this) {
+                    Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error Image; $e", Toast.LENGTH_SHORT).show()
             }
-
         }
 
         binding.imgProfile.setOnClickListener {
@@ -141,6 +164,38 @@ class ProfileActivity : AppCompatActivity() {
         ) {
             openCamera()
         }
+    }
+
+    private fun convertUriToFile(context: Context, uri: Uri): File? {
+        val fileName = getFileName(context, uri)
+        val outputFile = File(context.cacheDir, fileName)
+
+        try {
+            val inputStream = context.contentResolver.openInputStream(uri)
+            FileOutputStream(outputFile).use { outputStream ->
+                inputStream?.copyTo(outputStream)
+            }
+            return outputFile
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    private fun getFileName(context: Context, uri: Uri): String? {
+        var fileName: String? = null
+        context.contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+            if (cursor.moveToFirst()) {
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                fileName = cursor.getString(nameIndex)
+            }
+        }
+        return fileName
+    }
+
+    private fun coloredText(){
+        val coloredText = getString(R.string.colored_text)
+        binding.tvBottomBtnDoneProfile.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
     }
 
 }
