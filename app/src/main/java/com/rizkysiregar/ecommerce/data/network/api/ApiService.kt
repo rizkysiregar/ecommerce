@@ -16,14 +16,14 @@ import retrofit2.http.Part
 interface ApiService {
     // Register New User
 
-    @Headers("API_KEY: 6f8856ed-9189-488f-9011-0ff4b6c08edc")
+//    @Headers("API_KEY: 6f8856ed-9189-488f-9011-0ff4b6c08edc")
     @POST("register")
     fun postRegister(
         @Body request: RequestBody
     ): Call<RegisterResponse>
 
     // Login
-    @Headers("API_KEY: 6f8856ed-9189-488f-9011-0ff4b6c08edc")
+//    @Headers("API_KEY: 6f8856ed-9189-488f-9011-0ff4b6c08edc")
     @POST("login")
     fun postLoginUser(
         @Body request: RequestBody
@@ -33,7 +33,7 @@ interface ApiService {
     @Multipart
     @POST("profile")
     fun postProfile(
-        @Header("Authorization") accessToken: String,
+//        @Header("Authorization") accessToken: String,
         @Part userImage: MultipartBody.Part,
         @Part("userName") userName: RequestBody,
     ): Call<ProfileResponse>

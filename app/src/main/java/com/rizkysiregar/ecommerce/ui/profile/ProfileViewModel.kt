@@ -29,7 +29,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : ViewModel()
 
 
     private var filePart: MultipartBody.Part? = null
-    fun postProfile(token:String ,data: ProfileModel) {
+    fun postProfile(data: ProfileModel) {
         viewModelScope.launch {
             val userName = data.userName.toRequestBody()
             data.userImage.let {
@@ -42,7 +42,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : ViewModel()
             }
 
             filePart?.let {
-                userRepository.profileUser(token, userName, it) { isSuccess, responseBody ->
+                userRepository.profileUser(userName, it) { isSuccess, responseBody ->
                     if (isSuccess) {
                         responseBody?.let {
                             _data.value = it

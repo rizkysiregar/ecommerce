@@ -40,7 +40,8 @@ val networkModule = module {
         }
 
         // Okhttp
-         OkHttpClient.Builder()
+        OkHttpClient.Builder()
+            .addInterceptor(ApiServiceHeadersInterceptor(get()))
             .addInterceptor(loggingInterceptor)
             .addInterceptor(chuckerInterceptor)
             .build()

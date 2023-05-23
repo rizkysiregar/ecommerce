@@ -21,6 +21,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.documentfile.provider.DocumentFile
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.rizkysiregar.ecommerce.MainActivity
 
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
@@ -81,6 +82,9 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // colored text
+        coloredText()
+
 
         binding.btnProfile.setOnClickListener {
             try {
@@ -90,10 +94,11 @@ class ProfileActivity : AppCompatActivity() {
                 val provideModel = ProfileModel(edtUserName, userImageFile!!)
                 val token = PreferenceManager.getAccessToken(this)
                 // call profile viewmodel
-                profileViewModel.postProfile("Bearer $token", provideModel)
+                profileViewModel.postProfile(provideModel)
                 profileViewModel.data.observe(this) {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }
+                navigateToHome()
             } catch (e: Exception) {
                 Toast.makeText(this, "Error Image; $e", Toast.LENGTH_SHORT).show()
             }
@@ -193,9 +198,14 @@ class ProfileActivity : AppCompatActivity() {
         return fileName
     }
 
-    private fun coloredText(){
+    private fun coloredText() {
         val coloredText = getString(R.string.colored_text)
         binding.tvBottomBtnDoneProfile.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
+    }
+
+    private fun navigateToHome() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
 }

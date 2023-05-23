@@ -56,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
         val data = RegisterModel(edtEmail, edtPassword)
         registerViewModel.registerNewUser(data)
         registerViewModel.data.observe(this) {
-            Toast.makeText(this, "${it.message} ${it.data.accessToken}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "${it.message}", Toast.LENGTH_SHORT).show()
             PreferenceManager.setAccessToken(this,it.data.accessToken)
             PreferenceManager.setRefreshToken(this,it.data.refreshToken)
         }

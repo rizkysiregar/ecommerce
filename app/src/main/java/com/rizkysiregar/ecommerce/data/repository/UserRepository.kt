@@ -45,8 +45,8 @@ class UserRepository(private val apiService: ApiService) {
         })
     }
 
-    fun profileUser(token: String, userName: RequestBody, userImage: MultipartBody.Part , onResponse: (Boolean, ProfileResponse?) -> Unit){
-        apiService.postProfile(token, userImage, userName).enqueue(object : Callback<ProfileResponse> {
+    fun profileUser(userName: RequestBody, userImage: MultipartBody.Part , onResponse: (Boolean, ProfileResponse?) -> Unit){
+        apiService.postProfile(userImage, userName).enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
                 call: Call<ProfileResponse>,
                 response: Response<ProfileResponse>
