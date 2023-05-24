@@ -48,7 +48,6 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this, "Error: ${e.message.toString()}", Toast.LENGTH_SHORT).show()
             }
-
         }
 
         binding.btnDaftarLogin.setOnClickListener {

@@ -26,6 +26,11 @@ interface ApiService {
         @Body request: RequestBody
     ): Call<RegisterResponse>
 
+    // refresh token
+    @POST("refresh")
+    fun postRefreshToken(
+        @Body request: RequestBody
+    ): Call<RegisterResponse>
 
     @Multipart
     @POST("profile")
@@ -34,4 +39,6 @@ interface ApiService {
         @Part userImage: MultipartBody.Part,
         @Part("userName") userName: RequestBody,
     ): Call<ProfileResponse>
+
+
 }

@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder
 import com.rizkysiregar.ecommerce.BuildConfig
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.api.ApiServiceHeadersInterceptor
+import com.rizkysiregar.ecommerce.data.network.api.TokenAuthenticator
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponseInstanceCreator
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
@@ -41,6 +42,7 @@ val networkModule = module {
 
         // Okhttp
         OkHttpClient.Builder()
+            .authenticator(TokenAuthenticator(get()))
             .addInterceptor(ApiServiceHeadersInterceptor(get()))
             .addInterceptor(loggingInterceptor)
             .addInterceptor(chuckerInterceptor)
