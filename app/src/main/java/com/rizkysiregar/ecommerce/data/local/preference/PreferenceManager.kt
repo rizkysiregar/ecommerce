@@ -14,6 +14,9 @@ object PreferenceManager {
     private const val REFRESH_TOKEN_PREF = "RefreshTokenPref"
     private const val KEY_REFRESH_TOKEN = "RefreshToken"
 
+    private const val ISLOGIN_TOKEN_PREF = "IsloginPref"
+    private const val KEY_ISLOGIN = "IsLogin"
+
     // On-boarding
     private fun getSharedPreference(context: Context, pref: String): SharedPreferences {
         return context.getSharedPreferences(pref, Context.MODE_PRIVATE)
@@ -36,7 +39,7 @@ object PreferenceManager {
     fun setAccessToken(context: Context, token: String) {
         val editor = getSharedPreference(context, ACCESS_T0KEN_PREF).edit()
         editor.putString(KEY_ACCESS_TOKEN, token)
-        editor.commit()
+        editor.apply()
     }
 
     fun getAccessToken(context: Context): String? {
@@ -54,4 +57,16 @@ object PreferenceManager {
     fun getRefreshToken(context: Context): String? {
         return getSharedPreference(context, REFRESH_TOKEN_PREF).getString(KEY_REFRESH_TOKEN, "")
     }
+
+    // is login ?
+    fun setIsLogin(context: Context, isLogin: Boolean) {
+        val editor = getSharedPreference(context, KEY_ISLOGIN).edit()
+        editor.putBoolean(KEY_ISLOGIN, isLogin)
+        editor.apply()
+    }
+
+    fun getIsLogin(context: Context): Boolean {
+        return getSharedPreference(context, KEY_ISLOGIN).getBoolean(KEY_ISLOGIN, false)
+    }
+
 }

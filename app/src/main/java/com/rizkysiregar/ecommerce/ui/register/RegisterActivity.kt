@@ -16,7 +16,6 @@ import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
-import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -34,12 +33,15 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnDaftarRegister.setOnClickListener {
             try {
                 register()
-                startActivity(Intent(this, ProfileActivity::class.java))
-                finish()
-                registerViewModel.data.observe(this) {
-                    PreferenceManager.setAccessToken(this@RegisterActivity, it.data.accessToken)
+                setPreference()
+                val isAccessTokenNull = PreferenceManager.getAccessToken(this).toString()
+                if (isAccessTokenNull.isEmpty()) {
+                    Toast.makeText(this, "Token is not set in preference", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
                 }
-
             } catch (e: Exception) {
                 Toast.makeText(this, "Error: ${e}", Toast.LENGTH_SHORT).show()
             }
@@ -54,11 +56,12 @@ class RegisterActivity : AppCompatActivity() {
     private fun register() {
         val edtEmail = binding.edtEmail.text.toString()
         val edtPassword = binding.edtPassword.text.toString()
-
         val data = RegisterModel(edtEmail, edtPassword)
         registerViewModel.registerNewUser(data)
+    }
+
+    private fun setPreference() {
         registerViewModel.data.observe(this) {
-            Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
             PreferenceManager.setAccessToken(this, it.data.accessToken)
             PreferenceManager.setRefreshToken(this, it.data.refreshToken)
         }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.databinding.ActivitySplashBinding
 import com.rizkysiregar.ecommerce.ui.boarding.OnBoardingActivity
@@ -27,9 +28,15 @@ class SplashActivity : AppCompatActivity() {
     private fun loadSplash() {
         Handler(Looper.getMainLooper()).postDelayed({
             val isOnboardingCompleted = PreferenceManager.isOnboardingCompleted(this)
+            val isLogin = PreferenceManager.getIsLogin(this)
             if (isOnboardingCompleted) {
-                startActivity(Intent(this, LoginActivity::class.java))
-                finish()
+                if (isLogin){
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }else{
+                    startActivity(Intent(this, LoginActivity::class.java))
+                    finish()
+                }
             } else {
                 startActivity(Intent(this, OnBoardingActivity::class.java))
                 finish()

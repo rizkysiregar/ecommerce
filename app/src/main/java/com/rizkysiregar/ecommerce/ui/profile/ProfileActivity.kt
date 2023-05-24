@@ -82,8 +82,14 @@ class ProfileActivity : AppCompatActivity() {
                 profileViewModel.postProfile(provideModel)
                 profileViewModel.data.observe(this) {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    if (it.code == 200){
+                        PreferenceManager.setIsLogin(this, true)
+                        navigateToHome()
+                    }else{
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
-                navigateToHome()
+
             } catch (e: Exception) {
                 Toast.makeText(this, "Error Image; $e", Toast.LENGTH_SHORT).show()
             }

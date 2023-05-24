@@ -32,7 +32,14 @@
     <![CDATA[
         Dengan daftar disini, kamu menyetujui <font color="#6750A4">Syarat &amp; Ketentuan</font> serta <font color="#6750A4">Kebijakan Privasi</font> TokoPhincon.
     ]]>
-</string>
-
-
+    </string>
+    <string name="content_text_expl">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS</string>
+    <string name="price_content">Rp23.499.000</string>
+    <string name="store_name_content">ProStoreComputer</string>
+    <string name="rating_content">5.0 | Terjual 10</string>
+    <string name="notification">notification</string>
+    <string name="cart">Cart</string>
+    <string name="hamburger_menu">Hamburger Menu</string>
+    <string name="search">Search</string>
+    <string name="filter">Filter</string>
 </resources>

@@ -14,13 +14,13 @@
 
     <item
         android:id="@+id/navigation_wishlist"
-        android:icon="@drawable/baseline_wishlist"
+        android:icon="@drawable/favorite_fill"
         android:visible="true"
         android:title="@string/title_wishlist" />
 
     <item
         android:id="@+id/navigation_transaction"
-        android:icon="@drawable/baseline_price_check_24"
+        android:icon="@drawable/baseline_list_alt_24"
         android:visible="true"
         android:title="@string/title_transaction" />
 </menu>

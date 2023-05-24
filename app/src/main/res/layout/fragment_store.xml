@@ -1,15 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.store.StoreFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="54sp"
-        android:text="@string/title_store" />
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/search_fill">
 
-</FrameLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:hint="@string/search" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
+        app:layout_constraintStart_toStartOf="@+id/input_layout_search"
+        app:layout_constraintTop_toBottomOf="@+id/input_layout_search">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/action_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filter"
+            app:chipIcon="@drawable/baseline_tune_24"
+            app:chipIconTint="@color/black" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/input_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="label"
+            app:chipIconTint="@color/black" />
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/input_chip2"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="label"
+            app:chipIconTint="@color/black" />
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/input_chip3"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:text="label"
+            app:chipIconTint="@color/black" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_item"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/chip_group"
+        app:layout_constraintStart_toStartOf="@+id/chip_group"
+        app:layout_constraintTop_toBottomOf="@+id/chip_group"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:listitem="@layout/item_content_grid" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
