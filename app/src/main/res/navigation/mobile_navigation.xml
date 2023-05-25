@@ -16,8 +16,14 @@
         android:id="@+id/navigation_store"
         android:name="com.rizkysiregar.ecommerce.ui.store.StoreFragment"
         android:label="@string/title_store"
-        tools:layout="@layout/fragment_store"
-        />
+        tools:layout="@layout/fragment_store">
+
+        <argument
+            android:name="filter"
+            app:argType="string[]"
+            />
+
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_wishlist"
@@ -31,6 +37,11 @@
         android:name="com.rizkysiregar.ecommerce.ui.transaction.TransactionFragment"
         android:label="@string/title_transaction"
         tools:layout="@layout/fragment_transaction"
+        />
+
+    <action
+        android:id="@+id/action_bottonSheetDialogFragment_to_StoreFragment"
+        app:destination="@id/navigation_store"
         />
 
 </navigation>

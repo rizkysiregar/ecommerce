@@ -31,8 +31,9 @@
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
         android:layout_width="0dp"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="25dp"
         app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
         app:layout_constraintStart_toStartOf="@+id/input_layout_search"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_search">
@@ -55,31 +56,72 @@
             style="@style/Widget.MaterialComponents.Chip.Entry"
             android:id="@+id/input_chip"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:text="label"
-            app:chipIconTint="@color/black" />
+            app:chipIconTint="@color/teal_700" />
+
         <com.google.android.material.chip.Chip
             style="@style/Widget.MaterialComponents.Chip.Entry"
             android:id="@+id/input_chip2"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:text="label"
             app:chipIconTint="@color/black" />
+
         <com.google.android.material.chip.Chip
             style="@style/Widget.MaterialComponents.Chip.Entry"
             android:id="@+id/input_chip3"
             android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
+            android:text="label"
+            app:chipIconTint="@color/black" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/input_chip4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="label"
+            app:chipIconTint="@color/black" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/input_chip5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="label"
+            app:chipIconTint="@color/black" />
+
+        <com.google.android.material.chip.Chip
+            style="@style/Widget.MaterialComponents.Chip.Entry"
+            android:id="@+id/input_chip6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="label"
             app:chipIconTint="@color/black" />
 
     </com.google.android.material.chip.ChipGroup>
 
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/list_rv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_list_alt_24"
+        android:backgroundTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/chip_group"
+        app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
+        app:layout_constraintStart_toEndOf="@+id/chip_group"
+        app:layout_constraintTop_toTopOf="@+id/chip_group" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_item"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/chip_group"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:layout_marginBottom="?attr/actionBarSize"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
         app:layout_constraintStart_toStartOf="@+id/chip_group"
         app:layout_constraintTop_toBottomOf="@+id/chip_group"
         tools:listitem="@layout/content_item_linear" />

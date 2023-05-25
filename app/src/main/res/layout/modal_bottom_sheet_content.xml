@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_ordered">
 
         <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_ordered_1"
+            android:id="@+id/chip_group_ordered"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -79,13 +79,6 @@
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
 
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_harga_terendah"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
@@ -105,8 +98,8 @@
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
-
         </com.google.android.material.chip.ChipGroup>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -154,13 +147,6 @@
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
-
-        </com.google.android.material.chip.ChipGroup>
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_category_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_apple"
@@ -217,10 +203,10 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_terendah"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:text="100000" />
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -234,9 +220,9 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_tertinggi"
-                android:layout_width="150dp"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:text="10000" />
+                 />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -246,16 +232,16 @@
         android:id="@+id/btn_show_product"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Tampilkan Produk"
-        app:cornerRadius="100dp"
-        android:textAllCaps="false"
-        android:textStyle="bold"
         android:layout_marginTop="8dp"
-        android:textColor="@color/white"
+        android:backgroundTint="@color/button_color"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:padding="8dp"
-        android:backgroundTint="@color/button_color"
+        android:text="Tampilkan Produk"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/container_filtet_harga"
         app:layout_constraintStart_toStartOf="@+id/container_filtet_harga"
         app:layout_constraintTop_toBottomOf="@+id/container_filtet_harga" />

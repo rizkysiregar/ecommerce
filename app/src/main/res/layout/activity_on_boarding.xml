@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="@+id/viewpager"
         app:layout_constraintTop_toBottomOf="@+id/viewpager" />
 
-    <TextView
+    <Button
         android:id="@+id/tv_jump"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,17 +45,19 @@
         android:fontFamily="@font/poppins_regular"
         android:textAlignment="center"
         android:textColor="@color/indicator_filled"
+        android:backgroundTint="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/spring_dots_indicator"
         app:layout_constraintEnd_toStartOf="@+id/spring_dots_indicator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/spring_dots_indicator" />
 
-    <TextView
+    <Button
         android:id="@+id/tv_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_next"
+        android:backgroundTint="@color/white"
         android:textAlignment="center"
         android:textColor="@color/indicator_filled"
         android:includeFontPadding="false"

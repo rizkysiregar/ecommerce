@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="186dp"
-    android:layout_height="288dp">
+    android:layout_height="288dp"
+    android:layout_marginStart="8dp">
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parent_container"
@@ -10,7 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/img_thumnail"
+            android:id="@+id/img_item"
             android:layout_width="186dp"
             android:layout_height="186dp"
             android:src="@drawable/thumbnail"
@@ -19,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_title_grid"
+            android:id="@+id/tv_title_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -29,12 +31,12 @@
             android:maxLines="2"
             android:textColor="@color/text_content"
             android:text="@string/content_text_expl"
-            app:layout_constraintEnd_toEndOf="@+id/img_thumnail"
-            app:layout_constraintStart_toStartOf="@+id/img_thumnail"
-            app:layout_constraintTop_toBottomOf="@+id/img_thumnail" />
+            app:layout_constraintEnd_toEndOf="@+id/img_item"
+            app:layout_constraintStart_toStartOf="@+id/img_item"
+            app:layout_constraintTop_toBottomOf="@+id/img_item" />
 
         <TextView
-            android:id="@+id/tv_title_content_grid"
+            android:id="@+id/text_price"
             android:layout_width="170dp"
             android:layout_height="16dp"
             android:text="@string/price_content"
@@ -42,9 +44,9 @@
             android:textColor="@color/text_content"
             android:textStyle="bold"
             android:layout_marginTop="6dp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_title_grid"
-            app:layout_constraintStart_toStartOf="@+id/tv_title_grid"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_grid" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_title_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_content" />
 
         <ImageView
             android:id="@+id/img_profile_content_grid"
@@ -52,8 +54,8 @@
             android:layout_height="10dp"
             android:layout_marginTop="7dp"
             android:src="@drawable/account_circle_fill"
-            app:layout_constraintStart_toStartOf="@+id/tv_title_content_grid"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_content_grid" />
+            app:layout_constraintStart_toStartOf="@+id/text_price"
+            app:layout_constraintTop_toBottomOf="@+id/text_price" />
 
         <TextView
             android:id="@+id/tv_seller"
@@ -80,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img_profile_content_grid" />
 
         <TextView
-            android:id="@+id/tv_review"
+            android:id="@+id/tv_rating_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
