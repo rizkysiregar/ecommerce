@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="?attr/actionBarSize"
     tools:context=".ui.store.StoreFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_layout_search"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:layout_marginTop="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +25,6 @@
             android:id="@+id/edt_search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:hint="@string/search" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -38,8 +39,14 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/action_chip"
+            style="@style/Widget.MaterialComponents.Chip.Action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:chipBackgroundColor="@color/white"
+            app:chipStrokeColor="@color/grey_divider"
+            app:chipStrokeWidth="1dp"
+            app:chipStartPadding="8dp"
+            app:chipEndPadding="8dp"
             android:text="@string/filter"
             app:chipIcon="@drawable/baseline_tune_24"
             app:chipIconTint="@color/black" />

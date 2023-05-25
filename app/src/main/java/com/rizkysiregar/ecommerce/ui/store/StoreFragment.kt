@@ -5,28 +5,32 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.model.DummyStoreData
+import com.rizkysiregar.ecommerce.databinding.FragmentStoreBinding
+import com.rizkysiregar.ecommerce.databinding.ModalBottomSheetContentBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [StoreFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StoreFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private var _binding: FragmentStoreBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var recyclerView: RecyclerView
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val data = setDummyData()
+        recyclerView = binding.rvItem
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = StoreAdapter(data)
+
+
+        binding.actionChip.setOnClickListener {
+            val fragmentManager = childFragmentManager
+            val modalBottomSheet = ModelBottomSheet()
+            modalBottomSheet.show(fragmentManager, "ModalBottomSheet")
         }
     }
 
@@ -34,27 +38,69 @@ class StoreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false)
+        _binding = FragmentStoreBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StoreFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            StoreFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun callBottomSheet() {
+
+    }
+
+    private fun setDummyData(): List<DummyStoreData> {
+        return listOf(
+            DummyStoreData(
+                R.drawable.thumbnail,
+                "Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS",
+                2900000,
+                "Enter Computer",
+                "5.0",
+                10
+            ),
+            DummyStoreData(
+                R.drawable.thumbnail,
+                "Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS",
+                2900000,
+                "Enter Computer",
+                "5.0",
+                10
+            ),
+            DummyStoreData(
+                R.drawable.thumbnail,
+                "Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS",
+                2900000,
+                "Enter Computer",
+                "5.0",
+                10
+            ),
+            DummyStoreData(
+                R.drawable.thumbnail,
+                "Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS",
+                2900000,
+                "Enter Computer",
+                "5.0",
+                10
+            ),
+            DummyStoreData(
+                R.drawable.thumbnail,
+                "Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS",
+                2900000,
+                "Enter Computer",
+                "5.0",
+                10
+            ),
+            DummyStoreData(
+                R.drawable.thumbnail,
+                "Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS",
+                2900000,
+                "Enter Computer",
+                "5.0",
+                10
+            ),
+        )
     }
 }
