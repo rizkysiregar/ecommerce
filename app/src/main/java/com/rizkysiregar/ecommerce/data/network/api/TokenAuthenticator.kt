@@ -44,7 +44,7 @@ class TokenAuthenticator(private val context: Context) :
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl("http://172.17.20.85:8080/")
+                .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build()

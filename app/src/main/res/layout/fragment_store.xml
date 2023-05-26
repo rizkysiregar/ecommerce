@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:startIconDrawable="@drawable/search_fill">
+        app:startIconDrawable="@drawable/baseline_search_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_search"
@@ -50,54 +50,6 @@
             app:chipEndPadding="8dp"
             android:text="@string/filter"
             app:chipIcon="@drawable/baseline_tune_24"
-            app:chipIconTint="@color/black" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:id="@+id/input_chip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
-            app:chipIconTint="@color/teal_700" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:id="@+id/input_chip2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
-            app:chipIconTint="@color/black" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:id="@+id/input_chip3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
-            app:chipIconTint="@color/black" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:id="@+id/input_chip4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
-            app:chipIconTint="@color/black" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:id="@+id/input_chip5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
-            app:chipIconTint="@color/black" />
-
-        <com.google.android.material.chip.Chip
-            style="@style/Widget.MaterialComponents.Chip.Entry"
-            android:id="@+id/input_chip6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="label"
             app:chipIconTint="@color/black" />
 
     </com.google.android.material.chip.ChipGroup>

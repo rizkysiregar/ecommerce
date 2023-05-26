@@ -57,7 +57,8 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_ordered"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_ulasan"
@@ -126,7 +127,8 @@
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group_category_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_asus"
@@ -206,6 +208,7 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:inputType="number"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -222,6 +225,7 @@
                 android:id="@+id/edt_tertinggi"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                  />
 
         </com.google.android.material.textfield.TextInputLayout>

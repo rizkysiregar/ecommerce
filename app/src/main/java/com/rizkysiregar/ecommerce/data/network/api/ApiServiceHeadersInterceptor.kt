@@ -29,25 +29,3 @@ class ApiServiceHeadersInterceptor(private val context: Context) : Interceptor {
         return chain.proceed(newRequest)
     }
 }
-
-
-
-// original request
-//        val endpoint = chain.request().url.encodedPath
-//        val accessToken = PreferenceManager.getAccessToken(context)
-//        val originalRequest = chain.request()
-//
-//        return if (endpoint == "/register" || endpoint == "/login" || endpoint == "/refresh") {
-//            val modifiedRequest = originalRequest.newBuilder()
-//                .header("Content-Type", "application/json")
-//                .header("API_KEY", "6f8856ed-9189-488f-9011-0ff4b6c08edc")
-//                .build()
-//            chain.proceed(modifiedRequest)
-//        } else {
-//            val modifiedRequest = originalRequest.newBuilder()
-//                .header("Content-Type", "application/json")
-//                .header("Authorization", "Bearer ${accessToken.toString()}")
-//                .build()
-//            chain.proceed(modifiedRequest)
-//        }
-//    }

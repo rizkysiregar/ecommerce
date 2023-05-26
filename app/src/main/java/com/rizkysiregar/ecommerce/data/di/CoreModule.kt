@@ -8,8 +8,10 @@ import com.rizkysiregar.ecommerce.BuildConfig
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.api.ApiServiceHeadersInterceptor
 import com.rizkysiregar.ecommerce.data.network.api.TokenAuthenticator
+import com.rizkysiregar.ecommerce.data.network.api.baseUrl
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponseInstanceCreator
+import com.rizkysiregar.ecommerce.data.repository.ContentRepository
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -57,7 +59,7 @@ val networkModule = module {
 
         // retrofit
         val retrofitAuthService = Retrofit.Builder()
-            .baseUrl("http://172.17.20.85:8080/")
+            .baseUrl(baseUrl)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(get())
             .build()
@@ -68,4 +70,5 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { UserRepository(get()) }
+    single { ContentRepository(get()) }
 }

@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.databinding.ModalBottomSheetContentBinding
 
 class ModelBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: ModalBottomSheetContentBinding
+    private var onDataPassedListener: DataPassed? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,7 +24,6 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var bundle: Bundle? = null
 
         binding.btnReset.setOnClickListener {
             binding.chipApple.isChecked = false
@@ -39,24 +36,34 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             binding.chipHargaTerendah.isChecked = false
         }
 
+        val selectedValues = mutableListOf<String>()
 
         binding.chipGroupOrdered.setOnCheckedChangeListener { group, checkedId ->
             val checkChipIds = binding.chipGroupOrdered.checkedChipIds
-            val selectedValues = mutableListOf<String>()
 
             for (chipId in checkChipIds) {
                 val chip = binding.chipGroupOrdered.findViewById<Chip>(chipId)
                 val selectedValue = chip.text.toString()
                 selectedValues.add(selectedValue)
+            }
+        }
 
-                bundle?.putStringArray("filter", selectedValues.toTypedArray())
+        binding.chipGroupCategory1.setOnCheckedChangeListener { group, checkedId ->
+            val checkIds = binding.chipGroupCategory1.checkedChipIds
+            for (chipId in checkIds) {
+                val chip = binding.chipGroupCategory1.findViewById<Chip>(chipId)
+                val selectedValue = chip.text.toString()
+                selectedValues.add(selectedValue)
             }
         }
 
         binding.btnShowProduct.setOnClickListener {
-            val navController = findNavController()
-            navController.navigate(R.id.action_bottonSheetDialogFragment_to_StoreFragment, bundle)
+            onDataPassedListener?.onDataPassed(selectedValues)
             dismiss()
         }
+    }
+
+    fun setOnDataPassedListener(listener: DataPassed) {
+        onDataPassedListener = listener
     }
 }

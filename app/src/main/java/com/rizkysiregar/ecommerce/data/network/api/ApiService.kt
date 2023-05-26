@@ -1,14 +1,18 @@
 package com.rizkysiregar.ecommerce.data.network.api
 
+import com.rizkysiregar.ecommerce.data.network.response.ProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
+import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Query
 
 interface ApiService {
     // Register New User
@@ -40,5 +44,13 @@ interface ApiService {
         @Part("userName") userName: RequestBody,
     ): Call<ProfileResponse>
 
+
+    @POST("/products")
+    fun getProduct(): Call<ProductResponse>
+
+    @POST("search")
+    fun searchProduct(
+        @Query("query") query: String
+    ): Call<SearchResponse>
 
 }

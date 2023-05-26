@@ -9,8 +9,13 @@
         android:id="@+id/navigation_home"
         android:name="com.rizkysiregar.ecommerce.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home"
-        />
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.rizkysiregar.ecommerce.ui.search.SearchFragment"
+        android:label="Search Page"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_store"
@@ -20,8 +25,13 @@
 
         <argument
             android:name="filter"
-            app:argType="string[]"
-            />
+            app:argType="string[]" />
+        <action
+            android:id="@+id/action_navigation_store_to_navigation_search"
+            app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_store_to_modelBottomSheet"
+            app:destination="@id/modelBottomSheet" />
 
     </fragment>
 
@@ -29,19 +39,23 @@
         android:id="@+id/navigation_wishlist"
         android:name="com.rizkysiregar.ecommerce.ui.wishlist.WishlistFragment"
         android:label="@string/title_wishlist"
-        tools:layout="@layout/fragment_wishlist"
-        />
+        tools:layout="@layout/fragment_wishlist" />
 
     <fragment
         android:id="@+id/navigation_transaction"
         android:name="com.rizkysiregar.ecommerce.ui.transaction.TransactionFragment"
         android:label="@string/title_transaction"
-        tools:layout="@layout/fragment_transaction"
-        />
+        tools:layout="@layout/fragment_transaction" />
 
-    <action
-        android:id="@+id/action_bottonSheetDialogFragment_to_StoreFragment"
-        app:destination="@id/navigation_store"
-        />
+    <dialog
+        android:id="@+id/modelBottomSheet"
+        android:name="com.rizkysiregar.ecommerce.ui.store.ModelBottomSheet"
+        android:label="ModelBottomSheet"
+        tools:layout="@layout/modal_bottom_sheet_content">
+        <action
+            android:id="@+id/action_modelBottomSheet_to_navigation_store"
+            app:destination="@id/navigation_store" />
+    </dialog>
+
 
 </navigation>

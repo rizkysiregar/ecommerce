@@ -82,10 +82,10 @@ class ProfileActivity : AppCompatActivity() {
                 profileViewModel.postProfile(provideModel)
                 profileViewModel.data.observe(this) {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-                    if (it.code == 200){
+                    if (it.code == 200) {
                         PreferenceManager.setIsLogin(this, true)
                         navigateToHome()
-                    }else{
+                    } else {
                         Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -198,7 +198,6 @@ class ProfileActivity : AppCompatActivity() {
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
-
 }
 
 

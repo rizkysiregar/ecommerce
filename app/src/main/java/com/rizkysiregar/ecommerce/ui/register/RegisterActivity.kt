@@ -16,6 +16,7 @@ import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
+import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -33,7 +34,6 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnDaftarRegister.setOnClickListener {
             try {
                 register()
-                setPreference()
                 val isAccessTokenNull = PreferenceManager.getAccessToken(this).toString()
                 if (isAccessTokenNull.isEmpty()) {
                     Toast.makeText(this, "Token is not set in preference", Toast.LENGTH_SHORT)
@@ -57,7 +57,10 @@ class RegisterActivity : AppCompatActivity() {
         val edtEmail = binding.edtEmail.text.toString()
         val edtPassword = binding.edtPassword.text.toString()
         val data = RegisterModel(edtEmail, edtPassword)
-        registerViewModel.registerNewUser(data)
+        runBlocking {
+            registerViewModel.registerNewUser(data)
+            setPreference()
+        }
     }
 
     private fun setPreference() {

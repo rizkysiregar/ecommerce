@@ -8,13 +8,13 @@ data class ProductResponse(
 	val code: Int,
 
 	@field:SerializedName("data")
-	val data: Data,
+	val data: DataProduct,
 
 	@field:SerializedName("message")
 	val message: String
 )
 
-data class Data(
+data class DataProduct(
 
 	@field:SerializedName("pageIndex")
 	val pageIndex: Int,

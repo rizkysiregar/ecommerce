@@ -12,18 +12,18 @@ import retrofit2.Response
 
 class UserRepository(private val apiService: ApiService) {
 
-    fun registerUser(request: RequestBody, onResponse: (Boolean, RegisterResponse?) -> Unit) {
+    fun registerUser(request: RequestBody, onResponse: (Boolean, RegisterResponse?, throwable: String?) -> Unit) {
         apiService.postRegister(request).enqueue(object : Callback<RegisterResponse> {
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
                 val responseBody = response.body()
-                onResponse(response.isSuccessful, responseBody)
+                onResponse(response.isSuccessful, responseBody, null)
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                onResponse(false, null)
+                onResponse(false, null, t.toString())
             }
         })
     }

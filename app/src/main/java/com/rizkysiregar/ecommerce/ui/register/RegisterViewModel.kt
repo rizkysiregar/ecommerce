@@ -18,20 +18,19 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
     private val _data = MutableLiveData<RegisterResponse>()
     val data: MutableLiveData<RegisterResponse> = _data
 
-
     fun registerNewUser(data: RegisterModel) {
         viewModelScope.launch {
             val requestBodyString = Gson().toJson(data)
             val mediaType = "application/json".toMediaTypeOrNull()
             val requestBody = requestBodyString.toRequestBody(mediaType)
 
-            userRepository.registerUser(requestBody) { isSuccess, responseBody ->
+            userRepository.registerUser(requestBody) { isSuccess, responseBody, throwable ->
                 if (isSuccess) {
                     responseBody?.let {
                         _data.value = it
                     }
                 } else {
-                    //
+                    // throwable
                 }
             }
         }
