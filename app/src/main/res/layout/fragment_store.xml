@@ -28,54 +28,72 @@
             android:hint="@string/search" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chip_group"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="25dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
         app:layout_constraintStart_toStartOf="@+id/input_layout_search"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_search">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/action_chip"
-            style="@style/Widget.MaterialComponents.Chip.Action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:chipBackgroundColor="@color/white"
-            app:chipStrokeColor="@color/grey_divider"
-            app:chipStrokeWidth="1dp"
-            app:chipStartPadding="8dp"
-            app:chipEndPadding="8dp"
-            android:text="@string/filter"
-            app:chipIcon="@drawable/baseline_tune_24"
-            app:chipIconTint="@color/black" />
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:singleLine="true">
 
-    </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/action_chip"
+                style="@style/Widget.MaterialComponents.Chip.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/filter"
+                app:chipBackgroundColor="@color/white"
+                app:chipEndPadding="8dp"
+                app:chipIcon="@drawable/baseline_tune_24"
+                app:chipIconTint="@color/black"
+                app:chipStartPadding="8dp"
+                app:chipStrokeColor="@color/grey_divider"
+                app:chipStrokeWidth="1dp" />
+        </com.google.android.material.chip.ChipGroup>
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/list_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_list_alt_24"
         android:backgroundTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/chip_group"
+        android:src="@drawable/baseline_list_alt_24"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
-        app:layout_constraintStart_toEndOf="@+id/chip_group"
-        app:layout_constraintTop_toTopOf="@+id/chip_group" />
+        app:layout_constraintStart_toEndOf="@+id/scrollView"
+        app:layout_constraintTop_toTopOf="@+id/scrollView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_item"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"
         android:layout_marginBottom="?attr/actionBarSize"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
-        app:layout_constraintStart_toStartOf="@+id/chip_group"
-        app:layout_constraintTop_toBottomOf="@+id/chip_group"
-        tools:listitem="@layout/content_item_linear" />
+        app:layout_constraintStart_toStartOf="@+id/scrollView"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView"
+        app:spanCount="2"
+        tools:listitem="@layout/item_content_grid" />
+
+    <ProgressBar
+        android:id="@+id/progress_circular_store"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rv_item"
+        app:layout_constraintEnd_toEndOf="@+id/rv_item"
+        app:layout_constraintStart_toStartOf="@+id/rv_item"
+        app:layout_constraintTop_toTopOf="@+id/rv_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

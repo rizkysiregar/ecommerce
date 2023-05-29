@@ -29,6 +29,10 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        searchViewModel.isLoading.observe(viewLifecycleOwner) {
+            showLoading(it)
+        }
+
         val edtSearch = binding.edtSearch
         edtSearch.requestFocus()
         showKeyboard()
@@ -68,5 +72,9 @@ class SearchFragment : Fragment() {
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(binding.edtSearch, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressCircularSearch.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

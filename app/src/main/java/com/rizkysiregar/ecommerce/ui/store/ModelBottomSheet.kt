@@ -4,14 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.rizkysiregar.ecommerce.data.model.FilterModel
 import com.rizkysiregar.ecommerce.databinding.ModalBottomSheetContentBinding
 
 class ModelBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: ModalBottomSheetContentBinding
     private var onDataPassedListener: DataPassed? = null
+    private val storeViewModel : StoreViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,7 +26,12 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        // declaration variable
+        var search: String = ""
+        var brand: String = ""
+        var lowest: Int = 0
+        var highest: Int = 0
+        var sort: String = ""
 
         binding.btnReset.setOnClickListener {
             binding.chipApple.isChecked = false
@@ -36,7 +44,6 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             binding.chipHargaTerendah.isChecked = false
         }
 
-        val selectedValues = mutableListOf<String>()
 
         binding.chipGroupOrdered.setOnCheckedChangeListener { group, checkedId ->
             val checkChipIds = binding.chipGroupOrdered.checkedChipIds
@@ -44,7 +51,7 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             for (chipId in checkChipIds) {
                 val chip = binding.chipGroupOrdered.findViewById<Chip>(chipId)
                 val selectedValue = chip.text.toString()
-                selectedValues.add(selectedValue)
+                sort = selectedValue
             }
         }
 
@@ -53,12 +60,16 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             for (chipId in checkIds) {
                 val chip = binding.chipGroupCategory1.findViewById<Chip>(chipId)
                 val selectedValue = chip.text.toString()
-                selectedValues.add(selectedValue)
+                search = selectedValue
+                brand = selectedValue
             }
         }
 
         binding.btnShowProduct.setOnClickListener {
-            onDataPassedListener?.onDataPassed(selectedValues)
+            lowest = binding.edtTerendah.text.toString().toInt()
+            highest = binding.edtTertinggi.text.toString().toInt()
+            val data = FilterModel(search, brand, lowest, highest, sort)
+            onDataPassedListener?.onDataPassed(data)
             dismiss()
         }
     }

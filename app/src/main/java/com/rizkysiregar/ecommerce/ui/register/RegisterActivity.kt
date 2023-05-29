@@ -1,5 +1,6 @@
 package com.rizkysiregar.ecommerce.ui.register
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -16,7 +17,6 @@ import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
-import kotlinx.coroutines.runBlocking
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
@@ -34,16 +34,23 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnDaftarRegister.setOnClickListener {
             try {
                 register()
-                val isAccessTokenNull = PreferenceManager.getAccessToken(this).toString()
-                if (isAccessTokenNull.isEmpty()) {
-                    Toast.makeText(this, "Token is not set in preference", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
-                    startActivity(Intent(this, ProfileActivity::class.java))
-                    finish()
+                setPreference()
+                registerViewModel.data.observe(this) {
+                    val isRegisterSuccess = it.message
+                    if (isRegisterSuccess == "OK") {
+                        Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT)
+                            .show()
+                        startActivity(Intent(this, ProfileActivity::class.java))
+//                        val intent = Intent(this, ProfileActivity::class.java)
+//                        startActivityForResult(intent, Activity.RESULT_OK)
+                        finish()
+                    } else {
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
+                            .show()
+                    }
                 }
             } catch (e: Exception) {
-                Toast.makeText(this, "Error: ${e}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error: $e", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -57,10 +64,7 @@ class RegisterActivity : AppCompatActivity() {
         val edtEmail = binding.edtEmail.text.toString()
         val edtPassword = binding.edtPassword.text.toString()
         val data = RegisterModel(edtEmail, edtPassword)
-        runBlocking {
-            registerViewModel.registerNewUser(data)
-            setPreference()
-        }
+        registerViewModel.registerNewUser(data)
     }
 
     private fun setPreference() {

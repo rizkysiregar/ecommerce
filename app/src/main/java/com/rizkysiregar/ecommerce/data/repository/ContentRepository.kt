@@ -10,24 +10,35 @@ import retrofit2.Response
 
 class ContentRepository(private val apiService: ApiService) {
 
-    fun getDataProduct(onResponse: (Boolean, ProductResponse?, throwable: String?) -> Unit) {
-        apiService.getProduct().enqueue(object : Callback<ProductResponse> {
-            override fun onResponse(
-                call: Call<ProductResponse>,
-                response: Response<ProductResponse>
-            ) {
-                val responseBody = response.body()
-                onResponse(response.isSuccessful, responseBody, null)
-            }
+    fun getDataProduct(
+        search: String?,
+        brand: String?,
+        lowest: Int?,
+        highest: Int?,
+        sort: String?,
+        onResponse: (Boolean, ProductResponse?, throwable: String?) -> Unit
+    ) {
+        apiService.getProduct(search,brand,lowest,highest,sort)
+            .enqueue(object : Callback<ProductResponse> {
+                override fun onResponse(
+                    call: Call<ProductResponse>,
+                    response: Response<ProductResponse>
+                ) {
+                    val responseBody = response.body()
+                    onResponse(response.isSuccessful, responseBody, null)
+                }
 
-            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
-                onResponse(false, null, t.message.toString())
-            }
+                override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+                    onResponse(false, null, t.message.toString())
+                }
 
-        })
+            })
     }
 
-    suspend fun searchProduct(query: String, onResponse: (Boolean, SearchResponse?, throwable: String?) -> Unit) {
+    suspend fun searchProduct(
+        query: String,
+        onResponse: (Boolean, SearchResponse?, throwable: String?) -> Unit
+    ) {
         delay(2000)
         apiService.searchProduct(query).enqueue(object : Callback<SearchResponse> {
             override fun onResponse(

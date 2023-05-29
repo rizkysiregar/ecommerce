@@ -65,7 +65,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ulasan"
+                android:text="rating"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -75,7 +75,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/penjualan"
+                android:text="sale"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -85,7 +85,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Harga Terendah"
+                android:text="lowest"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -95,7 +95,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Harga Tertinggi"
+                android:text="highest"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -110,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Kategory"
+        android:text="Category"
         app:layout_constraintStart_toStartOf="@+id/container_ordered"
         app:layout_constraintTop_toBottomOf="@+id/container_ordered" />
 
@@ -135,7 +135,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Asus"
+                android:text="asus"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -145,7 +145,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lenovo"
+                android:text="lenovo"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -155,7 +155,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Apple"
+                android:text="apple"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -165,7 +165,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dell"
+                android:text="dell"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -179,7 +179,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Harga"
+        android:text="Price"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/container_category"
@@ -200,16 +200,15 @@
             android:id="@+id/textinput_terendah"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Terendah">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_terendah"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:inputType="number"
-                />
+                android:hint="Lowest"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,15 +217,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:hint="Tertinggi">
+            android:layout_marginStart="4dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_tertinggi"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                 />
+                android:hint="Tertinggi"
+                android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -241,7 +239,7 @@
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:padding="8dp"
-        android:text="Tampilkan Produk"
+        android:text="Show Products"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textStyle="bold"

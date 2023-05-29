@@ -89,6 +89,13 @@ dependencies {
     debugImplementation "com.github.chuckerteam.chucker:library:3.5.2"
     releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.5.2"
 
+    // shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+    // paging
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+
     // cameraX
     def camerax_version = "1.2.2"
     implementation "androidx.camera:camera-core:${camerax_version}"
