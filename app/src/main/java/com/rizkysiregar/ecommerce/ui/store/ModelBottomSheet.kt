@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
-import com.rizkysiregar.ecommerce.data.model.FilterModel
+import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.databinding.ModalBottomSheetContentBinding
 
 class ModelBottomSheet : BottomSheetDialogFragment() {
@@ -68,7 +68,7 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
         binding.btnShowProduct.setOnClickListener {
             lowest = binding.edtTerendah.text.toString().toInt()
             highest = binding.edtTertinggi.text.toString().toInt()
-            val data = FilterModel(search, brand, lowest, highest, sort)
+            val data = QueryProductModel(search, brand, lowest, highest, sort)
             onDataPassedListener?.onDataPassed(data)
             dismiss()
         }

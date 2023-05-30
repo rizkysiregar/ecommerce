@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/shimmer_color"/> <!-- Fill color of the shape -->
+    <corners android:radius="8dp"/> <!-- Corner radius in pixels or dp -->
+</shape>

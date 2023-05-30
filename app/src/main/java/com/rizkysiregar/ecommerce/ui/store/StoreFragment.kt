@@ -5,41 +5,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.R
-import com.rizkysiregar.ecommerce.data.model.FilterModel
+import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.databinding.FragmentStoreBinding
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StoreFragment : Fragment(), DataPassed {
 
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
-    private lateinit var recyclerView: RecyclerView
     private val storeViewModel: StoreViewModel by viewModel()
-//    private lateinit var dataFilter: FilterModel
+    private lateinit var shimmer: ShimmerFrameLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        storeViewModel.isLoading.observe(viewLifecycleOwner){
-            showLoading(it)
-        }
+        // start shimmer
+        shimmer = binding.shimmerStore
 
-        storeViewModel.getProduct(null, null, null, null, null)
-        var isLinear = true
-        recyclerView = binding.rvItem
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        // fetch data from api
+        binding.rvItem.layoutManager = LinearLayoutManager(requireContext())
+        getData()
 
-        storeViewModel.data.observe(viewLifecycleOwner) {
-            recyclerView.adapter = StoreAdapterGrid(it.data.items)
-            recyclerView.adapter = StoreAdapter(it.data.items)
-        }
 
+        // when search clicked
         binding.edtSearch.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val navController = view.findNavController()
@@ -47,26 +43,7 @@ class StoreFragment : Fragment(), DataPassed {
             }
         }
 
-        binding.listRv.setOnClickListener {
-            isLinear = !isLinear
-            if (isLinear) {
-                binding.listRv.setImageResource(R.drawable.baseline_format_list_bulleted_24)
-                storeViewModel.data.observe(viewLifecycleOwner) {
-                    recyclerView.adapter = StoreAdapter(it.data.items)
-                }
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                recyclerView.hasFixedSize()
-            } else {
-                binding.listRv.setImageResource(R.drawable.baseline_grid_view_24)
-                storeViewModel.data.observe(viewLifecycleOwner) {
-                    recyclerView.adapter = StoreAdapterGrid(it.data.items)
-                }
-                recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-                recyclerView.hasFixedSize()
-            }
-        }
-
-        // bottom sheet
+        // call bottom sheet
         binding.actionChip.setOnClickListener {
             callBottomSheet()
         }
@@ -80,9 +57,24 @@ class StoreFragment : Fragment(), DataPassed {
         return binding.root
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+
+    private fun getData() {
+        val adapter = ProductListAdapter()
+        binding.rvItem.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapter.retry()
+            }
+        )
+        storeViewModel.product.observe(viewLifecycleOwner) {
+            adapter.submitData(lifecycle, it)
+        }
+
+        lifecycleScope.launch {
+            adapter.addLoadStateListener {
+                shimmer.visibility =
+                    if (it.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+            }
+        }
     }
 
     private fun callBottomSheet() {
@@ -92,8 +84,8 @@ class StoreFragment : Fragment(), DataPassed {
         modalBottomSheet.show(fragmentManager, "ModalBottomSheet")
     }
 
-    override fun onDataPassed(data: FilterModel) {
-        storeViewModel.getProduct(data.search, data.brand, data.lowest, data.highest, data.sort)
+    override fun onDataPassed(data: QueryProductModel) {
+//        storeViewModel.getProduct(data.search, data.brand, data.lowest, data.highest, data.sort)
         // assign new value for query
 //        dataFilter = data
         // assign for chip
@@ -127,7 +119,11 @@ class StoreFragment : Fragment(), DataPassed {
 
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressCircularStore.visibility = if (isLoading) View.VISIBLE else View.GONE
+    override fun onDestroy() {
+        shimmer.stopShimmer()
+        shimmer.clearAnimation()
+        super.onDestroy()
+        _binding = null
     }
+
 }

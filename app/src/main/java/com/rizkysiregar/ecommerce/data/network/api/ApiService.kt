@@ -8,7 +8,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -41,14 +40,17 @@ interface ApiService {
     ): Call<ProfileResponse>
 
     // all products
+
     @POST("/products")
-    fun getProduct(
+    suspend fun getProducts(
         @Query("search") search: String?,
         @Query("brand") brand: String?,
         @Query("lowest") lowest: Int?,
         @Query("highest") highest: Int?,
         @Query("sort") sort: String?,
-    ): Call<ProductResponse>
+        @Query("limit") limit: Int?,
+        @Query("page") page: Int?
+    ): ProductResponse
 
 //    @POST("/products")
 //    fun getProduct(

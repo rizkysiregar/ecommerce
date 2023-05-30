@@ -1,6 +1,6 @@
 package com.rizkysiregar.ecommerce.data.model
 
-data class FilterModel(
+data class QueryProductModel(
     var search: String?,
     var brand: String?,
     var lowest: Int?,
