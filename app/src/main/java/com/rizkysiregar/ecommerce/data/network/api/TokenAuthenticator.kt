@@ -19,7 +19,6 @@ import okhttp3.Route
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-
 class TokenAuthenticator(private val context: Context) :
     Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {

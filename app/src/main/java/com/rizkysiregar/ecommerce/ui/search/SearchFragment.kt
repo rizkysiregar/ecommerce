@@ -8,23 +8,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkysiregar.ecommerce.databinding.FragmentSearchBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var recyclerView: RecyclerView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var searchAdapter: SearchAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +46,6 @@ class SearchFragment : Fragment() {
             }
 
             override fun afterTextChanged(string: Editable?) {
-                edtSearch.hint = ""
                 val query = string.toString()
                 searchViewModel.searchProduct(query)
             }
@@ -54,7 +53,9 @@ class SearchFragment : Fragment() {
 
         recyclerView = binding.rvSearchList
         searchViewModel.data.observe(viewLifecycleOwner) {
-            recyclerView.adapter = SearchAdapter(it.data)
+            searchAdapter = SearchAdapter(it.data)
+            searchAdapter.setOnItemClickListener(this)
+            recyclerView.adapter = searchAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             recyclerView.hasFixedSize()
         }
@@ -63,7 +64,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,5 +77,14 @@ class SearchFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressCircularSearch.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    override fun onItemClick(item: String) {
+        Toast.makeText(requireContext(), item, Toast.LENGTH_LONG).show()
+        val navController = view?.findNavController()
+        val bundle = Bundle().apply {
+            putString("bundle", item)
+        }
+        setFragmentResult("RESULT", bundle)
+        navController?.navigateUp()
     }
 }

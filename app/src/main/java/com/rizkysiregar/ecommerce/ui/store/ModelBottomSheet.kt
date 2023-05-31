@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
@@ -14,7 +14,12 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
 
     private lateinit var binding: ModalBottomSheetContentBinding
     private var onDataPassedListener: DataPassed? = null
-    private val storeViewModel : StoreViewModel by viewModels()
+
+    var search: String = ""
+    var brand: String = ""
+    var lowest: Int = 0
+    var highest: Int = 0
+    var sort: String = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,11 +32,7 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // declaration variable
-        var search: String = ""
-        var brand: String = ""
-        var lowest: Int = 0
-        var highest: Int = 0
-        var sort: String = ""
+
 
         binding.btnReset.setOnClickListener {
             binding.chipApple.isChecked = false
@@ -43,7 +44,6 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             binding.chipHargaTertinggi.isChecked = false
             binding.chipHargaTerendah.isChecked = false
         }
-
 
         binding.chipGroupOrdered.setOnCheckedChangeListener { group, checkedId ->
             val checkChipIds = binding.chipGroupOrdered.checkedChipIds
@@ -66,11 +66,15 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
         }
 
         binding.btnShowProduct.setOnClickListener {
-            lowest = binding.edtTerendah.text.toString().toInt()
-            highest = binding.edtTertinggi.text.toString().toInt()
-            val data = QueryProductModel(search, brand, lowest, highest, sort)
-            onDataPassedListener?.onDataPassed(data)
-            dismiss()
+            try {
+                lowest = binding.edtTerendah.text.toString().toInt()
+                highest = binding.edtTertinggi.text.toString().toInt()
+                val data = QueryProductModel(search, brand, lowest, highest, sort)
+                onDataPassedListener?.onDataPassed(data)
+                dismiss()
+            } catch (e: Exception) {
+                Toast.makeText(requireActivity(),e.toString(), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

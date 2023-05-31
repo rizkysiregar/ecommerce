@@ -15,7 +15,13 @@
         android:id="@+id/navigation_search"
         android:name="com.rizkysiregar.ecommerce.ui.search.SearchFragment"
         android:label="Search Page"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_store"
+            app:destination="@id/navigation_store">
+
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_store"

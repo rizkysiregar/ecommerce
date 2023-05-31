@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.chip.Chip
@@ -23,6 +25,8 @@ class StoreFragment : Fragment(), DataPassed {
     private val binding get() = _binding!!
     private val storeViewModel: StoreViewModel by viewModel()
     private lateinit var shimmer: ShimmerFrameLayout
+    val adapter = ProductListAdapter()
+    var baseQueryFilter: QueryProductModel = QueryProductModel(null, null, null, null, null)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,8 +36,17 @@ class StoreFragment : Fragment(), DataPassed {
 
         // fetch data from api
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext())
-        getData()
 
+        // hit product without query
+        getData(baseQueryFilter)
+
+        // set query search
+        setFragmentResultListener("RESULT") { _, bundle ->
+            val receivedData = bundle.getString("bundle")
+            val query = QueryProductModel(receivedData.toString(), null, null, null, null)
+            getData(query)
+            binding.edtSearch.setText(receivedData)
+        }
 
         // when search clicked
         binding.edtSearch.setOnFocusChangeListener { _, hasFocus ->
@@ -47,6 +60,40 @@ class StoreFragment : Fragment(), DataPassed {
         binding.actionChip.setOnClickListener {
             callBottomSheet()
         }
+
+        // change layout
+        binding.listRv.setOnClickListener {
+            adapter.isLinearLayoutManager = !adapter.isLinearLayoutManager
+            if (adapter.isLinearLayoutManager) {
+                binding.rvItem.layoutManager = LinearLayoutManager(requireContext())
+            } else {
+//                binding.rvItem.layoutManager = GridLayoutManager(requireContext(), 2)
+                val footerAdapter = LoadingStateAdapter {
+                    adapter.retry()
+                }
+
+                val headerAdapter = LoadingStateAdapter {
+                    adapter.retry()
+                }
+
+                val concatAdapter = adapter.withLoadStateHeaderAndFooter(
+                    headerAdapter,
+                    footerAdapter
+                )
+                val layoutManager = GridLayoutManager(requireContext(), 2)
+                binding.rvItem.layoutManager = layoutManager
+                layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if (position == concatAdapter.itemCount - 1 && footerAdapter.itemCount > 0) {
+                            // if it is the last position and we have a footer
+                            2
+                        } else {
+                            1
+                        }
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -57,15 +104,13 @@ class StoreFragment : Fragment(), DataPassed {
         return binding.root
     }
 
-
-    private fun getData() {
-        val adapter = ProductListAdapter()
+    private fun getData(queryProductModel: QueryProductModel) {
         binding.rvItem.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             }
         )
-        storeViewModel.product.observe(viewLifecycleOwner) {
+        storeViewModel.product(queryProductModel).observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
 
@@ -73,6 +118,8 @@ class StoreFragment : Fragment(), DataPassed {
             adapter.addLoadStateListener {
                 shimmer.visibility =
                     if (it.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+                binding.containerLayoutErorr.visibility =
+                    if (it.refresh is LoadState.Error) View.VISIBLE else View.GONE
             }
         }
     }
@@ -85,10 +132,12 @@ class StoreFragment : Fragment(), DataPassed {
     }
 
     override fun onDataPassed(data: QueryProductModel) {
-//        storeViewModel.getProduct(data.search, data.brand, data.lowest, data.highest, data.sort)
-        // assign new value for query
-//        dataFilter = data
-        // assign for chip
+        // hit product with query filter
+        if (data.brand!!.isNotEmpty()) {
+            getData(data)
+        }
+
+        // add chip to chip group filter
         if (data.brand!!.isNotEmpty()) {
             val chipGroup = binding.chipGroup
             val chip = Chip(requireActivity())
@@ -116,8 +165,8 @@ class StoreFragment : Fragment(), DataPassed {
             chip.text = data.lowest.toString()
             chipGroup.addView(chip)
         }
-
     }
+
 
     override fun onDestroy() {
         shimmer.stopShimmer()
@@ -125,5 +174,4 @@ class StoreFragment : Fragment(), DataPassed {
         super.onDestroy()
         _binding = null
     }
-
 }

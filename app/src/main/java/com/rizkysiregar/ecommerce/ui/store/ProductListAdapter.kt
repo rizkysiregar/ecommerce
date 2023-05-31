@@ -10,25 +10,23 @@ import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
 import com.rizkysiregar.ecommerce.databinding.ContentItemLinearBinding
 import com.rizkysiregar.ecommerce.databinding.ItemContentGridBinding
-import java.lang.IllegalArgumentException
 
-class ProductListAdapter(private val mode: Boolean) :
+class ProductListAdapter :
     PagingDataAdapter<ItemsItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
-    private val VIEW_LINEAR = 1
-    private val VIEW_GRID = 2
+    var isLinearLayoutManager = true
 
     override fun getItemViewType(position: Int): Int {
-        return if (mode) {
-            VIEW_LINEAR
+        return if (isLinearLayoutManager) {
+            1
         } else {
-            VIEW_GRID
+            2
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            VIEW_LINEAR -> {
+        when (viewType) {
+            1 -> {
                 val binding =
                     ContentItemLinearBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -37,7 +35,7 @@ class ProductListAdapter(private val mode: Boolean) :
                     )
                 return MyViewHolder(binding)
             }
-            VIEW_GRID -> {
+            2 -> {
                 val binding =
                     ItemContentGridBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -48,10 +46,6 @@ class ProductListAdapter(private val mode: Boolean) :
             }
             else -> throw IllegalArgumentException("Invalid view type")
         }
-
-//        val binding =
-//            ContentItemLinearBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return MyViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -61,8 +55,9 @@ class ProductListAdapter(private val mode: Boolean) :
                 is MyViewHolder -> {
                     holder.bind(data)
                 }
+
                 is GridViewHolder -> {
-                    holder.bind(data)
+                    holder.bindOK(data)
                 }
             }
         }
@@ -84,7 +79,7 @@ class ProductListAdapter(private val mode: Boolean) :
 
     class GridViewHolder(private val binding: ItemContentGridBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: ItemsItem) {
+        fun bindOK(data: ItemsItem) {
             Glide.with(itemView.context)
                 .load(R.drawable.thumbnail)
                 .into(binding.imgItem)
