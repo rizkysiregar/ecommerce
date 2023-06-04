@@ -1,2 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string name="app_name">TokoPhincon</string>
+
+    <!-- Onboarding -->
+    <string name="button_join_now">Join Now</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_next">Next</string>
+
+    <!-- Login and Register-->
+    <string name="hint_email">Email</string>
+    <string name="helper_email">Example: test@gmail.com</string>
+    <string name="error_email">Email is invalid</string>
+    <string name="hint_password">Password</string>
+    <string name="helper_password">Minimum 8 character</string>
+    <string name="error_password">Password is invalid</string>
+    <string name="button_login">Login</string>
+    <string name="button_register">Register</string>
+    <string name="terms">Terms &amp; Conditions</string>
+    <string name="conditions">Privacy Policy</string>
+
+    <!-- Login -->
+    <string name="text_login">Login</string>
+    <string name="text_another_register">or register with</string>
+    <string name="terms_and_conditions_login">By logging in here, you agree to the Terms &amp; Conditions and Privacy Policy of TokoPhincon.</string>
+
+    <!-- Register -->
+    <string name="text_register">Register</string>
+    <string name="text_another_login">or login with</string>
+    <string name="terms_and_conditions_register">By registering here, you agree to the Terms &amp; Conditions and Privacy Policy of TokoPhincon.</string>
+
+    <!-- Profile -->
+    <string name="text_profile">Profile</string>
+    <string name="hint_name">Name</string>
+    <string name="button_submit">Submit</string>
+    <string name="text_choose_image">Choose Image</string>
+    <string name="text_camera">Camera</string>
+    <string name="text_gallery">Gallery</string>
+
+    <!-- Store -->
+    <string name="hint_search">Search</string>
+    <string name="chip_filter">Filter</string>
+    <string name="price_format">Rp%s</string>
+    <string name="rating_format">%s | Sold %s</string>
+
+    <!-- Filter -->
+    <string name="text_filter">Filter</string>
+    <string name="button_reset">Reset</string>
+    <string name="text_sort">Sort</string>
+    <string name="text_rating">Rating</string>
+    <string name="text_sale">Sale</string>
+    <string name="text_lowest_price">Lowest price</string>
+    <string name="text_highest_price">Highest price</string>
+    <string name="text_category">Category</string>
+    <string name="apple">Apple</string>
+    <string name="asus">Asus</string>
+    <string name="dell">Dell</string>
+    <string name="lenovo">Lenovo</string>
+    <string name="text_price">Price</string>
+    <string name="hint_lowest">Lowest</string>
+    <string name="hint_highest">Highest</string>
+    <string name="button_show_product">Show Product</string>
+
+    <!-- Error -->
+    <string name="text_empty_title">Empty</string>
+    <string name="text_empty_description">Your requested data is unavailable</string>
+    <string name="text_connection_title">Connection</string>
+    <string name="text_connection_description">Your connection is unavailable</string>
+    <string name="text_error_title">Error</string>
+    <string name="text_error_description">It looks like something went wrong</string>
+    <string name="button_refresh">Refresh</string>
+
+    <!-- Top App Bar-->
+    <string name="notification">Notification</string>
+    <string name="cart">Cart</string>
+    <string name="menu">Menu</string>
+
+    <!-- Bottom Navigation -->
+    <string name="home">Home</string>
+    <string name="store">Store</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="transaction">Transaction</string>
+
+    <!-- Main -->
+    <string name="text_kick_out">Your account has been logout, please login again</string>
+
+</resources>

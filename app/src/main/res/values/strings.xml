@@ -1,48 +1,87 @@
 <resources>
-    <string name="app_name">Ecommerce</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_home">Home</string>
-    <string name="title_store">Store</string>
-    <string name="title_wishlist">Wishlist</string>
-    <string name="title_transaction">Transaction</string>
-    <string name="thumb_title">Gabung Sekarang</string>
-    <string name="btn_boarding">Gabung Sekarang</string>
-    <string name="title_jump">Lewati</string>
-    <string name="title_next">Selanjutnya</string>
-    <string name="title_register">Daftar</string>
-    <string name="title_login">Masuk</string>
-    <string name="email_message">Contoh: test@gmail.com</string>
-    <string name="password_message">Minimal 8 Karakter</string>
-    <string name="email_title">Email</string>
-    <string name="password_title">Password</string>
-    <string name="btn_register">Daftar</string>
-    <string name="tv_divier">atau masuk dengan</string>
-    <string name="btn_masuk">Masuk</string>
-    <string name="profile_title">Profile</string>
-    <string name="name">Nama</string>
-    <string name="btn_profile_done">Selesai</string>
-    <string name="terms1">Dengan masuk disini, kamu menyetujui</string>
-    <string name="terms2">Syarat &amp; Ketentuan</string>
-    <string name="terms3">serta </string>
-    <string name="terms4">Kebijakan Privasi</string>
-    <string name="terms5">TokoPhincon</string>
-    <string name="tv_bottom_btn_masuk">Dengan daftar disini, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TokoPhincon.</string>
-    <string name="colored_text">
-    <![CDATA[
-        Dengan daftar disini, kamu menyetujui <font color="#6750A4">Syarat &amp; Ketentuan</font> serta <font color="#6750A4">Kebijakan Privasi</font> TokoPhincon.
-    ]]>
-    </string>
-    <string name="content_text_expl">Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS</string>
-    <string name="price_content">Rp23.499.000</string>
-    <string name="store_name_content">ProStoreComputer</string>
-    <string name="rating_content">5.0 | Terjual 10</string>
-    <string name="notification">notification</string>
+
+    <string name="app_name">TokoPhincon</string>
+
+    <!-- Onboarding -->
+    <string name="button_join_now">Gabung Sekarang</string>
+    <string name="button_skip">Lewati</string>
+    <string name="button_next">Selanjutnya</string>
+
+    <!-- Login and Register-->
+    <string name="hint_email">Email</string>
+    <string name="helper_email">Contoh: test@gmail.com</string>
+    <string name="error_email">Email tidak valid</string>
+    <string name="hint_password">Password</string>
+    <string name="helper_password">Minimal 8 karakter</string>
+    <string name="error_password">Password tidak valid</string>
+    <string name="button_login">Masuk</string>
+    <string name="button_register">Daftar</string>
+    <string name="terms">Syarat &amp; Ketentuan</string>
+    <string name="conditions">Kebijakan Privasi</string>
+
+    <!-- Login -->
+    <string name="text_login">Masuk</string>
+    <string name="text_another_register">atau daftar dengan</string>
+    <string name="terms_and_conditions_login">Dengan masuk disini, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TokoPhincon.</string>
+
+    <!-- Register -->
+    <string name="text_register">Daftar</string>
+    <string name="text_another_login">atau masuk dengan</string>
+    <string name="terms_and_conditions_register">Dengan daftar disini, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TokoPhincon.</string>
+
+    <!-- Profile -->
+    <string name="text_profile">Profil</string>
+    <string name="hint_name">Nama</string>
+    <string name="button_submit">Selesai</string>
+    <string name="text_choose_image">Pilih Gambar</string>
+    <string name="text_camera">Kamera</string>
+    <string name="text_gallery">Galeri</string>
+
+    <!-- Store -->
+    <string name="hint_search">Search</string>
+    <string name="chip_filter">Filter</string>
+    <string name="price_format">Rp%s</string>
+    <string name="rating_format">%s | Terjual %s</string>
+
+    <!-- Filter -->
+    <string name="text_filter">Filter</string>
+    <string name="button_reset">Reset</string>
+    <string name="text_sort">Urutkan</string>
+    <string name="text_rating">Ulasan</string>
+    <string name="text_sale">Penjualan</string>
+    <string name="text_lowest_price">Harga terendah</string>
+    <string name="text_highest_price">Harga tertinggi</string>
+    <string name="text_category">Kategory</string>
+    <string name="apple">Apple</string>
+    <string name="asus">Asus</string>
+    <string name="dell">Dell</string>
+    <string name="lenovo">Lenovo</string>
+    <string name="text_price">Harga</string>
+    <string name="hint_lowest">Terendah</string>
+    <string name="hint_highest">Tertinggi</string>
+    <string name="button_show_product">Tampilkan Produk</string>
+
+    <!-- Error -->
+    <string name="text_empty_title">Kosong</string>
+    <string name="text_empty_description">Data yang anda minta tidak tersedia</string>
+    <string name="text_connection_title">Koneksi</string>
+    <string name="text_connection_description">Koneksi anda tidak tersedia</string>
+    <string name="text_error_title">Kesalahan</string>
+    <string name="text_error_description">Sepertinya ada yang tidak beres</string>
+    <string name="button_refresh">Refresh</string>
+
+    <!-- Top App Bar-->
+    <string name="notification">Notification</string>
     <string name="cart">Cart</string>
-    <string name="hamburger_menu">Hamburger Menu</string>
-    <string name="search">Search</string>
-    <string name="filter">Filter</string>
-    <string name="reset">Reset</string>
-    <string name="ulasan">Ulasan</string>
-    <string name="penjualan">Penjualan</string>
+    <string name="menu">Menu</string>
+
+    <!-- Bottom Navigation -->
+    <string name="home">Home</string>
+    <string name="store">Store</string>
+    <string name="wishlist">Wishlist</string>
+    <string name="transaction">Transaction</string>
+
+    <!-- Main -->
+    <string name="text_kick_out">Akun Anda telah keluar, silakan masuk kembali</string>
+
 </resources>

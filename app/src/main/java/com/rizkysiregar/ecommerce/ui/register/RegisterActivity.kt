@@ -1,10 +1,8 @@
 package com.rizkysiregar.ecommerce.ui.register
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
@@ -29,7 +27,6 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         checkInput()
-        coloredText()
 
         binding.btnDaftarRegister.setOnClickListener {
             try {
@@ -148,11 +145,6 @@ class RegisterActivity : AppCompatActivity() {
                 //
             }
         })
-    }
-
-    private fun coloredText() {
-        val coloredText = getString(R.string.colored_text)
-        binding.tvTerms.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
     }
 
 }

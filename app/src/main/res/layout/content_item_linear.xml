@@ -1,120 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:layout_marginBottom="8dp"
+    android:clickable="true"
+    android:focusable="true">
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:padding="8dp"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:clickable="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="@color/text_content">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_item"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/image_radius"
+            android:layout_marginBottom="14dp"
+            android:src="@drawable/thumbnail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/img_item"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="14dp"
-                android:src="@drawable/thumbnail"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tv_title_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:maxLines="2"
+            tools:text="Lenovo 14 Aspire"
+            android:textColor="@color/text_content"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_item"
+            app:layout_constraintTop_toTopOf="@+id/img_item" />
 
-            <TextView
-                android:id="@+id/tv_title_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:maxLines="2"
-                android:text="@string/content_text_expl"
-                android:textColor="@color/text_content"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_item"
-                app:layout_constraintTop_toTopOf="@+id/img_item" />
+        <TextView
+            android:id="@+id/text_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:lineHeight="20dp"
+           tools:text="Rp200000"
+            android:textColor="@color/text_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_content" />
 
-            <TextView
-                android:id="@+id/text_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:text="@string/price_content"
-                android:textColor="@color/text_content"
-                android:textSize="14sp"
-                android:lineHeight="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/tv_title_content"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_content" />
+        <ImageView
+            android:id="@+id/img_profile_content"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/account_circle_fill"
+            app:layout_constraintStart_toStartOf="@+id/text_price"
+            app:layout_constraintTop_toBottomOf="@+id/text_price" />
 
-            <ImageView
-                android:id="@+id/img_profile_content"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginTop="7dp"
-                android:src="@drawable/account_circle_fill"
-                app:layout_constraintStart_toStartOf="@+id/text_price"
-                app:layout_constraintTop_toBottomOf="@+id/text_price" />
+        <TextView
+            android:id="@+id/tv_seller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            tools:text="Enter Computer"
+            android:textColor="@color/text_content"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_profile_content"
+            app:layout_constraintStart_toEndOf="@+id/img_profile_content"
+            app:layout_constraintTop_toTopOf="@+id/img_profile_content" />
 
-            <TextView
-                android:id="@+id/tv_seller"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:text="@string/store_name_content"
-                android:textColor="@color/text_content"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/img_profile_content"
-                app:layout_constraintStart_toEndOf="@+id/img_profile_content"
-                app:layout_constraintTop_toTopOf="@+id/img_profile_content" />
+        <ImageView
+            android:id="@+id/img_star_content"
+            android:layout_width="10dp"
+            android:layout_height="9.5dp"
+            android:layout_marginTop="7dp"
+            android:src="@drawable/star_fill"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/img_profile_content"
+            app:layout_constraintStart_toStartOf="@+id/img_profile_content"
+            app:layout_constraintTop_toBottomOf="@+id/img_profile_content" />
 
-            <ImageView
-                android:id="@+id/img_star_content"
-                android:layout_width="10dp"
-                android:layout_height="9.5dp"
-                android:layout_marginTop="7dp"
-                android:src="@drawable/star_fill"
-                app:layout_constraintEnd_toEndOf="@+id/img_profile_content"
-                app:layout_constraintStart_toStartOf="@+id/img_profile_content"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile_content" />
+        <TextView
+            android:id="@+id/tv_rating_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            tools:text="5 | 5"
+            android:textColor="@color/text_content"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_star_content"
+            app:layout_constraintStart_toEndOf="@+id/img_star_content"
+            app:layout_constraintTop_toTopOf="@+id/img_star_content" />
 
-            <TextView
-                android:id="@+id/tv_rating_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:fontFamily="@font/poppins_regular"
-                android:includeFontPadding="false"
-                android:text="@string/rating_content"
-                android:textColor="@color/text_content"
-                android:textSize="10sp"
-                app:layout_constraintBottom_toBottomOf="@+id/img_star_content"
-                app:layout_constraintStart_toEndOf="@+id/img_star_content"
-                app:layout_constraintTop_toTopOf="@+id/img_star_content" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,6 +1,7 @@
 package com.rizkysiregar.ecommerce
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -23,6 +24,17 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_container)
         navView.setupWithNavController(navController)
+
+        // set appbar and bottom nav visibility in particular fragment
+        navController.addOnDestinationChangedListener {_, destination, _ ->
+            if (destination.id == R.id.navigation_search){
+                navView.visibility = View.GONE
+                binding.appBarLayout.visibility = View.GONE
+            }else{
+                navView.visibility = View.VISIBLE
+                binding.appBarLayout.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onBackPressed() {

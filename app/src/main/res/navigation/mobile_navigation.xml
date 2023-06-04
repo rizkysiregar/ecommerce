@@ -8,13 +8,13 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.rizkysiregar.ecommerce.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.rizkysiregar.ecommerce.ui.search.SearchFragment"
-        android:label="Search Page"
+        android:label="@string/hint_search"
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_navigation_search_to_navigation_store"
@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/navigation_store"
         android:name="com.rizkysiregar.ecommerce.ui.store.StoreFragment"
-        android:label="@string/title_store"
+        android:label="@string/store"
         tools:layout="@layout/fragment_store">
 
         <argument
@@ -44,13 +44,13 @@
     <fragment
         android:id="@+id/navigation_wishlist"
         android:name="com.rizkysiregar.ecommerce.ui.wishlist.WishlistFragment"
-        android:label="@string/title_wishlist"
+        android:label="@string/wishlist"
         tools:layout="@layout/fragment_wishlist" />
 
     <fragment
         android:id="@+id/navigation_transaction"
         android:name="com.rizkysiregar.ecommerce.ui.transaction.TransactionFragment"
-        android:label="@string/title_transaction"
+        android:label="@string/transaction"
         tools:layout="@layout/fragment_transaction" />
 
     <dialog

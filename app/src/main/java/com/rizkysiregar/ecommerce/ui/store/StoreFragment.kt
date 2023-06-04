@@ -67,7 +67,6 @@ class StoreFragment : Fragment(), DataPassed {
             if (adapter.isLinearLayoutManager) {
                 binding.rvItem.layoutManager = LinearLayoutManager(requireContext())
             } else {
-//                binding.rvItem.layoutManager = GridLayoutManager(requireContext(), 2)
                 val footerAdapter = LoadingStateAdapter {
                     adapter.retry()
                 }
@@ -110,6 +109,7 @@ class StoreFragment : Fragment(), DataPassed {
                 adapter.retry()
             }
         )
+
         storeViewModel.product(queryProductModel).observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
@@ -166,7 +166,6 @@ class StoreFragment : Fragment(), DataPassed {
             chipGroup.addView(chip)
         }
     }
-
 
     override fun onDestroy() {
         shimmer.stopShimmer()

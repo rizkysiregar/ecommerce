@@ -1,14 +1,9 @@
 package com.rizkysiregar.ecommerce.ui.login
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
-import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
 import android.text.TextWatcher
-import android.text.style.ForegroundColorSpan
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
@@ -31,8 +26,6 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         checkInput()
-        coloredText()
-//        spannableTextColor()
 
         // event to mainActivity
         val btnLogin = binding.btnMasukLogin
@@ -128,36 +121,4 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun coloredText() {
-        val coloredText = getString(R.string.colored_text)
-        binding.tvTermsLogin.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
-    }
-
-    private fun spannableTextColor() {
-        val text1 = getString(R.string.terms1)
-        val text3 = getString(R.string.terms3)
-        val text5 = getString(R.string.terms5)
-
-        val text2 = getString(R.string.terms2)
-        val text4 = getString(R.string.terms4)
-        val spannableString1 = SpannableString(text2)
-        val spannableString2 = SpannableString(text4)
-
-
-        spannableString1.setSpan(
-            ForegroundColorSpan(Color.MAGENTA),
-            0,
-            spannableString1.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        spannableString2.setSpan(
-            ForegroundColorSpan(Color.MAGENTA),
-            0,
-            spannableString2.length,
-            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        )
-
-        binding.tvTermsLogin.text = "$text1 $spannableString1 $text3 $spannableString2 $text5"
-    }
 }

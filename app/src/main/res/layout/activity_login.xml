@@ -23,7 +23,7 @@
             android:fontFamily="@font/poppins_regular"
             android:includeFontPadding="false"
             android:textColor="@color/black"
-            android:text="@string/title_login"
+            android:text="@string/button_login"
             android:textSize="22sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:maxLines="1"
-            android:hint="@string/email_title" />
+            android:hint="@string/hint_email" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -58,7 +58,7 @@
         android:visibility="gone"
         android:textColor="@color/text_error"
         android:layout_marginTop="4dp"
-        android:text="@string/email_message"
+        android:text="@string/error_email"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout_email"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email" />
 
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:maxLines="1"
             android:inputType="textPassword"
-            android:hint="@string/password_title" />
+            android:hint="@string/hint_password" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +90,7 @@
         android:textColor="@color/text_error"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="@string/password_message"
+        android:text="@string/error_password"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout_password"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
@@ -102,7 +102,7 @@
         android:textAllCaps="false"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
-        android:text="@string/btn_masuk"
+        android:text="@string/button_login"
         android:background="@drawable/button_filled"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/text_input_layout_password"
@@ -133,7 +133,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:layout_marginEnd="8dp"
-            android:text="@string/tv_divier" />
+            android:text="@string/text_another_register" />
 
         <View
             android:id="@+id/view_end"
@@ -148,7 +148,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/btn_register"
+        android:text="@string/button_register"
         app:cornerRadius="100dp"
         android:textColor="@color/indicator_filled"
         android:background="@drawable/button_border"
@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:fontFamily="@font/poppins_regular"
-        tools:text="@string/tv_bottom_btn_masuk"
+        tools:text="@string/terms_and_conditions_login"
         android:layout_marginTop="24dp"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_daftar_login"

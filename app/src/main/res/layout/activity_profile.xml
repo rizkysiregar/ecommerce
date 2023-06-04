@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/profile_title"
+            android:text="@string/text_profile"
             android:textSize="28sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -44,7 +44,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:hint="@string/name"
+        android:hint="@string/hint_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_profile">
@@ -60,9 +60,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="24dp"
-        android:text="@string/btn_profile_done"
+        android:layout_marginEnd="16dp"
+        android:text="@string/button_submit"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/text_input_layout"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout"
@@ -72,10 +72,10 @@
         android:id="@+id/tv_bottom_btn_done_profile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tv_bottom_btn_masuk"
-        android:textSize="12dp"
         android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/terms_and_conditions_login"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_profile"
         app:layout_constraintStart_toStartOf="@+id/btn_profile"
         app:layout_constraintTop_toBottomOf="@+id/btn_profile" />

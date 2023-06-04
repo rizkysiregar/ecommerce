@@ -6,9 +6,10 @@ import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
 
-class ProductPagingSource(private val apiService: ApiService, private val query: QueryProductModel) :
-    PagingSource<Int, ItemsItem>() {
-
+class ProductPagingSource(
+    private val apiService: ApiService,
+    private val query: QueryProductModel
+) : PagingSource<Int, ItemsItem>() {
 
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
@@ -30,7 +31,6 @@ class ProductPagingSource(private val apiService: ApiService, private val query:
             )
 
             val item = responseData.data.items
-
             val prevKey = if (page > 1) page - 1 else null
             val nextKey = if (page < responseData.data.totalPages) page + 1 else null
 

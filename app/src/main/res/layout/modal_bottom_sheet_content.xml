@@ -13,7 +13,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
-        android:text="@string/filter"
+        android:text="@string/chip_filter"
         android:textColor="@color/text_content"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:backgroundTint="@color/white"
-        android:text="@string/reset"
+        android:text="@string/button_reset"
         android:textColor="@color/indicator_filled"
         app:layout_constraintBottom_toBottomOf="@+id/tv_filter"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/poppins_regular"
-        android:text="Urutkan"
+        android:text="@string/text_sort"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/tv_filter"
@@ -65,7 +65,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="rating"
+                android:text="@string/text_rating"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -75,7 +75,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sale"
+                android:text="@string/text_sale"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -85,7 +85,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lowest"
+                android:text="@string/text_lowest_price"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -95,7 +95,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="highest"
+                android:text="@string/text_highest_price"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -110,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Category"
+        android:text="@string/text_category"
         app:layout_constraintStart_toStartOf="@+id/container_ordered"
         app:layout_constraintTop_toBottomOf="@+id/container_ordered" />
 
@@ -135,7 +135,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="asus"
+                android:text="@string/asus"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -145,7 +145,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="lenovo"
+                android:text="@string/lenovo"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -155,7 +155,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="apple"
+                android:text="@string/apple"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -165,7 +165,7 @@
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="dell"
+                android:text="@string/dell"
                 app:chipBackgroundColor="@color/white"
                 app:chipStrokeColor="@color/grey_divider"
                 app:chipStrokeWidth="2dp" />
@@ -179,7 +179,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Price"
+        android:text="@string/text_price"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/container_category"
@@ -207,7 +207,7 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:hint="Lowest"
+                android:hint="@string/hint_lowest"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -223,7 +223,7 @@
                 android:id="@+id/edt_tertinggi"
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:hint="Tertinggi"
+                android:hint="@string/hint_highest"
                 android:inputType="number" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -239,7 +239,7 @@
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:padding="8dp"
-        android:text="Show Products"
+        android:text="@string/button_show_product"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textStyle="bold"

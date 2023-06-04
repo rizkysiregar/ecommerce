@@ -69,8 +69,6 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // colored text
-        coloredText()
 
         binding.btnProfile.setOnClickListener {
             try {
@@ -189,10 +187,6 @@ class ProfileActivity : AppCompatActivity() {
         return fileName
     }
 
-    private fun coloredText() {
-        val coloredText = getString(R.string.colored_text)
-        binding.tvBottomBtnDoneProfile.text = Html.fromHtml(coloredText, Html.FROM_HTML_MODE_LEGACY)
-    }
 
     private fun navigateToHome() {
         startActivity(Intent(this, MainActivity::class.java))
