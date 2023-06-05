@@ -5,13 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.R
-import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.databinding.FragmentDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +35,6 @@ class DetailFragment : Fragment() {
         setFragmentResultListener("ITEM_ID") { _, bundle ->
             val receivedData = bundle.getString("itemId")
             detailProductViewModel.getDetailProduct(receivedData.toString())
-
         }
 
         // bind data from to view
@@ -53,11 +48,13 @@ class DetailFragment : Fragment() {
 
     private fun bindData(){
         detailProductViewModel.data.observe(viewLifecycleOwner){
-            Glide.with(requireContext())
-                .load(it.data.image[0])
-                .into(binding.imgProductDetail)
 
-            binding.tvPriceProductDetail.text = it.data.productPrice.toString()
+            val viewPager = binding.viewpagerDetail
+            viewPager.adapter = DetailAdapter(it.data.image)
+            val dotsIndicator = binding.indicatorDetail
+            dotsIndicator.attachTo(viewPager)
+
+            binding.tvPriceProductDetail.text = getString(R.string.price_format, it.data.productPrice.toString())
             binding.tvTitleProductDetail.text = it.data.productName
             binding.tvSoldDetail.text = "Terjual ${it.data.sale}"
             binding.tvRatingDetail.text = "${it.data.productRating} (${it.data.totalReview})"
@@ -79,4 +76,5 @@ class DetailFragment : Fragment() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressCircularDetail.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
 }

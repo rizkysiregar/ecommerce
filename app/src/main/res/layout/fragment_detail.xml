@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,342 +17,372 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--    will be replace with viewpager-->
-    <ImageView
-        android:id="@+id/img_product_detail"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="309dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/thumbnail" />
+        android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/like_image_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_price_product_detail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_price_product_detail"
-        android:src="@drawable/baseline_favorite_border_24" />
-
-    <TextView
-        android:id="@+id/tv_price_product_detail"
-        android:layout_width="182dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/poppins_medium"
-        android:gravity="center_vertical"
-        android:includeFontPadding="false"
-        android:lineSpacingExtra="2sp"
-        android:textColor="@color/text_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_product_detail"
-        tools:text="Rp.20.499.000" />
-
-
-    <TextView
-        android:id="@+id/tv_title_product_detail"
-        style="@style/TextAppearance.Material3.BodyMedium"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_medium"
-        android:includeFontPadding="false"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/like_image_button"
-        app:layout_constraintStart_toStartOf="@+id/tv_price_product_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price_product_detail"
-        tools:text="Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS" />
-
-    <TextView
-        android:id="@+id/tv_sold_detail"
-        style="@style/TextAppearance.Material3.BodySmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/poppins_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/text_content"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_title_product_detail"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_product_detail"
-        tools:text="Terjual 10" />
-
-    <LinearLayout
-        android:id="@+id/review_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/chip_border"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_sold_detail"
-        app:layout_constraintStart_toEndOf="@+id/tv_sold_detail"
-        app:layout_constraintTop_toTopOf="@+id/tv_sold_detail">
-
-        <ImageView
-            android:id="@+id/img_rating_detail"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_marginStart="5dp"
-            android:src="@drawable/baseline_star_12" />
-
-        <TextView
-            android:id="@+id/tv_rating_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="2dp"
-            android:textColor="@color/text_content"
-            tools:text="4.5 (2)" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider_view_1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/text_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/review_container" />
-
-    <TextView
-        android:id="@+id/tv_variant"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/poppins_medium"
-        android:includeFontPadding="false"
-        android:text="@string/choose_variant"
-        android:textColor="@color/text_content"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_sold_detail"
-        app:layout_constraintTop_toBottomOf="@+id/divider_view_1" />
-
-    <LinearLayout
-        android:id="@+id/container_variant"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/tv_variant"
-        app:layout_constraintStart_toStartOf="@+id/tv_variant"
-        app:layout_constraintTop_toBottomOf="@+id/tv_variant">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group_variant"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpagerDetail"
+                android:layout_width="match_parent"
+                android:layout_height="309dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.google.android.material.chip.ChipGroup>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/divider_view_2"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/text_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container_variant" />
-
-    <TextView
-        android:id="@+id/tv_product_description_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/poppins_medium"
-        android:includeFontPadding="false"
-        android:text="@string/product_description"
-        android:textColor="@color/text_content"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_title_product_detail"
-        app:layout_constraintStart_toStartOf="@+id/container_variant"
-        app:layout_constraintTop_toBottomOf="@+id/divider_view_2" />
-
-    <TextView
-        android:id="@+id/tv_product_description"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/text_content"
-        app:layout_constraintEnd_toEndOf="@+id/tv_product_description_title"
-        app:layout_constraintStart_toStartOf="@+id/tv_product_description_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_description_title"
-        tools:text="This is Description" />
-
-    <View
-        android:id="@+id/divider_view_3"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/text_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_product_description" />
-
-
-    <TextView
-        android:id="@+id/tv_buyer_review_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/poppins_regular"
-        android:includeFontPadding="false"
-        android:textColor="@color/text_content"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_product_description"
-        app:layout_constraintTop_toBottomOf="@+id/divider_view_3"
-        tools:text="@string/buyer_review" />
-
-    <Button
-        android:id="@+id/btn_show_all_review"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/poppins_medium"
-        android:includeFontPadding="false"
-        android:text="@string/btn_view_all_review"
-        android:textAllCaps="false"
-        android:textColor="@color/button_color"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_buyer_review_title"
-        app:layout_constraintEnd_toEndOf="@+id/tv_product_description"
-        app:layout_constraintTop_toTopOf="@+id/tv_buyer_review_title" />
-
-    <LinearLayout
-        android:id="@+id/container_buyer_review"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/btn_show_all_review"
-        app:layout_constraintStart_toStartOf="@+id/tv_buyer_review_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_buyer_review_title">
-
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/star_fill" />
-
-        <TextView
-            android:id="@+id/tv_review_buyer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:fontFamily="@font/poppins_medium"
-            android:includeFontPadding="false"
-            android:textColor="@color/text_content"
-            android:textSize="20sp"
-            tools:text="4.5" />
-
-        <TextView
-            android:id="@+id/tv_review_per_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:includeFontPadding="false"
-            android:textColor="@color/text_content"
-            android:textSize="11sp"
-            tools:text="/5.0" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_satisfied_buyer"
+            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                android:id="@+id/indicator_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:dampingRatio="0.5"
+                app:dotsColor="@color/selected_dots"
+                app:dotsCornerRadius="4dp"
+                app:dotsSize="8dp"
+                app:dotsSpacing="6dp"
+                app:dotsStrokeColor="@color/dots"
+                app:dotsStrokeWidth="2dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/viewpagerDetail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:stiffness="300" />
+
+            <ImageButton
+                android:id="@+id/like_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@color/white"
+                android:src="@drawable/baseline_favorite_border_24"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_price_product_detail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_price_product_detail" />
+
+            <TextView
+                android:id="@+id/tv_price_product_detail"
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:lineSpacingExtra="2sp"
+                android:textColor="@color/text_content"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/viewpagerDetail"
+                tools:text="Rp.20.499.000" />
+
+
+            <TextView
+                android:id="@+id/tv_title_product_detail"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/like_image_button"
+                app:layout_constraintStart_toStartOf="@+id/tv_price_product_detail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_price_product_detail"
+                tools:text="Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS" />
+
+            <TextView
+                android:id="@+id/tv_sold_detail"
+                style="@style/TextAppearance.Material3.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/text_content"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                tools:text="100% pembeli merasa puas" />
+                app:layout_constraintStart_toStartOf="@+id/tv_title_product_detail"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_product_detail"
+                tools:text="Terjual 10" />
 
-            <TextView
-                android:id="@+id/tv_rating_count"
+            <LinearLayout
+                android:id="@+id/review_container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/chip_border"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_sold_detail"
+                app:layout_constraintStart_toEndOf="@+id/tv_sold_detail"
+                app:layout_constraintTop_toTopOf="@+id/tv_sold_detail">
+
+                <ImageView
+                    android:id="@+id/img_rating_detail"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/baseline_star_12" />
+
+                <TextView
+                    android:id="@+id/tv_rating_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="2dp"
+                    android:textColor="@color/text_content"
+                    tools:text="4.5 (2)" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider_view_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/text_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/review_container" />
+
+            <TextView
+                android:id="@+id/tv_variant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/choose_variant"
+                android:textColor="@color/text_content"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/tv_sold_detail"
+                app:layout_constraintTop_toBottomOf="@+id/divider_view_1" />
+
+            <LinearLayout
+                android:id="@+id/container_variant"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/tv_variant"
+                app:layout_constraintStart_toStartOf="@+id/tv_variant"
+                app:layout_constraintTop_toBottomOf="@+id/tv_variant">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group_variant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider_view_2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/text_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_variant" />
+
+            <TextView
+                android:id="@+id/tv_product_description_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/product_description"
+                android:textColor="@color/text_content"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_title_product_detail"
+                app:layout_constraintStart_toStartOf="@+id/container_variant"
+                app:layout_constraintTop_toBottomOf="@+id/divider_view_2" />
+
+            <TextView
+                android:id="@+id/tv_product_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
                 android:textColor="@color/text_content"
+                app:layout_constraintEnd_toEndOf="@+id/tv_product_description_title"
+                app:layout_constraintStart_toStartOf="@+id/tv_product_description_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_description_title"
+                tools:text="This is Description" />
+
+            <View
+                android:id="@+id/divider_view_3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/text_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_product_description" />
+
+
+            <TextView
+                android:id="@+id/tv_buyer_review_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:textColor="@color/text_content"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_product_description"
+                app:layout_constraintTop_toBottomOf="@+id/divider_view_3"
+                tools:text="@string/buyer_review" />
+
+            <Button
+                android:id="@+id/btn_show_all_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:fontFamily="@font/poppins_medium"
+                android:includeFontPadding="false"
+                android:text="@string/btn_view_all_review"
+                android:textAllCaps="false"
+                android:textColor="@color/button_color"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                tools:text="2 rating . 2 ulasan" />
-        </LinearLayout>
+                app:layout_constraintBottom_toBottomOf="@+id/tv_buyer_review_title"
+                app:layout_constraintEnd_toEndOf="@+id/tv_product_description"
+                app:layout_constraintTop_toTopOf="@+id/tv_buyer_review_title" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/container_buyer_review"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/btn_show_all_review"
+                app:layout_constraintStart_toStartOf="@+id/tv_buyer_review_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_buyer_review_title">
 
-    <View
-        android:id="@+id/divider_view_4"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="12dp"
-        android:background="@color/text_content"
-        app:layout_constraintBottom_toBottomOf="@+id/container_buyer_review"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/container_buyer_review" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/star_fill" />
 
-    <LinearLayout
-        android:id="@+id/container_bottom_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider_view_4">
+                <TextView
+                    android:id="@+id/tv_review_buyer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/text_content"
+                    android:textSize="20sp"
+                    tools:text="4.5" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_buy_directly"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_border"
-            android:fontFamily="@font/poppins_medium"
-            android:includeFontPadding="false"
-            android:text="@string/btn_buy_directly"
-            android:textAllCaps="false"
-            android:textColor="@color/button_color"
-            android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tv_review_per_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/text_content"
+                    android:textSize="11sp"
+                    tools:text="/5.0" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_add_to_cart"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/button_filled"
-            android:fontFamily="@font/poppins_medium"
-            android:includeFontPadding="false"
-            android:text="@string/btn_add_to_cart"
-            android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginBottom="18dp"
+                    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/tv_satisfied_buyer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/text_content"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        tools:text="100% pembeli merasa puas" />
+
+                    <TextView
+                        android:id="@+id/tv_rating_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:includeFontPadding="false"
+                        android:textColor="@color/text_content"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        tools:text="2 rating . 2 ulasan" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider_view_4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/text_content"
+                app:layout_constraintBottom_toBottomOf="@+id/container_buyer_review"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/container_buyer_review" />
+
+            <LinearLayout
+                android:id="@+id/container_bottom_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="36dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider_view_4">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_buy_directly"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/poppins_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/btn_buy_directly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/button_color"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_add_to_cart"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_filled"
+                    android:fontFamily="@font/poppins_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/btn_add_to_cart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</FrameLayout>
