@@ -1,5 +1,6 @@
 package com.rizkysiregar.ecommerce.data.network.api
 
+import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
@@ -8,6 +9,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -41,7 +43,7 @@ interface ApiService {
 
     // all products
 
-    @POST("/products")
+    @POST("products")
     suspend fun getProducts(
         @Query("search") search: String?,
         @Query("brand") brand: String?,
@@ -60,5 +62,10 @@ interface ApiService {
     fun searchProduct(
         @Query("query") query: String
     ): Call<SearchResponse>
+
+    @GET("products/")
+    fun getDetailProduct(
+        @Query("id") id: String
+    ): Call<DetailProductResponse>
 
 }

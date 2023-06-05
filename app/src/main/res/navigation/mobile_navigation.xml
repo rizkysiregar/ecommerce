@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_navigation_store_to_modelBottomSheet"
             app:destination="@id/modelBottomSheet" />
+        <action
+            android:id="@+id/action_navigation_store_to_navigation_detail"
+            app:destination="@id/navigation_detail" />
 
     </fragment>
 
@@ -52,6 +55,12 @@
         android:name="com.rizkysiregar.ecommerce.ui.transaction.TransactionFragment"
         android:label="@string/transaction"
         tools:layout="@layout/fragment_transaction" />
+
+    <fragment
+        android:id="@+id/navigation_detail"
+        android:name="com.rizkysiregar.ecommerce.ui.detail.DetailFragment"
+        android:label="detail"
+        tools:layout="@layout/fragment_detail" />
 
     <dialog
         android:id="@+id/modelBottomSheet"

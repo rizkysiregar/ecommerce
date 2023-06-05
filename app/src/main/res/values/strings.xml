@@ -84,4 +84,13 @@
     <!-- Main -->
     <string name="text_kick_out">Akun Anda telah keluar, silakan masuk kembali</string>
 
+    <!-- Detail Product-->
+    <string name="choose_variant">Pilih Variant</string>
+    <string name="buyer_review">Ulasan Pembeli</string>
+    <string name="product_description">Deskripsi Produk</string>
+    <string name="btn_view_all_review">Lihat Semua</string>
+    <string name="btn_buy_directly">Beli Langsung</string>
+    <string name="btn_add_to_cart">+ Keranjang</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
 </resources>

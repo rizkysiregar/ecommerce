@@ -3,6 +3,7 @@ package com.rizkysiregar.ecommerce
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -27,12 +28,20 @@ class MainActivity : AppCompatActivity() {
 
         // set appbar and bottom nav visibility in particular fragment
         navController.addOnDestinationChangedListener {_, destination, _ ->
-            if (destination.id == R.id.navigation_search){
-                navView.visibility = View.GONE
-                binding.appBarLayout.visibility = View.GONE
-            }else{
-                navView.visibility = View.VISIBLE
-                binding.appBarLayout.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.navigation_search -> {
+                    navView.visibility = View.GONE
+                    binding.appBarLayout.visibility = View.GONE
+                }
+                R.id.navigation_detail -> {
+                    navView.visibility = View.GONE
+                    binding.materialToolbar.title = "Detail Product"
+                    binding.materialToolbar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                }
+                else -> {
+                    navView.visibility = View.VISIBLE
+                    binding.appBarLayout.visibility = View.VISIBLE
+                }
             }
         }
     }

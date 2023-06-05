@@ -79,7 +79,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
         binding.progressCircularSearch.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
     override fun onItemClick(item: String) {
-        Toast.makeText(requireContext(), item, Toast.LENGTH_LONG).show()
         val navController = view?.findNavController()
         val bundle = Bundle().apply {
             putString("bundle", item)

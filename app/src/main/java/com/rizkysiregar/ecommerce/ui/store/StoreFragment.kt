@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -19,7 +20,7 @@ import com.rizkysiregar.ecommerce.databinding.FragmentStoreBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreFragment : Fragment(), DataPassed {
+class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductClickListener {
 
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
@@ -33,6 +34,7 @@ class StoreFragment : Fragment(), DataPassed {
 
         // start shimmer
         shimmer = binding.shimmerStore
+        adapter.setOnItemClickListener(this)
 
         // fetch data from api
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext())
@@ -172,5 +174,14 @@ class StoreFragment : Fragment(), DataPassed {
         shimmer.clearAnimation()
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onItemClick(id: String) {
+        val navController = view?.findNavController()
+        val bundle = Bundle().apply {
+            putString("itemId", id)
+        }
+        setFragmentResult("ITEM_ID", bundle)
+        navController?.navigate(R.id.action_navigation_store_to_navigation_detail, bundle)
     }
 }

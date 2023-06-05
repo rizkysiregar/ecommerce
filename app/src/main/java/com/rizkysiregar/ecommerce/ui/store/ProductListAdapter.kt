@@ -16,6 +16,16 @@ class ProductListAdapter :
 
     var isLinearLayoutManager = true
 
+    interface OnItemProductClickListener {
+        fun onItemClick(id: String)
+    }
+
+    private var listener: OnItemProductClickListener? = null
+
+    fun setOnItemClickListener(listener: ProductListAdapter.OnItemProductClickListener) {
+        this.listener = listener
+    }
+
     override fun getItemViewType(position: Int): Int {
         return if (isLinearLayoutManager) {
             1
@@ -35,6 +45,7 @@ class ProductListAdapter :
                     )
                 return MyViewHolder(binding)
             }
+
             2 -> {
                 val binding =
                     ItemContentGridBinding.inflate(
@@ -44,6 +55,7 @@ class ProductListAdapter :
                     )
                 return GridViewHolder(binding)
             }
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -60,6 +72,9 @@ class ProductListAdapter :
                     holder.bindOK(data)
                 }
             }
+            holder.itemView.setOnClickListener {
+                listener?.onItemClick(data.productId)
+            }
         }
     }
 
@@ -67,7 +82,7 @@ class ProductListAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: ItemsItem) {
             Glide.with(itemView.context)
-                .load(R.drawable.thumbnail)
+                .load(data.image)
                 .into(binding.imgItem)
 
             binding.tvTitleContent.text = data.productName

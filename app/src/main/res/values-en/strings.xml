@@ -85,4 +85,12 @@
     <!-- Main -->
     <string name="text_kick_out">Your account has been logout, please login again</string>
 
+    <!-- Detail Product-->
+    <string name="choose_variant">Select Variants</string>
+    <string name="buyer_review">Buyer Review</string>
+    <string name="product_description">Product Description</string>
+    <string name="btn_view_all_review">View All</string>
+    <string name="btn_buy_directly">Buy Directly</string>
+    <string name="btn_add_to_cart">+ Cart</string>
+
 </resources>

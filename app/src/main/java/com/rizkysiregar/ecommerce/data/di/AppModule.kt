@@ -1,5 +1,6 @@
 package com.rizkysiregar.ecommerce.data.di
 
+import com.rizkysiregar.ecommerce.ui.detail.DetailProductViewModel
 import com.rizkysiregar.ecommerce.ui.login.LoginViewModel
 import com.rizkysiregar.ecommerce.ui.profile.ProfileViewModel
 import com.rizkysiregar.ecommerce.ui.register.RegisterViewModel
@@ -14,4 +15,5 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get()) }
     viewModel { StoreViewModel(get()) }
     viewModel { SearchViewModel(get()) }
+    viewModel { DetailProductViewModel(get()) }
 }

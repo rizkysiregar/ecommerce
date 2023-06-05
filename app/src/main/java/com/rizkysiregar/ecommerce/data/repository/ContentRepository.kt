@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
+import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import com.rizkysiregar.ecommerce.data.paging.ProductPagingSource
@@ -50,30 +51,23 @@ class ContentRepository(private val apiService: ApiService) {
 
         })
     }
+
+    fun getDetailProduct(
+        productId: String,
+        onResponse: (Boolean, DetailProductResponse?, throwable: String?) -> Unit
+    ) {
+        apiService.getDetailProduct(productId).enqueue(object : Callback<DetailProductResponse> {
+            override fun onResponse(
+                call: Call<DetailProductResponse>,
+                response: Response<DetailProductResponse>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody, null)
+            }
+
+            override fun onFailure(call: Call<DetailProductResponse>, t: Throwable) {
+                onResponse(false, null, t.message.toString())
+            }
+        })
+    }
 }
-
-
-//fun getDataProduct(
-//    search: String?,
-//    brand: String?,
-//    lowest: Int?,
-//    highest: Int?,
-//    sort: String?,
-//    onResponse: (Boolean, ProductResponse?, throwable: String?) -> Unit
-//) {
-//    apiService.getProduct(search,brand,lowest,highest,sort)
-//        .enqueue(object : Callback<ProductResponse> {
-//            override fun onResponse(
-//                call: Call<ProductResponse>,
-//                response: Response<ProductResponse>
-//            ) {
-//                val responseBody = response.body()
-//                onResponse(response.isSuccessful, responseBody, null)
-//            }
-//
-//            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
-//                onResponse(false, null, t.message.toString())
-//            }
-//
-//        })
-//}

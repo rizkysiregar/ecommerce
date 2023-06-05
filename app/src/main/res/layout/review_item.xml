@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_review"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/image_review" />
+
+    <TextView
+        android:id="@+id/tv_username_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_content"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_review"
+        app:layout_constraintStart_toEndOf="@+id/img_review"
+        app:layout_constraintTop_toTopOf="@+id/img_review"
+        tools:text="Rizky Siregar" />
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="4"
+        android:progressTint="@color/text_content"
+        android:stepSize="0.1"
+        app:layout_constraintEnd_toEndOf="@+id/tv_username_review"
+        app:layout_constraintStart_toStartOf="@+id/tv_username_review"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username_review" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:maxLines="5"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="12sp"
+        android:textColor="@color/text_content"
+        android:includeFontPadding="false"
+
+        app:layout_constraintTop_toBottomOf="@+id/rating_bar"
+        tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
