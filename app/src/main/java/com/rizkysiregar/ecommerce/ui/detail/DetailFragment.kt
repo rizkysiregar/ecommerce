@@ -1,11 +1,13 @@
 package com.rizkysiregar.ecommerce.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.databinding.FragmentDetailBinding
@@ -25,36 +27,43 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var productId = ""
         setFragmentResultListener("ITEM_ID") { _, bundle ->
             val receivedData = bundle.getString("itemId")
             detailProductViewModel.getDetailProduct(receivedData.toString())
+            productId = receivedData.toString()
+        }
+
+        binding.tvShowAllReview.setOnClickListener {
+            provideIdProductForReview(productId)
         }
 
         // bind data from to view
         bindData()
 
         // loading indicator
-        detailProductViewModel.isLoading.observe(viewLifecycleOwner){
+        detailProductViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
     }
 
-    private fun bindData(){
-        detailProductViewModel.data.observe(viewLifecycleOwner){
+    private fun bindData() {
+        detailProductViewModel.data.observe(viewLifecycleOwner) {
 
             val viewPager = binding.viewpagerDetail
             viewPager.adapter = DetailAdapter(it.data.image)
             val dotsIndicator = binding.indicatorDetail
             dotsIndicator.attachTo(viewPager)
 
-            binding.tvPriceProductDetail.text = getString(R.string.price_format, it.data.productPrice.toString())
+            binding.tvPriceProductDetail.text =
+                getString(R.string.price_format, it.data.productPrice.toString())
             binding.tvTitleProductDetail.text = it.data.productName
             binding.tvSoldDetail.text = "Terjual ${it.data.sale}"
             binding.tvRatingDetail.text = "${it.data.productRating} (${it.data.totalReview})"
@@ -64,17 +73,43 @@ class DetailFragment : Fragment() {
             binding.tvSatisfiedBuyer.text = "${it.data.totalSatisfaction} merasa puas"
             binding.tvRatingCount.text = "${it.data.totalRating}.${it.data.totalReview}"
 
-            for (variant in it.data.productVariant){
+
+            for (variant in it.data.productVariant) {
                 val chipGroup = binding.chipGroupVariant
                 val chip = Chip(requireContext())
                 chip.text = variant.variantName
+                chip.id = View.generateViewId()
                 chipGroup.addView(chip)
             }
+
+            val chipGroup = binding.chipGroupVariant
+            chipGroup.setOnCheckedChangeListener { group, checkedId ->
+                for (i in 0 until group.childCount) {
+                    val chip = group.getChildAt(i) as Chip
+                    if (chip.id == checkedId) {
+                        chip.setChipBackgroundColorResource(R.color.chip_color)
+                    } else {
+                        chip?.setChipBackgroundColorResource(R.color.white)
+                    }
+                }
+            }
+
+//            val firstChip = binding.chipGroupVariant.getChildAt(0) as? Chip
+//            firstChip?.isChecked = true
         }
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressCircularDetail.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun provideIdProductForReview(productId: String) {
+        val navController = view?.findNavController()
+        val bundle = Bundle().apply {
+            putString("productReviewId", productId)
+        }
+        setFragmentResult("PRODUCT_REVIEW_ID", bundle)
+        navController?.navigate(R.id.action_navigation_detail_to_navigation_review, bundle)
     }
 
 }

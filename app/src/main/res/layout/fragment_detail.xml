@@ -39,6 +39,7 @@
                 android:id="@+id/indicator_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 app:dampingRatio="0.5"
                 app:dotsColor="@color/selected_dots"
                 app:dotsCornerRadius="4dp"
@@ -46,7 +47,6 @@
                 app:dotsSpacing="6dp"
                 app:dotsStrokeColor="@color/dots"
                 app:dotsStrokeWidth="2dp"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="@+id/viewpagerDetail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -175,9 +175,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_variant">
 
                 <com.google.android.material.chip.ChipGroup
+                    style="@style/Widget.Material3.ChipGroup"
                     android:id="@+id/chip_group_variant"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:singleSelection="true">
 
 
                 </com.google.android.material.chip.ChipGroup>
@@ -244,8 +246,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/divider_view_3"
                 tools:text="@string/buyer_review" />
 
-            <Button
-                android:id="@+id/btn_show_all_review"
+            <TextView
+                android:id="@+id/tv_show_all_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
@@ -265,7 +267,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/btn_show_all_review"
+                app:layout_constraintEnd_toEndOf="@+id/tv_show_all_review"
                 app:layout_constraintStart_toStartOf="@+id/tv_buyer_review_title"
                 app:layout_constraintTop_toBottomOf="@+id/tv_buyer_review_title">
 

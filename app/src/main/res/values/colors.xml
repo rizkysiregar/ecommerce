@@ -18,4 +18,5 @@
     <color name="text_error">#B3261E</color>
     <color name="text_content">#49454F</color>
     <color name="shimmer_color">#DDDDDD</color>
+    <color name="chip_color">#E8DEF8</color>
 </resources>

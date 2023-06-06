@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Ecommerce" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.Ecommerce" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="android:windowBackground">@color/white</item>
         <item name="colorPrimary">@color/purple_500</item>
@@ -13,6 +13,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="chipStyle">@style/CustomChipStyle</item>
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@color/chip_color</item>
     </style>
 
 

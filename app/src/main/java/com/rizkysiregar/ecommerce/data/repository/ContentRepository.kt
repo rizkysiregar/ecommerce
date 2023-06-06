@@ -9,6 +9,7 @@ import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
+import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import com.rizkysiregar.ecommerce.data.paging.ProductPagingSource
 import kotlinx.coroutines.delay
@@ -68,6 +69,26 @@ class ContentRepository(private val apiService: ApiService) {
             override fun onFailure(call: Call<DetailProductResponse>, t: Throwable) {
                 onResponse(false, null, t.message.toString())
             }
+        })
+    }
+
+    fun getReviewById(
+        productId: String,
+        onResponse: (Boolean, ResponseReview?, throwable: String?) -> Unit
+    ){
+        apiService.getReviewById(productId).enqueue(object : Callback<ResponseReview> {
+            override fun onResponse(
+                call: Call<ResponseReview>,
+                response: Response<ResponseReview>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody, null)
+            }
+
+            override fun onFailure(call: Call<ResponseReview>, t: Throwable) {
+                onResponse(false, null, t.message.toString())
+            }
+
         })
     }
 }

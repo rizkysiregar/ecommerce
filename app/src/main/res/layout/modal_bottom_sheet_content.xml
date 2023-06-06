@@ -62,7 +62,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_ulasan"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_rating"
@@ -72,7 +73,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_penjualan"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_sale"
@@ -82,7 +84,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_harga_terendah"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_lowest_price"
@@ -92,7 +95,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_harga_tertinggi"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/text_highest_price"
@@ -132,7 +136,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_asus"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/asus"
@@ -142,7 +147,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_lenovo"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lenovo"
@@ -152,7 +158,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_apple"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/apple"
@@ -162,7 +169,8 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_dell"
-                style="@style/Widget.MaterialComponents.Chip.Choice"
+                style="@style/Widget.Material3.Chip.Input"
+                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/dell"
@@ -198,7 +206,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput_terendah"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -214,7 +222,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput_tetinggi"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp">

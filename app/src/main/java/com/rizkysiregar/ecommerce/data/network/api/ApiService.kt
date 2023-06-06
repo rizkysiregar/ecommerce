@@ -4,6 +4,7 @@ import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
+import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -42,7 +43,6 @@ interface ApiService {
     ): Call<ProfileResponse>
 
     // all products
-
     @POST("products")
     suspend fun getProducts(
         @Query("search") search: String?,
@@ -54,18 +54,22 @@ interface ApiService {
         @Query("page") page: Int?
     ): ProductResponse
 
-//    @POST("/products")
-//    fun getProduct(
-//    ): Call<ProductResponse>
 
     @POST("search")
     fun searchProduct(
         @Query("query") query: String
     ): Call<SearchResponse>
 
-    @GET("products/")
+    @GET("products")
     fun getDetailProduct(
         @Query("id") id: String
     ): Call<DetailProductResponse>
+
+
+    // get review
+    @GET("review")
+    fun getReviewById(
+        @Query("id") id: String
+    ): Call<ResponseReview>
 
 }

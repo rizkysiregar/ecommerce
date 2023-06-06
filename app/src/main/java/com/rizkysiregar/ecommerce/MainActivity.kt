@@ -44,6 +44,17 @@ class MainActivity : AppCompatActivity() {
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
 
+                R.id.navigation_review -> {
+                    binding.materialToolbar.setNavigationOnClickListener {
+                        findNavController(R.id.nav_host_fragment_container).navigateUp()
+                    }
+                    navView.visibility = View.GONE
+                    binding.materialToolbar.title = "Ulasan Pembeli"
+                    binding.materialToolbar.navigationIcon =
+                        ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                    binding.materialToolbar.menu.clear()
+                }
+
                 else -> {
                     navView.visibility = View.VISIBLE
                     binding.appBarLayout.visibility = View.VISIBLE

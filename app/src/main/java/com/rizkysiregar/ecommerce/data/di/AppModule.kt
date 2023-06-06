@@ -4,6 +4,7 @@ import com.rizkysiregar.ecommerce.ui.detail.DetailProductViewModel
 import com.rizkysiregar.ecommerce.ui.login.LoginViewModel
 import com.rizkysiregar.ecommerce.ui.profile.ProfileViewModel
 import com.rizkysiregar.ecommerce.ui.register.RegisterViewModel
+import com.rizkysiregar.ecommerce.ui.review.ReviewViewModel
 import com.rizkysiregar.ecommerce.ui.search.SearchViewModel
 import com.rizkysiregar.ecommerce.ui.store.StoreViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -16,4 +17,5 @@ val viewModelModule = module {
     viewModel { StoreViewModel(get()) }
     viewModel { SearchViewModel(get()) }
     viewModel { DetailProductViewModel(get()) }
+    viewModel { ReviewViewModel(get()) }
 }
