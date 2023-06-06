@@ -1,6 +1,7 @@
 package com.rizkysiregar.ecommerce
 
 import android.app.Application
+import com.rizkysiregar.ecommerce.data.di.databaseModule
 import com.rizkysiregar.ecommerce.data.di.networkModule
 import com.rizkysiregar.ecommerce.data.di.repositoryModule
 import com.rizkysiregar.ecommerce.data.di.viewModelModule
@@ -20,6 +21,7 @@ class MyApplication : Application() {
                     networkModule,
                     viewModelModule,
                     repositoryModule,
+                    databaseModule
                 )
             )
         }

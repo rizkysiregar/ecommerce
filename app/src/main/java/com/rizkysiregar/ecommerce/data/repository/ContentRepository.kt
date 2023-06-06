@@ -5,19 +5,44 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
+import com.rizkysiregar.ecommerce.data.local.db.AppExecutors
+import com.rizkysiregar.ecommerce.data.local.db.EcommerceDao
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
+import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
 import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import com.rizkysiregar.ecommerce.data.paging.ProductPagingSource
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class ContentRepository(private val apiService: ApiService) {
+class ContentRepository(
+    private val apiService: ApiService,
+    private val ecommerceDao: EcommerceDao,
+    private val appExecutors: AppExecutors
+) {
+    @OptIn(DelicateCoroutinesApi::class)
+    fun deleteWishlist(data: DetailEntity) {
+        GlobalScope.launch(Dispatchers.IO) {
+            ecommerceDao.deleteWishlist(data)
+        }
+    }
+
+    fun getWishlist(): LiveData<List<DetailEntity>> {
+        return ecommerceDao.getAllDataFromWishlist()
+    }
+
+    fun insertNewWishlist(data: DetailEntity) {
+        appExecutors.diskIO().execute { ecommerceDao.insertNewWishlist(data) }
+    }
 
     fun getDataProduct(query: QueryProductModel): LiveData<PagingData<ItemsItem>> {
         return Pager(
@@ -75,7 +100,7 @@ class ContentRepository(private val apiService: ApiService) {
     fun getReviewById(
         productId: String,
         onResponse: (Boolean, ResponseReview?, throwable: String?) -> Unit
-    ){
+    ) {
         apiService.getReviewById(productId).enqueue(object : Callback<ResponseReview> {
             override fun onResponse(
                 call: Call<ResponseReview>,

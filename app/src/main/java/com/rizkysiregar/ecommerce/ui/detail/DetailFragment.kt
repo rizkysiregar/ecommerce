@@ -1,15 +1,18 @@
 package com.rizkysiregar.ecommerce.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.databinding.FragmentDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,6 +54,10 @@ class DetailFragment : Fragment() {
         // loading indicator
         detailProductViewModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
+        }
+
+        binding.likeImageButton.setOnClickListener {
+            insertWishlist()
         }
     }
 
@@ -110,6 +117,38 @@ class DetailFragment : Fragment() {
         }
         setFragmentResult("PRODUCT_REVIEW_ID", bundle)
         navController?.navigate(R.id.action_navigation_detail_to_navigation_review, bundle)
+    }
+
+    private fun insertWishlist(){
+        detailProductViewModel.data.observe(viewLifecycleOwner){
+            val data = DetailEntity(
+                it.data.image[0],
+                it.data.productId,
+                it.data.description,
+                it.data.totalRating,
+                it.data.store,
+                it.data.productName,
+                it.data.totalSatisfaction,
+                it.data.sale,
+                it.data.stock,
+                it.data.productRating.toString(),
+                it.data.brand,
+                it.data.productPrice,
+                it.data.totalReview
+            )
+            try {
+                detailProductViewModel.insertNewWishlist(data)
+                Toast.makeText(requireContext(), "Add to wishlist", Toast.LENGTH_SHORT).show()
+            }catch (e: Exception){
+                Log.d("ERORR INSERT: ", e.message.toString())
+            }
+        }
+    }
+
+    private fun updateFavorite() {
+        detailProductViewModel.getAllWishList.observe(viewLifecycleOwner){
+
+        }
     }
 
 }

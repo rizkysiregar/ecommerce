@@ -1,5 +1,9 @@
 package com.rizkysiregar.ecommerce.data.network.response
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
 import com.google.gson.annotations.SerializedName
 
 data class DetailProductResponse(
@@ -37,6 +41,7 @@ data class DataDetail(
     @field:SerializedName("totalRating")
     val totalRating: Int,
 
+
     @field:SerializedName("store")
     val store: String,
 
@@ -55,15 +60,63 @@ data class DataDetail(
     @field:SerializedName("stock")
     val stock: Int,
 
+
     @field:SerializedName("productRating")
     val productRating: Any,
 
+
     @field:SerializedName("brand")
     val brand: String,
+
 
     @field:SerializedName("productPrice")
     val productPrice: Int,
 
     @field:SerializedName("totalReview")
     val totalReview: Int
+)
+
+@Entity(tableName = "tbl_wishlist")
+data class DetailEntity(
+
+    @ColumnInfo("image")
+    val image: String,
+
+    @PrimaryKey
+    @ColumnInfo("productId")
+    val productId: String,
+
+    @ColumnInfo("description")
+    val description: String,
+
+    @ColumnInfo("totalRating")
+    val totalRating: Int,
+
+    @ColumnInfo("store")
+    val store: String,
+
+    @ColumnInfo("productName")
+    val productName: String,
+
+    @ColumnInfo("totalSatisfaction")
+    val totalSatisfaction: Int,
+
+    @ColumnInfo("sale")
+    val sale: Int,
+
+    @ColumnInfo("stock")
+    val stock: Int,
+
+    @ColumnInfo("productRating")
+    val productRating: String,
+
+    @ColumnInfo("brand")
+    val brand: String,
+
+    @ColumnInfo("productPrice")
+    val productPrice: Int,
+
+    @ColumnInfo("totalReview")
+    val totalReview: Int,
+
 )

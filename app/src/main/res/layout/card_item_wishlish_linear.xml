@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_wishlist_linear"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/thumbnail" />
+
+        <TextView
+            android:id="@+id/tv_title_product_wishlist"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_content"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_wishlist_linear"
+            app:layout_constraintTop_toTopOf="@+id/img_wishlist_linear"
+            tools:text="Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB Windows 11 QHD IPS" />
+
+        <TextView
+            android:id="@+id/tv_price_wishlist"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_product_wishlist"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_product_wishlist"
+            tools:text="Rp23.499.000" />
+
+        <ImageView
+            android:id="@+id/img_profile_wishlist"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/account_circle_fill"
+            app:layout_constraintStart_toStartOf="@+id/tv_price_wishlist"
+            app:layout_constraintTop_toBottomOf="@+id/tv_price_wishlist" />
+
+        <TextView
+            android:id="@+id/tv_seller_wishlist"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_profile_wishlist"
+            app:layout_constraintStart_toEndOf="@+id/img_profile_wishlist"
+            app:layout_constraintTop_toTopOf="@+id/img_profile_wishlist"
+            tools:text="ProStoreComputer" />
+
+        <ImageView
+            android:id="@+id/img_rating_wishlist"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/star_fill"
+            app:layout_constraintEnd_toEndOf="@+id/img_profile_wishlist"
+            app:layout_constraintStart_toStartOf="@+id/img_profile_wishlist"
+            app:layout_constraintTop_toBottomOf="@+id/img_profile_wishlist" />
+
+        <TextView
+            android:id="@+id/tv_rating_wishlist"
+            style="@style/TextAppearance.Material3.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/text_content"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_rating_wishlist"
+            app:layout_constraintStart_toEndOf="@+id/img_rating_wishlist"
+            app:layout_constraintTop_toTopOf="@+id/img_rating_wishlist"
+            tools:text="5.0 | Terjual 10" />
+
+        <ImageButton
+            android:id="@+id/img_button_trash_wishlist"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/baseline_delete_outline_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/img_wishlist_linear"
+            app:layout_constraintTop_toBottomOf="@+id/img_wishlist_linear" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_border"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="@string/btn_add_to_cart"
+            android:textColor="@color/button_color"
+            app:cornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/img_button_trash_wishlist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_button_trash_wishlist"
+            app:layout_constraintTop_toTopOf="@+id/img_button_trash_wishlist" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

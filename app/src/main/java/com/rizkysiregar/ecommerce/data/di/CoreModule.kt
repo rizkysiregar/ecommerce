@@ -1,10 +1,13 @@
 package com.rizkysiregar.ecommerce.data.di
 
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
 import com.google.gson.GsonBuilder
 import com.rizkysiregar.ecommerce.BuildConfig
+import com.rizkysiregar.ecommerce.data.local.db.AppExecutors
+import com.rizkysiregar.ecommerce.data.local.db.EcommerceDatabase
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.api.ApiServiceHeadersInterceptor
 import com.rizkysiregar.ecommerce.data.network.api.TokenAuthenticator
@@ -15,9 +18,22 @@ import com.rizkysiregar.ecommerce.data.repository.ContentRepository
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+
+val databaseModule = module {
+    factory { get<EcommerceDatabase>().ecommerceDao() }
+
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            EcommerceDatabase::class.java, "ecommerce.db"
+        ).fallbackToDestructiveMigration()
+            .build()
+    }
+}
 
 val networkModule = module {
     single {
@@ -69,6 +85,7 @@ val networkModule = module {
 }
 
 val repositoryModule = module {
+    factory { AppExecutors() }
     single { UserRepository(get()) }
-    single { ContentRepository(get()) }
+    single { ContentRepository(get(), get(), get()) }
 }
