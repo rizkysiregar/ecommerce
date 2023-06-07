@@ -12,6 +12,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.databinding.FragmentDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -58,6 +59,10 @@ class DetailFragment : Fragment() {
 
         binding.likeImageButton.setOnClickListener {
             insertWishlist()
+        }
+
+        binding.btnAddToCart.setOnClickListener {
+            insertToCart()
         }
     }
 
@@ -152,9 +157,36 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private fun insertToCart() {
+        detailProductViewModel.data.observe(viewLifecycleOwner){
+            val cartEntity = CartEntity(
+                it.data.image[0],
+                it.data.productId,
+                it.data.description,
+                it.data.totalRating,
+                it.data.store,
+                it.data.productName,
+                it.data.totalSatisfaction,
+                it.data.sale,
+                it.data.stock,
+                it.data.productRating.toString(),
+                it.data.brand,
+                it.data.productPrice,
+                it.data.totalReview,
+                it.data.productVariant[1].variantName
+            )
+
+            try {
+                detailProductViewModel.insertProductToCart(cartEntity)
+                Toast.makeText(requireContext(), "Add to Cart", Toast.LENGTH_SHORT).show()
+            }catch (e : Exception) {
+                Toast.makeText(requireContext(), "error : $e", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun updateFavorite() {
         detailProductViewModel.getAllWishList.observe(viewLifecycleOwner) {
-
         }
     }
 

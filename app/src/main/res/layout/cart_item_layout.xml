@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_cart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_cart" />
+
+    <ImageView
+        android:id="@+id/img_cart"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/image_radius"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkbox"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:src="@drawable/thumbnail" />
+
+    <TextView
+        android:id="@+id/tv_product_name_cart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/text_content"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_cart"
+        app:layout_constraintTop_toTopOf="@+id/img_cart"
+        tools:text="Lenovo Legion 7 16 I7 11800 16GB..." />
+
+    <TextView
+        android:id="@+id/tv_variant_cart"
+        style="@style/TextAppearance.Material3.BodySmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/text_content"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_product_name_cart"
+        app:layout_constraintStart_toStartOf="@+id/tv_product_name_cart"
+        app:layout_constraintTop_toBottomOf="@+id/tv_product_name_cart"
+        tools:text="16GB, 1TB SSD" />
+
+    <TextView
+        android:id="@+id/tv_stock_cart"
+        style="@style/TextAppearance.Material3.BodySmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_content"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_variant_cart"
+        app:layout_constraintStart_toStartOf="@+id/tv_variant_cart"
+        app:layout_constraintTop_toBottomOf="@+id/tv_variant_cart"
+        tools:text="Sisa 5" />
+
+    <TextView
+        android:id="@+id/tv_price_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textColor="@color/text_content"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/img_cart"
+        app:layout_constraintStart_toStartOf="@+id/tv_stock_cart"
+        tools:text="Rp23.499.000" />
+
+    <ImageButton
+        android:id="@+id/img_btn_delete_cart"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/baseline_delete_outline_24"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_price_cart"
+        app:layout_constraintEnd_toStartOf="@+id/toggleButton"
+        app:layout_constraintTop_toTopOf="@+id/tv_price_cart" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_stroke"
+        app:layout_constraintBottom_toBottomOf="@+id/img_btn_delete_cart"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toTopOf="@+id/img_btn_delete_cart">
+
+        <Button
+            android:id="@+id/button1"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            app:icon="@drawable/ic_remove" />
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:padding="0dp"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="0dp"
+            app:icon="@drawable/ic_add" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

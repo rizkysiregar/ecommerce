@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
+import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.repository.ContentRepository
@@ -35,6 +36,10 @@ class DetailProductViewModel(private val contentRepository: ContentRepository) :
             }
         }
     }
+
+    fun insertProductToCart(cartEntity: CartEntity) =
+        contentRepository.insertNewProductToCart(cartEntity)
+
 
     fun insertNewWishlist(data: DetailEntity) =
         contentRepository.insertNewWishlist(data)

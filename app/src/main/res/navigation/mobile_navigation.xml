@@ -60,7 +60,7 @@
         android:id="@+id/navigation_detail"
         android:name="com.rizkysiregar.ecommerce.ui.detail.DetailFragment"
         android:label="detail"
-        tools:layout="@layout/fragment_detail" >
+        tools:layout="@layout/fragment_detail">
         <action
             android:id="@+id/action_navigation_detail_to_navigation_review"
             app:destination="@id/navigation_review" />
@@ -70,7 +70,13 @@
         android:id="@+id/navigation_review"
         android:name="com.rizkysiregar.ecommerce.ui.review.ReviewFragment"
         android:label="review"
-        tools:layout="@layout/fragment_review"
+        tools:layout="@layout/fragment_review" />
+
+    <fragment
+        android:id="@+id/navigation_cart"
+        android:name="com.rizkysiregar.ecommerce.ui.cart.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/fragment_cart"
         />
 
     <dialog

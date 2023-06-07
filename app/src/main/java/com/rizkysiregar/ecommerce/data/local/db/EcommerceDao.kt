@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DataDetail
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 
@@ -18,6 +19,12 @@ interface EcommerceDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNewWishlist(data: DetailEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertToCart(cartEntity: CartEntity)
+
+    @Query("SELECT * FROM tbl_cart")
+    fun getAllCartProduct() : LiveData<List<CartEntity>>
 
     @Update
     fun updateWishlist(data: DetailEntity)

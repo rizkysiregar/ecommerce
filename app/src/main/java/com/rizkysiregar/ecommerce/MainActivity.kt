@@ -1,6 +1,9 @@
 package com.rizkysiregar.ecommerce
 
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,14 +20,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        setSupportActionBar(binding.materialToolbar)
         setupNavigation()
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_app_bar, menu)
+        return true
     }
 
     private fun setupNavigation() {
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_container)
         navView.setupWithNavController(navController)
+
 
         // set appbar and bottom nav visibility in particular fragment
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -54,6 +64,11 @@ class MainActivity : AppCompatActivity() {
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
 //                    binding.materialToolbar.menu.clear()
                 }
+
+                R.id.navigation_cart -> {
+                    navView.visibility = View.GONE
+                }
+
                 else -> {
                     navView.visibility = View.VISIBLE
                     binding.appBarLayout.visibility = View.VISIBLE
@@ -65,11 +80,25 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        val navController = findNavController(R.id.nav_host_fragment_container)
-        if (!navController.navigateUp()) {
-            super.onBackPressed()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_cart -> {
+                findNavController(R.id.nav_host_fragment_container).navigate(R.id.navigation_cart)
+                Log.d("BUG", "KEPANGGIL KAH")
+                return true
+            }
+
+            R.id.menu_notification -> {
+                return true
+            }
+
+            R.id.menu_hamburger -> {
+                return true
+            }
+
+            else -> return super.onOptionsItemSelected(item)
         }
     }
+
 
 }

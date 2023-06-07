@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Rizky Siregar"
-            app:menu="@menu/top_app_bar"
             app:navigationIcon="@drawable/account_circle_fill"
             />
 

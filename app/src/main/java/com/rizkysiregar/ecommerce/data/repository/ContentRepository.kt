@@ -9,6 +9,7 @@ import com.rizkysiregar.ecommerce.data.local.db.AppExecutors
 import com.rizkysiregar.ecommerce.data.local.db.EcommerceDao
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
+import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
@@ -42,6 +43,17 @@ class ContentRepository(
 
     fun insertNewWishlist(data: DetailEntity) {
         appExecutors.diskIO().execute { ecommerceDao.insertNewWishlist(data) }
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    fun insertNewProductToCart(cartEntity: CartEntity) {
+        GlobalScope.launch(Dispatchers.IO){
+            ecommerceDao.insertToCart(cartEntity)
+        }
+    }
+
+    fun getAllDataCart(): LiveData<List<CartEntity>>{
+        return ecommerceDao.getAllCartProduct()
     }
 
     fun getDataProduct(query: QueryProductModel): LiveData<PagingData<ItemsItem>> {

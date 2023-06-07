@@ -93,5 +93,9 @@
     <string name="btn_buy_directly">Buy Directly</string>
     <string name="btn_add_to_cart">+ Cart</string>
 
+    <!-- cart  -->
+    <string name="tv_total_payment">Total Payment</string>
+    <string name="btn_buy">Buy</string>
+    <string name="select_all">Select All</string>
 
 </resources>

@@ -120,3 +120,50 @@ data class DetailEntity(
     val totalReview: Int,
 
 )
+
+@Entity(tableName = "tbl_cart")
+data class CartEntity(
+
+    @ColumnInfo("image")
+    val image: String,
+
+    @PrimaryKey
+    @ColumnInfo("productId")
+    val productId: String,
+
+    @ColumnInfo("description")
+    val description: String,
+
+    @ColumnInfo("totalRating")
+    val totalRating: Int,
+
+    @ColumnInfo("store")
+    val store: String,
+
+    @ColumnInfo("productName")
+    val productName: String,
+
+    @ColumnInfo("totalSatisfaction")
+    val totalSatisfaction: Int,
+
+    @ColumnInfo("sale")
+    val sale: Int,
+
+    @ColumnInfo("stock")
+    val stock: Int,
+
+    @ColumnInfo("productRating")
+    val productRating: String,
+
+    @ColumnInfo("brand")
+    val brand: String,
+
+    @ColumnInfo("productPrice")
+    val productPrice: Int,
+
+    @ColumnInfo("totalReview")
+    val totalReview: Int,
+
+    @ColumnInfo("variantName")
+    val variantName: String,
+    )
