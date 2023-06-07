@@ -17,7 +17,7 @@
     </style>
 
     <style name="CustomChipStyle" parent="Widget.Material3.Chip.Suggestion">
-        <item name="chipBackgroundColor">@color/chip_color</item>
+        <item name="chipBackgroundColor">@color/white</item>
     </style>
 
 

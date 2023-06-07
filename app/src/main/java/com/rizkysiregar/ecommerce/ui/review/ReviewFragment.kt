@@ -49,8 +49,6 @@ class ReviewFragment : Fragment() {
                 Toast.makeText(requireContext(),e.toString(), Toast.LENGTH_SHORT).show()
             }
         }
-
-
         setDataReviewToAdapter()
     }
 

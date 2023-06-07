@@ -89,20 +89,27 @@ class DetailFragment : Fragment() {
                 chipGroup.addView(chip)
             }
 
+
             val chipGroup = binding.chipGroupVariant
             chipGroup.setOnCheckedChangeListener { group, checkedId ->
                 for (i in 0 until group.childCount) {
                     val chip = group.getChildAt(i) as Chip
                     if (chip.id == checkedId) {
                         chip.setChipBackgroundColorResource(R.color.chip_color)
+                        val price = it.data.productPrice + it.data.productVariant[1].variantPrice
+                        binding.tvPriceProductDetail.text =
+                            getString(R.string.price_format, price.toString())
                     } else {
-                        chip?.setChipBackgroundColorResource(R.color.white)
+                        chip.setChipBackgroundColorResource(R.color.white)
+                        binding.tvPriceProductDetail.text =
+                            getString(R.string.price_format, it.data.productPrice.toString())
                     }
                 }
             }
 
-//            val firstChip = binding.chipGroupVariant.getChildAt(0) as? Chip
-//            firstChip?.isChecked = true
+            // colored the first child of variant group
+            val firstChip = chipGroup.getChildAt(0) as Chip
+            firstChip.setChipBackgroundColorResource(R.color.chip_color)
         }
     }
 
@@ -119,8 +126,8 @@ class DetailFragment : Fragment() {
         navController?.navigate(R.id.action_navigation_detail_to_navigation_review, bundle)
     }
 
-    private fun insertWishlist(){
-        detailProductViewModel.data.observe(viewLifecycleOwner){
+    private fun insertWishlist() {
+        detailProductViewModel.data.observe(viewLifecycleOwner) {
             val data = DetailEntity(
                 it.data.image[0],
                 it.data.productId,
@@ -139,14 +146,14 @@ class DetailFragment : Fragment() {
             try {
                 detailProductViewModel.insertNewWishlist(data)
                 Toast.makeText(requireContext(), "Add to wishlist", Toast.LENGTH_SHORT).show()
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("ERORR INSERT: ", e.message.toString())
             }
         }
     }
 
     private fun updateFavorite() {
-        detailProductViewModel.getAllWishList.observe(viewLifecycleOwner){
+        detailProductViewModel.getAllWishList.observe(viewLifecycleOwner) {
 
         }
     }

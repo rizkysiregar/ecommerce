@@ -39,7 +39,7 @@ class ReviewAdapter(private val dataReview: List<DataItemReview>) :
                     .into(binding.imgReview)
 
                 tvUsernameReview.text = dataReview.userName
-                ratingBar.numStars= dataReview.userRating
+                ratingBar.rating= dataReview.userRating.toFloat()
                 tvDescDetail.text = dataReview.userReview
             }
 

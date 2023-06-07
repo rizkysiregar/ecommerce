@@ -52,9 +52,8 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.title = "Ulasan Pembeli"
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
-                    binding.materialToolbar.menu.clear()
+//                    binding.materialToolbar.menu.clear()
                 }
-
                 else -> {
                     navView.visibility = View.VISIBLE
                     binding.appBarLayout.visibility = View.VISIBLE
