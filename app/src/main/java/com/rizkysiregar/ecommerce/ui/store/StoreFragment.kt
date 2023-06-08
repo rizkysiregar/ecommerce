@@ -106,13 +106,14 @@ class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductCl
     }
 
     private fun getData(queryProductModel: QueryProductModel) {
+        storeViewModel.setQuery(queryProductModel)
         binding.rvItem.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
             }
         )
 
-        storeViewModel.product(queryProductModel).observe(viewLifecycleOwner) {
+        storeViewModel.product.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
         }
 

@@ -16,13 +16,7 @@ import com.rizkysiregar.ecommerce.databinding.CartItemLayoutBinding
 class CartAdapter(private val cartEntity: List<CartEntity>) :
     RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
-    var isChecked = false
-        private set
 
-    fun setIsChecked(checked: Boolean) {
-        isChecked = checked
-        notifyDataSetChanged()
-    }
 
     interface OnItemClickListener {
         fun onItemClick(item: CartEntity, isChecked: Boolean)
@@ -62,10 +56,10 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
                 tvVariantCart.text = data.variantName
                 tvStockCart.text = "Sisa ${data.stock}"
                 tvPriceCart.text = "Rp. ${data.productPrice}"
-                checkbox.isChecked = isChecked
 
                 checkbox.setOnCheckedChangeListener { _, isChecked ->
                     listener?.onItemClick(data, isChecked)
+                    checkbox.isChecked = isChecked
                 }
 
                 binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->

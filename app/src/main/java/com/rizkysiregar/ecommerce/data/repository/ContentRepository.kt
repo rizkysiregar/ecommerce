@@ -5,7 +5,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
-import com.rizkysiregar.ecommerce.data.local.db.AppExecutors
 import com.rizkysiregar.ecommerce.data.local.db.EcommerceDao
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
@@ -25,34 +24,38 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+@OptIn(DelicateCoroutinesApi::class)
 class ContentRepository(
     private val apiService: ApiService,
-    private val ecommerceDao: EcommerceDao,
-    private val appExecutors: AppExecutors
+    private val ecommerceDao: EcommerceDao
 ) {
-    @OptIn(DelicateCoroutinesApi::class)
-    fun deleteWishlist(data: DetailEntity) {
-        GlobalScope.launch(Dispatchers.IO) {
-            ecommerceDao.deleteWishlist(data)
-        }
-    }
 
     fun getWishlist(): LiveData<List<DetailEntity>> {
         return ecommerceDao.getAllDataFromWishlist()
     }
 
     fun insertNewWishlist(data: DetailEntity) {
-        appExecutors.diskIO().execute { ecommerceDao.insertNewWishlist(data) }
+        GlobalScope.launch(Dispatchers.IO) {
+            ecommerceDao.insertNewWishlist(data)
+        }
+    }
+    fun deleteWishlist(data: DetailEntity) {
+        GlobalScope.launch(Dispatchers.IO) {
+            ecommerceDao.deleteWishlist(data)
+        }
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
+     fun isProductExist(productId: String): LiveData<Boolean> {
+        return ecommerceDao.isRecordExistsProductId(productId)
+    }
+
     fun insertNewProductToCart(cartEntity: CartEntity) {
-        GlobalScope.launch(Dispatchers.IO){
+        GlobalScope.launch(Dispatchers.IO) {
             ecommerceDao.insertToCart(cartEntity)
         }
     }
 
-    fun getAllDataCart(): LiveData<List<CartEntity>>{
+    fun getAllDataCart(): LiveData<List<CartEntity>> {
         return ecommerceDao.getAllCartProduct()
     }
 

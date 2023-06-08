@@ -87,5 +87,5 @@ val networkModule = module {
 val repositoryModule = module {
     factory { AppExecutors() }
     single { UserRepository(get()) }
-    single { ContentRepository(get(), get(), get()) }
+    single { ContentRepository(get(), get()) }
 }

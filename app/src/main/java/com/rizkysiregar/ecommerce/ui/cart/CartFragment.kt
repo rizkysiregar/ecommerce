@@ -15,7 +15,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     private val binding get() = _binding!!
     private val cartViewModel: CartViewModel by viewModel()
     private lateinit var cartAdapter: CartAdapter
-    private var isAllChecked = false
+    private var totalPrice = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -44,14 +44,31 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
         var isChecked = false
         binding.checkbox.setOnClickListener {
             isChecked = !isChecked
-            cartAdapter.setIsChecked(isChecked)
             binding.btnBuyCart.isEnabled = isChecked
         }
     }
 
     override fun onItemClick(item: CartEntity, isChecked: Boolean) {
-        binding.checkbox.isChecked = isChecked
-        binding.tvTotalPaymentCart.text = item.productPrice.toString()
+        val listItemChecked = mutableListOf<CartEntity>()
+        listItemChecked.add(item)
+        if (isChecked) {
+            onItemChecked(listItemChecked)
+        } else {
+            onItemUnChecked(totalPrice, listItemChecked)
+        }
+    }
+
+    private fun onItemChecked(listItemChecked: MutableList<CartEntity>) {
+        val counterPrice = listItemChecked.sumOf { it.productPrice }
+        binding.tvTotalPaymentCart.text = counterPrice.toString()
+        totalPrice = counterPrice
+    }
+
+    private fun onItemUnChecked(totalPrice: Int, listItemChecked: MutableList<CartEntity>) {
+        val reducePrice = listItemChecked.fold(totalPrice) {
+            acc, item -> acc - item.productPrice
+        }
+        binding.tvTotalPaymentCart.text = reducePrice.toString()
     }
 
 

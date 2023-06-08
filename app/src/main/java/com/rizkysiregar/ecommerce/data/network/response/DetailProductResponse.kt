@@ -3,7 +3,6 @@ package com.rizkysiregar.ecommerce.data.network.response
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
 import com.google.gson.annotations.SerializedName
 
 data class DetailProductResponse(
@@ -118,8 +117,7 @@ data class DetailEntity(
 
     @ColumnInfo("totalReview")
     val totalReview: Int,
-
-)
+    )
 
 @Entity(tableName = "tbl_cart")
 data class CartEntity(
@@ -166,4 +164,7 @@ data class CartEntity(
 
     @ColumnInfo("variantName")
     val variantName: String,
-    )
+
+    @ColumnInfo("isChecked")
+    val isChecked: Boolean = false
+)

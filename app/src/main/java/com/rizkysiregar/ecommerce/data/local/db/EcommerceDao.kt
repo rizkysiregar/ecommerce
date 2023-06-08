@@ -13,21 +13,21 @@ import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 
 @Dao
 interface EcommerceDao {
-    // query get all wishlist from tbl_wishlist
+    // query get all wishlist from tbl_wishlist that is liked
     @Query("SELECT * FROM tbl_wishlist")
     fun getAllDataFromWishlist(): LiveData<List<DetailEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertNewWishlist(data: DetailEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertToCart(cartEntity: CartEntity)
 
     @Query("SELECT * FROM tbl_cart")
     fun getAllCartProduct() : LiveData<List<CartEntity>>
 
-    @Update
-    fun updateWishlist(data: DetailEntity)
+    @Query("SELECT EXISTS(SELECT * FROM tbl_wishlist WHERE productId = :productId)")
+    fun isRecordExistsProductId(productId: String): LiveData<Boolean>
 
     @Delete
     fun deleteWishlist(data: DetailEntity)

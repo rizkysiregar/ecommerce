@@ -1,20 +1,23 @@
 package com.rizkysiregar.ecommerce.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.databinding.FragmentDetailBinding
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailFragment : Fragment() {
@@ -22,10 +25,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val detailProductViewModel: DetailProductViewModel by viewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var liked = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +42,7 @@ class DetailFragment : Fragment() {
         setFragmentResultListener("ITEM_ID") { _, bundle ->
             val receivedData = bundle.getString("itemId")
             detailProductViewModel.getDetailProduct(receivedData.toString())
+            detailProductViewModel.setProductId(receivedData.toString())
             productId = receivedData.toString()
         }
 
@@ -57,13 +58,14 @@ class DetailFragment : Fragment() {
             showLoading(it)
         }
 
-        binding.likeImageButton.setOnClickListener {
-            insertWishlist()
-        }
-
         binding.btnAddToCart.setOnClickListener {
             insertToCart()
         }
+
+        // add to wishlist
+        check()
+        getProduct()
+
     }
 
     private fun bindData() {
@@ -85,7 +87,6 @@ class DetailFragment : Fragment() {
             binding.tvSatisfiedBuyer.text = "${it.data.totalSatisfaction} merasa puas"
             binding.tvRatingCount.text = "${it.data.totalRating}.${it.data.totalReview}"
 
-
             for (variant in it.data.productVariant) {
                 val chipGroup = binding.chipGroupVariant
                 val chip = Chip(requireContext())
@@ -93,7 +94,6 @@ class DetailFragment : Fragment() {
                 chip.id = View.generateViewId()
                 chipGroup.addView(chip)
             }
-
 
             val chipGroup = binding.chipGroupVariant
             chipGroup.setOnCheckedChangeListener { group, checkedId ->
@@ -131,9 +131,27 @@ class DetailFragment : Fragment() {
         navController?.navigate(R.id.action_navigation_detail_to_navigation_review, bundle)
     }
 
-    private fun insertWishlist() {
+    private fun setWishlistIcon(state: Boolean) {
+        if (state) {
+            binding.likeImageButton.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.baseline_favorite_24_fill
+                )
+            )
+        } else {
+            binding.likeImageButton.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.baseline_favorite_border_24
+                )
+            )
+        }
+    }
+
+    private  fun getProduct() {
         detailProductViewModel.data.observe(viewLifecycleOwner) {
-            val data = DetailEntity(
+            val detailEntity = DetailEntity(
                 it.data.image[0],
                 it.data.productId,
                 it.data.description,
@@ -148,17 +166,27 @@ class DetailFragment : Fragment() {
                 it.data.productPrice,
                 it.data.totalReview
             )
-            try {
-                detailProductViewModel.insertNewWishlist(data)
-                Toast.makeText(requireContext(), "Add to wishlist", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                Log.d("ERORR INSERT: ", e.message.toString())
+            binding.likeImageButton.setOnClickListener { view ->
+                if (liked){
+                    detailProductViewModel.deleteWishlist(detailEntity)
+                    Snackbar.make(view, "Deleted from wishlist", Snackbar.LENGTH_SHORT).show()
+                }else{
+                    detailProductViewModel.insertNewWishlist(detailEntity)
+                    Snackbar.make(view, "Added to wishlist", Snackbar.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
+    private fun check(){
+            detailProductViewModel.result.observe(viewLifecycleOwner) { isLiked ->
+                setWishlistIcon(isLiked)
+                liked = isLiked
+        }
+    }
+
     private fun insertToCart() {
-        detailProductViewModel.data.observe(viewLifecycleOwner){
+        detailProductViewModel.data.observe(viewLifecycleOwner) {
             val cartEntity = CartEntity(
                 it.data.image[0],
                 it.data.productId,
@@ -174,20 +202,14 @@ class DetailFragment : Fragment() {
                 it.data.productPrice,
                 it.data.totalReview,
                 it.data.productVariant[1].variantName
-            )
 
+            )
             try {
                 detailProductViewModel.insertProductToCart(cartEntity)
-                Toast.makeText(requireContext(), "Add to Cart", Toast.LENGTH_SHORT).show()
-            }catch (e : Exception) {
+                Snackbar.make(requireView(), "Added to cart", Snackbar.LENGTH_SHORT).show()
+            } catch (e: Exception) {
                 Toast.makeText(requireContext(), "error : $e", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
-    private fun updateFavorite() {
-        detailProductViewModel.getAllWishList.observe(viewLifecycleOwner) {
-        }
-    }
-
 }
