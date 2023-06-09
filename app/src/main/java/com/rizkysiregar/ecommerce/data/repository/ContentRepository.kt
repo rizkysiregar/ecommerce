@@ -12,6 +12,7 @@ import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
+import com.rizkysiregar.ecommerce.data.network.response.PaymentResponse
 import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import com.rizkysiregar.ecommerce.data.paging.ProductPagingSource
@@ -129,6 +130,24 @@ class ContentRepository(
                 onResponse(false, null, t.message.toString())
             }
 
+        })
+    }
+
+    fun getPaymentMethod(
+        onResponse: (Boolean, PaymentResponse?, throwable: String?) -> Unit
+    ){
+        apiService.getPayment().enqueue(object: Callback<PaymentResponse> {
+            override fun onResponse(
+                call: Call<PaymentResponse>,
+                response: Response<PaymentResponse>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody, null)
+            }
+
+            override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
+                onResponse(false, null, t.message.toString())
+            }
         })
     }
 }

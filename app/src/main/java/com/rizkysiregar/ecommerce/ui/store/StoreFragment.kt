@@ -125,6 +125,12 @@ class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductCl
                     if (it.refresh is LoadState.Error) View.VISIBLE else View.GONE
             }
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.swipeRefresh.isRefreshing = true
+            getData(baseQueryFilter)
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 
     private fun callBottomSheet() {

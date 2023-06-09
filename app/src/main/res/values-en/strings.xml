@@ -98,4 +98,14 @@
     <string name="btn_buy">Buy</string>
     <string name="select_all">Select All</string>
 
+    <!-- checkout   -->
+    <string name="tv_purchased">purchased items</string>
+    <string name="payment">Payment</string>
+    <string name="chosse_payment">Choose Payment</string>
+    <string name="pay">Pay</string>
+
+    <!--  status  -->
+    <string name="payment_success">Payment Success</string>
+    <string name="give_review">Give review</string>
+
 </resources>

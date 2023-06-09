@@ -1,6 +1,7 @@
 package com.rizkysiregar.ecommerce.data.network.api
 
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
+import com.rizkysiregar.ecommerce.data.network.response.PaymentResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
@@ -71,5 +72,9 @@ interface ApiService {
     fun getReviewById(
         @Query("id") id: String
     ): Call<ResponseReview>
+
+    // payment method
+    @GET("payment")
+    fun getPayment(): Call<PaymentResponse>
 
 }

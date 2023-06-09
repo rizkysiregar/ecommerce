@@ -97,4 +97,14 @@
     <string name="btn_buy">Beli</string>
     <string name="select_all">Pilih Semua</string>
 
+    <!-- checkout   -->
+    <string name="tv_purchased">Barang yang dibeli</string>
+    <string name="payment">Pembayaran</string>
+    <string name="chosse_payment">Pilih pembayaran</string>
+    <string name="pay">Bayar</string>
+
+    <!--  status  -->
+    <string name="payment_success">Pembayaran Berhasil</string>
+    <string name="give_review">Beri ulasan</string>
+
 </resources>

@@ -65,8 +65,8 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     }
 
     private fun onItemUnChecked(totalPrice: Int, listItemChecked: MutableList<CartEntity>) {
-        val reducePrice = listItemChecked.fold(totalPrice) {
-            acc, item -> acc - item.productPrice
+        val reducePrice = listItemChecked.fold(totalPrice) { acc, item ->
+            acc - item.productPrice
         }
         binding.tvTotalPaymentCart.text = reducePrice.toString()
     }

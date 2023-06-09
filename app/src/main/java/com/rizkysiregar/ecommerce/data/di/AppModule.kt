@@ -3,6 +3,7 @@ package com.rizkysiregar.ecommerce.data.di
 import com.rizkysiregar.ecommerce.ui.cart.CartViewModel
 import com.rizkysiregar.ecommerce.ui.detail.DetailProductViewModel
 import com.rizkysiregar.ecommerce.ui.login.LoginViewModel
+import com.rizkysiregar.ecommerce.ui.payment.PaymentViewModel
 import com.rizkysiregar.ecommerce.ui.profile.ProfileViewModel
 import com.rizkysiregar.ecommerce.ui.register.RegisterViewModel
 import com.rizkysiregar.ecommerce.ui.review.ReviewViewModel
@@ -22,4 +23,5 @@ val viewModelModule = module {
     viewModel { ReviewViewModel(get()) }
     viewModel { WishlistViewModel(get()) }
     viewModel { CartViewModel(get()) }
+    viewModel { PaymentViewModel(get()) }
 }
