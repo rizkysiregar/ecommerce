@@ -23,6 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="16dp"
+        android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -84,8 +85,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:inputType="textMultiLine"
                 android:ellipsize="end"
+                android:inputType="textMultiLine"
                 android:maxLines="5"
                 android:padding="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -94,10 +95,181 @@
                 app:layout_constraintTop_toBottomOf="@+id/label_give_review"
                 tools:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book." />
 
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tv_label_detail_transaction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:text="@string/detail_transaction"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/card_status" />
+
+    <TextView
+        android:id="@+id/tv_label_id_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/id_transaction"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_detail_transaction"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_detail_transaction" />
+
+    <TextView
+        android:id="@+id/tv_label_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/status"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_id_transaction"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_id_transaction" />
+
+    <TextView
+        android:id="@+id/tv_label_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/date"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_status"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_status" />
+
+    <TextView
+        android:id="@+id/tv_label_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/time"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_date" />
+
+    <TextView
+        android:id="@+id/tv_label_pay_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/pay_method"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_time"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_time" />
+
+    <TextView
+        android:id="@+id/tv_label_total_purchased_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/tv_total_payment"
+        app:layout_constraintStart_toStartOf="@+id/tv_label_pay_method"
+        app:layout_constraintTop_toBottomOf="@+id/tv_label_pay_method" />
+
+    <TextView
+        android:id="@+id/tv_id_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_id_transaction"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_id_transaction"
+        tools:text="abcd-efgh-ijkl-mnop" />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_status"
+        tools:text="@string/payment_success" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_date"
+        tools:text="3 Jun 2023" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_time"
+        tools:text="22:00" />
+
+    <TextView
+        android:id="@+id/tv_pay_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_pay_method"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_pay_method"
+        tools:text="BCA Virtual Account" />
+
+    <TextView
+        android:id="@+id/tv_total_pay_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/poppins_medium"
+        android:includeFontPadding="false"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_label_total_purchased_status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_label_total_purchased_status"
+        tools:text="Rp23.499.000" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container_bottom_status"
+        android:layout_width="match_parent"
+        android:layout_height="92dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divider_checkout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="16dp"
+            android:text="@string/done"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

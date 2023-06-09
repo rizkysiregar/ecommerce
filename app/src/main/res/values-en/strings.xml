@@ -107,5 +107,12 @@
     <!--  status  -->
     <string name="payment_success">Payment Success</string>
     <string name="give_review">Give review</string>
+    <string name="detail_transaction">Detail Transaction</string>
+    <string name="id_transaction">ID Transaction</string>
+    <string name="status">Status</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="pay_method">Pay Method</string>
+    <string name="done">Done</string>
 
 </resources>

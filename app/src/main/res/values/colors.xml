@@ -19,4 +19,5 @@
     <color name="text_content">#49454F</color>
     <color name="shimmer_color">#DDDDDD</color>
     <color name="chip_color">#E8DEF8</color>
+    <color name="color_fab">#EADDFF</color>
 </resources>

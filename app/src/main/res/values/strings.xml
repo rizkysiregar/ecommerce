@@ -106,5 +106,12 @@
     <!--  status  -->
     <string name="payment_success">Pembayaran Berhasil</string>
     <string name="give_review">Beri ulasan</string>
+    <string name="detail_transaction">Detail Transaksi</string>
+    <string name="id_transaction">ID Transaksi</string>
+    <string name="status">Status</string>
+    <string name="date">Tanggal</string>
+    <string name="time">Waktu</string>
+    <string name="pay_method">Metode Pembayaran</string>
+    <string name="done">selesai</string>
 
 </resources>
