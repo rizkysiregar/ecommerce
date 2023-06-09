@@ -166,5 +166,5 @@ data class CartEntity(
     val variantName: String,
 
     @ColumnInfo("isChecked")
-    val isChecked: Boolean = false
+    var isChecked: Boolean = false
 )

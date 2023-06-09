@@ -40,13 +40,20 @@ class ContentRepository(
             ecommerceDao.insertNewWishlist(data)
         }
     }
+
     fun deleteWishlist(data: DetailEntity) {
         GlobalScope.launch(Dispatchers.IO) {
             ecommerceDao.deleteWishlist(data)
         }
     }
 
-     fun isProductExist(productId: String): LiveData<Boolean> {
+    fun deleteCartEntity(cartEntity: CartEntity) {
+        GlobalScope.launch(Dispatchers.IO) {
+            ecommerceDao.deleteCart(cartEntity)
+        }
+    }
+
+    fun isProductExist(productId: String): LiveData<Boolean> {
         return ecommerceDao.isRecordExistsProductId(productId)
     }
 
@@ -58,6 +65,15 @@ class ContentRepository(
 
     fun getAllDataCart(): LiveData<List<CartEntity>> {
         return ecommerceDao.getAllCartProduct()
+    }
+
+    fun getProductCartThatSelected(): LiveData<List<CartEntity>> {
+        return ecommerceDao.getCheckboxThatChecked()
+    }
+
+    suspend fun setProductCartSelected(cartEntity: CartEntity, state: Boolean) {
+        cartEntity.isChecked = state
+        ecommerceDao.updateIsProductSelected(cartEntity)
     }
 
     fun getDataProduct(query: QueryProductModel): LiveData<PagingData<ItemsItem>> {
@@ -135,8 +151,8 @@ class ContentRepository(
 
     fun getPaymentMethod(
         onResponse: (Boolean, PaymentResponse?, throwable: String?) -> Unit
-    ){
-        apiService.getPayment().enqueue(object: Callback<PaymentResponse> {
+    ) {
+        apiService.getPayment().enqueue(object : Callback<PaymentResponse> {
             override fun onResponse(
                 call: Call<PaymentResponse>,
                 response: Response<PaymentResponse>

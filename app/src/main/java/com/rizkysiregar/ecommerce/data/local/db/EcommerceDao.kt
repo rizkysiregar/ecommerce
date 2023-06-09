@@ -26,9 +26,18 @@ interface EcommerceDao {
     @Query("SELECT * FROM tbl_cart")
     fun getAllCartProduct() : LiveData<List<CartEntity>>
 
+    @Query("SELECT * FROM tbl_cart WHERE isChecked = 1")
+    fun getCheckboxThatChecked(): LiveData<List<CartEntity>>
+
+    @Update
+    suspend fun updateIsProductSelected(cartEntity: CartEntity)
+
     @Query("SELECT EXISTS(SELECT * FROM tbl_wishlist WHERE productId = :productId)")
     fun isRecordExistsProductId(productId: String): LiveData<Boolean>
 
     @Delete
     fun deleteWishlist(data: DetailEntity)
+
+    @Delete
+    fun deleteCart(cartEntity: CartEntity)
 }

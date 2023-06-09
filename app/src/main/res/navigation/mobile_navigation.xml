@@ -76,7 +76,11 @@
         android:id="@+id/navigation_cart"
         android:name="com.rizkysiregar.ecommerce.ui.cart.CartFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_navigation_cart_to_checkout"
+            app:destination="@id/checkout" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_status"

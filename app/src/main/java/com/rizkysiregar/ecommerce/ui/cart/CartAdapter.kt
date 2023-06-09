@@ -19,7 +19,8 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
 
 
     interface OnItemClickListener {
-        fun onItemClick(item: CartEntity, isChecked: Boolean)
+        fun onItemClick(cartEntity: CartEntity, isChecked: Boolean)
+        fun onDeleteIconClick(cartEntity: CartEntity)
     }
 
     private var listener: OnItemClickListener? = null
@@ -44,8 +45,7 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
     }
 
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
-        private val binding = CartItemLayoutBinding.bind(item)
-
+        val binding = CartItemLayoutBinding.bind(item)
         fun bind(data: CartEntity) {
             with(binding) {
                 Glide.with(itemView.context)
@@ -57,9 +57,16 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
                 tvStockCart.text = "Sisa ${data.stock}"
                 tvPriceCart.text = "Rp. ${data.productPrice}"
 
-                checkbox.setOnCheckedChangeListener { _, isChecked ->
-                    listener?.onItemClick(data, isChecked)
-                    checkbox.isChecked = isChecked
+                checkbox.isChecked = data.isChecked
+
+                checkbox.setOnCheckedChangeListener { button, isChecked ->
+                    if (button.isPressed){
+                        listener?.onItemClick(data, isChecked)
+                    }
+                }
+
+                imgBtnDeleteCart.setOnClickListener {
+                    listener?.onDeleteIconClick(data)
                 }
 
                 binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->

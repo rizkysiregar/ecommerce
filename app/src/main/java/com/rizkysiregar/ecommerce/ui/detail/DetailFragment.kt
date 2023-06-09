@@ -202,7 +202,6 @@ class DetailFragment : Fragment() {
                 it.data.productPrice,
                 it.data.totalReview,
                 it.data.productVariant[1].variantName
-
             )
             try {
                 detailProductViewModel.insertProductToCart(cartEntity)
