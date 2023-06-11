@@ -1,9 +1,11 @@
 package com.rizkysiregar.ecommerce.data.network.response
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class DetailProductResponse(
 
@@ -120,8 +122,8 @@ data class DetailEntity(
     )
 
 @Entity(tableName = "tbl_cart")
+@Parcelize
 data class CartEntity(
-
     @ColumnInfo("image")
     val image: String,
 
@@ -165,6 +167,9 @@ data class CartEntity(
     @ColumnInfo("variantName")
     val variantName: String,
 
+    @ColumnInfo("quantity")
+    var quantity: Int = 1,
+
     @ColumnInfo("isChecked")
     var isChecked: Boolean = false
-)
+): Parcelable

@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -106,6 +107,7 @@ dependencies {
 
     // swipe refresh
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+
 
 // 48dp 32dp center inside
     // cameraX

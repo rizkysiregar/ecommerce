@@ -30,7 +30,6 @@ class ContentRepository(
     private val apiService: ApiService,
     private val ecommerceDao: EcommerceDao
 ) {
-
     fun getWishlist(): LiveData<List<DetailEntity>> {
         return ecommerceDao.getAllDataFromWishlist()
     }
@@ -74,6 +73,14 @@ class ContentRepository(
     suspend fun setProductCartSelected(cartEntity: CartEntity, state: Boolean) {
         cartEntity.isChecked = state
         ecommerceDao.updateIsProductSelected(cartEntity)
+    }
+
+    suspend fun setProductQuantity(cartEntity: CartEntity){
+        ecommerceDao.updateQuantityProduct(cartEntity)
+    }
+
+    fun getCountOfFalseValues(): LiveData<Int> {
+        return ecommerceDao.getCountOfFalseValues()
     }
 
     fun getDataProduct(query: QueryProductModel): LiveData<PagingData<ItemsItem>> {

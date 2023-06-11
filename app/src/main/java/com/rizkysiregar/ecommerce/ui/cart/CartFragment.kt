@@ -20,6 +20,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     private val binding get() = _binding!!
     private val cartViewModel: CartViewModel by viewModel()
     private lateinit var cartAdapter: CartAdapter
+    private var isAllCheckbox = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,46 +41,60 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
             recyclerview.layoutManager = LinearLayoutManager(requireContext())
             recyclerview.hasFixedSize()
             recyclerview.itemAnimator = null
+
+            binding.checkbox.setOnCheckedChangeListener { compoundButton, isChecked ->
+                if (compoundButton.isPressed) {
+                    for (product in it) {
+                        cartViewModel.setSelectedProduct(product, isChecked)
+                    }
+                }
+            }
         }
 
         binding.btnBuyCart.setOnClickListener {
             findNavController().navigate(R.id.action_navigation_cart_to_checkout)
         }
 
-        binding.checkbox.setOnClickListener {
-            // check all child box
-        }
         selectedProduct()
+        whenItemIsStillFalse()
     }
 
     override fun onItemClick(cartEntity: CartEntity, isChecked: Boolean) {
         // update isChecked in room
-            cartViewModel.setSelectedProduct(cartEntity, isChecked)
+        cartViewModel.setSelectedProduct(cartEntity, isChecked)
     }
 
     override fun onDeleteIconClick(cartEntity: CartEntity) {
         cartViewModel.delete(cartEntity)
     }
 
+    override fun onButtonCounterClick(cartEntity: CartEntity) {
+        cartViewModel.setQuantityProduct(cartEntity)
+    }
+
+    override fun onButtonReduceClick(cartEntity: CartEntity) {
+        cartViewModel.setQuantityProduct(cartEntity)
+    }
+
     private fun selectedProduct() {
         cartViewModel.getSelectedProduct.observe(viewLifecycleOwner) { listProduct ->
             var totalPrice = 0
             for (product in listProduct) {
-                totalPrice += product.productPrice
+                totalPrice += (product.productPrice * product.quantity)
             }
             binding.tvTotalPaymentCart.text = "Rp. $totalPrice"
         }
     }
 
-    private fun onItemChecked(listItemChecked: MutableList<CartEntity>) {
-        val counterPrice = listItemChecked.sumOf { it.productPrice }
-        binding.tvTotalPaymentCart.text = counterPrice.toString()
+    private fun whenItemIsStillFalse() {
+        cartViewModel.getCountOfFalseValue.observe(viewLifecycleOwner) { value ->
+            binding.checkbox.isChecked = (value == 0)
+            if (value == 1) {
+                binding.tvResetCart.visibility = View.VISIBLE
+            } else {
+                binding.tvResetCart.visibility = View.GONE
+            }
+        }
     }
 
-    private fun onItemUnChecked(totalPrice: Int, listItemChecked: MutableList<CartEntity>) {
-        val reducePrice = listItemChecked.fold(totalPrice) { acc, item ->
-            acc - item.productPrice
-        }
-        binding.tvTotalPaymentCart.text = reducePrice.toString()
-    }
 }

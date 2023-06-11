@@ -31,10 +31,17 @@ interface EcommerceDao {
 
     @Update
     suspend fun updateIsProductSelected(cartEntity: CartEntity)
-
+    @Update
+    suspend fun updateQuantityProduct(cartEntity: CartEntity)
     @Query("SELECT EXISTS(SELECT * FROM tbl_wishlist WHERE productId = :productId)")
     fun isRecordExistsProductId(productId: String): LiveData<Boolean>
 
+    // get boolean if all data isChecked in cart
+    @Query("SELECT COUNT(*) FROM tbl_cart WHERE isChecked = 0")
+    fun getCountOfFalseValues(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tbl_cart")
+    fun getTotalRowCount(): LiveData<Int>
     @Delete
     fun deleteWishlist(data: DetailEntity)
 

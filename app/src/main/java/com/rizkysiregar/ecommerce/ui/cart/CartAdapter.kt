@@ -17,10 +17,12 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
     RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
 
-
     interface OnItemClickListener {
         fun onItemClick(cartEntity: CartEntity, isChecked: Boolean)
         fun onDeleteIconClick(cartEntity: CartEntity)
+        fun onButtonCounterClick(cartEntity: CartEntity)
+
+        fun onButtonReduceClick(cartEntity: CartEntity)
     }
 
     private var listener: OnItemClickListener? = null
@@ -56,11 +58,12 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
                 tvVariantCart.text = data.variantName
                 tvStockCart.text = "Sisa ${data.stock}"
                 tvPriceCart.text = "Rp. ${data.productPrice}"
-
+                button2.text = data.quantity.toString()
+                button2.text = data.quantity.toString()
                 checkbox.isChecked = data.isChecked
 
                 checkbox.setOnCheckedChangeListener { button, isChecked ->
-                    if (button.isPressed){
+                    if (button.isPressed) {
                         listener?.onItemClick(data, isChecked)
                     }
                 }
@@ -89,36 +92,37 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
                     )
                 }
 
+                // when quantity reduce
                 button1.setOnClickListener {
-                    if (button2.text.toString().toInt() > 1) {
-                        val base = button2.text.toString().toInt()
-                        val reduce = base - 1
-                        button2.text = reduce.toString()
-                    } else if (button2.text.toString().toInt() == 1) {
+                    if (data.quantity > 1) {
+                        val cartEntity: CartEntity = data
+                        cartEntity.quantity -= 1
+                        listener?.onButtonReduceClick(cartEntity)
+                    } else if (data.quantity == 1) {
                         button2.text = "1"
                         Toast.makeText(
                             itemView.context,
-                            "minimum purchase is 1",
+                            "Minimum purchase is 1",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
+                // counter quantity
                 button3.setOnClickListener {
-                    if (button2.text.toString().toInt() >= data.stock) {
+                    if (data.quantity >= data.stock) {
                         Toast.makeText(
                             itemView.context,
                             "Maximum purchase limited by stock",
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        val base = binding.button2.text.toString()
-                        val add = base.toInt() + 1
-                        button2.text = add.toString()
+                        val cartEntity: CartEntity = data
+                        cartEntity.quantity += 1
+                        listener?.onButtonCounterClick(cartEntity)
                     }
                 }
             }
         }
     }
-
 }
