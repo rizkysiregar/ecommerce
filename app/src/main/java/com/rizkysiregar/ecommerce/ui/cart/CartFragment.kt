@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.setFragmentResult
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.databinding.FragmentCartBinding
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
@@ -20,7 +18,6 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     private val binding get() = _binding!!
     private val cartViewModel: CartViewModel by viewModel()
     private lateinit var cartAdapter: CartAdapter
-    private var isAllCheckbox = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,10 +48,6 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
             }
         }
 
-        binding.btnBuyCart.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_cart_to_checkout)
-        }
-
         selectedProduct()
         whenItemIsStillFalse()
     }
@@ -83,6 +76,11 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
                 totalPrice += (product.productPrice * product.quantity)
             }
             binding.tvTotalPaymentCart.text = "Rp. $totalPrice"
+
+            // when btn buy clicked
+            binding.btnBuyCart.setOnClickListener {
+                selectedProducts(listProduct)
+            }
         }
     }
 
@@ -95,6 +93,15 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
                 binding.tvResetCart.visibility = View.GONE
             }
         }
+    }
+
+    private fun selectedProducts(listProduct: List<CartEntity>) {
+        val navController = view?.findNavController()
+        val bundle = Bundle().apply {
+            putParcelableArrayList("selectedProducts", ArrayList(listProduct))
+        }
+        setFragmentResult("SELECTED_PRODUCTS", bundle)
+        navController?.navigate(R.id.navigation_checkout)
     }
 
 }

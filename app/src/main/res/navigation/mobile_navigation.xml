@@ -76,10 +76,11 @@
         android:id="@+id/navigation_cart"
         android:name="com.rizkysiregar.ecommerce.ui.cart.CartFragment"
         android:label="Cart"
-        tools:layout="@layout/fragment_cart" >
+        tools:layout="@layout/fragment_cart">
+
         <action
             android:id="@+id/action_navigation_cart_to_checkout"
-            app:destination="@id/checkout" />
+            app:destination="@id/navigation_checkout" />
     </fragment>
 
     <fragment
@@ -92,15 +93,21 @@
         android:id="@+id/navigation_payment"
         android:name="com.rizkysiregar.ecommerce.ui.payment.PaymentFragment"
         android:label="payment"
-        tools:layout="@layout/fragment_payment"
-        />
+        tools:layout="@layout/fragment_payment" />
 
     <fragment
-        android:id="@+id/checkout"
+        android:id="@+id/navigation_checkout"
         android:name="com.rizkysiregar.ecommerce.ui.checkout.CheckoutFragment"
         android:label="checkout"
-        tools:layout="@layout/fragment_checkout"
-        />
+        tools:layout="@layout/fragment_checkout">
+
+        <argument
+            android:name="selectedProduct"
+            android:defaultValue="@null"
+            app:argType="com.rizkysiregar.ecommerce.data.network.response.CartEntity[]"
+            app:nullable="true" />
+
+    </fragment>
 
     <dialog
         android:id="@+id/modelBottomSheet"

@@ -16,9 +16,8 @@ class ProductPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ItemsItem> {
-        return try {
+        try {
             val page = params.key ?: INITIAL_PAGE_INDEX
-            val paramLoadSize = params.loadSize
             val size = 10
             val responseData = apiService.getProducts(
                 query.search,
