@@ -174,3 +174,9 @@ data class CartEntity(
     @ColumnInfo("isChecked")
     var isChecked: Boolean = false
 ): Parcelable
+
+
+@Parcelize
+data class ListSelectedProducts(
+    val selectedProducts: List<CartEntity>
+): Parcelable

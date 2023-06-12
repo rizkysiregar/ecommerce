@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity() {
                     navView.visibility = View.GONE
                     binding.appBarLayout.visibility = View.GONE
                 }
-
                 R.id.navigation_detail -> {
                     binding.materialToolbar.setNavigationOnClickListener {
                         findNavController(R.id.nav_host_fragment_container).navigateUp()
@@ -53,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
-
                 R.id.navigation_review -> {
                     binding.materialToolbar.setNavigationOnClickListener {
                         findNavController(R.id.nav_host_fragment_container).navigateUp()
@@ -64,9 +62,14 @@ class MainActivity : AppCompatActivity() {
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
 //                    binding.materialToolbar.menu.clear()
                 }
-
                 R.id.navigation_cart -> {
                     navView.visibility = View.GONE
+                }
+                R.id.navigation_payment -> {
+                    navView.visibility = View.GONE
+                    binding.materialToolbar.title = "Pilih Pembayaran"
+                    binding.materialToolbar.navigationIcon =
+                        ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
 
                 else -> {

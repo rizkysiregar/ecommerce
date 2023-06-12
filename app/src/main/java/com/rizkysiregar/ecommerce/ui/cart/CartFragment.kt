@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
+import com.rizkysiregar.ecommerce.data.network.response.ListSelectedProducts
 import com.rizkysiregar.ecommerce.databinding.FragmentCartBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -97,11 +99,8 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
 
     private fun selectedProducts(listProduct: List<CartEntity>) {
         val navController = view?.findNavController()
-        val bundle = Bundle().apply {
-            putParcelableArrayList("selectedProducts", ArrayList(listProduct))
-        }
-        setFragmentResult("SELECTED_PRODUCTS", bundle)
-        navController?.navigate(R.id.navigation_checkout)
+        val data = ListSelectedProducts(listProduct)
+        val action = CartFragmentDirections.actionNavigationCartToCheckout(data)
+        navController?.navigate(action)
     }
-
 }

@@ -1,6 +1,8 @@
 package com.rizkysiregar.ecommerce.data.network.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
 data class PaymentResponse(
 
@@ -14,6 +16,7 @@ data class PaymentResponse(
 	val message: String
 )
 
+@Parcelize
 data class ItemsPayment(
 
 	@field:SerializedName("image")
@@ -24,7 +27,7 @@ data class ItemsPayment(
 
 	@field:SerializedName("status")
 	val status: Boolean
-)
+): Parcelable
 
 data class DataItem(
 
