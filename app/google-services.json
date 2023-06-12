@@ -1,0 +1,150 @@
+{
+  "project_info": {
+    "project_number": "271492914559",
+    "project_id": "tokophincon",
+    "storage_bucket": "tokophincon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271492914559:android:7ab76e2885b7879bf74e4a",
+        "android_client_info": {
+          "package_name": "com.dapascript.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLXbpLr44Ta0eJ4GAQC8BY2P48pZcKnpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271492914559:android:9ca962b11fcef424f74e4a",
+        "android_client_info": {
+          "package_name": "com.erbe.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271492914559-rumhkvu88f1pg27si8n8ilf4il9cg1cs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.erbe.ecommerce",
+            "certificate_hash": "b551fbbc2364c41490f750780514f7f9a588f0ac"
+          }
+        },
+        {
+          "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLXbpLr44Ta0eJ4GAQC8BY2P48pZcKnpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271492914559:android:f04e7539e3375efef74e4a",
+        "android_client_info": {
+          "package_name": "com.jeppung.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271492914559-1bfemvncc83oqb369n0pe3u8fc6f1ii0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jeppung.ecommerce",
+            "certificate_hash": "f0cadeca239964464d31681eee76957a5b9c803f"
+          }
+        },
+        {
+          "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLXbpLr44Ta0eJ4GAQC8BY2P48pZcKnpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271492914559:android:3b55bc279c4710cdf74e4a",
+        "android_client_info": {
+          "package_name": "com.rizkysiregar.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271492914559-fo4u8eg03eav6luga64m8ror51023acf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rizkysiregar.ecommerce",
+            "certificate_hash": "f1e25bc6af220d38efec38b3c6b6b4452ee7148d"
+          }
+        },
+        {
+          "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLXbpLr44Ta0eJ4GAQC8BY2P48pZcKnpg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271492914559-bs14nj6c9vd3vssfjnocncq7dcsou4q5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

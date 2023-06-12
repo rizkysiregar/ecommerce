@@ -1,6 +1,7 @@
 package com.rizkysiregar.ecommerce.data.di
 
 import com.rizkysiregar.ecommerce.ui.cart.CartViewModel
+import com.rizkysiregar.ecommerce.ui.checkout.CheckoutViewModel
 import com.rizkysiregar.ecommerce.ui.detail.DetailProductViewModel
 import com.rizkysiregar.ecommerce.ui.login.LoginViewModel
 import com.rizkysiregar.ecommerce.ui.payment.PaymentViewModel
@@ -8,6 +9,7 @@ import com.rizkysiregar.ecommerce.ui.profile.ProfileViewModel
 import com.rizkysiregar.ecommerce.ui.register.RegisterViewModel
 import com.rizkysiregar.ecommerce.ui.review.ReviewViewModel
 import com.rizkysiregar.ecommerce.ui.search.SearchViewModel
+import com.rizkysiregar.ecommerce.ui.status.StatusViewModel
 import com.rizkysiregar.ecommerce.ui.store.StoreViewModel
 import com.rizkysiregar.ecommerce.ui.wishlist.WishlistViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -24,4 +26,6 @@ val viewModelModule = module {
     viewModel { WishlistViewModel(get()) }
     viewModel { CartViewModel(get()) }
     viewModel { PaymentViewModel(get()) }
+    viewModel { CheckoutViewModel(get()) }
+    viewModel { StatusViewModel(get()) }
 }

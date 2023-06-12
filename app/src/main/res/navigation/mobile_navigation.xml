@@ -87,7 +87,14 @@
         android:id="@+id/navigation_status"
         android:name="com.rizkysiregar.ecommerce.ui.status.StatusFragment"
         android:label="Status"
-        tools:layout="@layout/fragment_status" />
+        tools:layout="@layout/fragment_status" >
+        <argument
+            android:name="statusTransaction"
+            app:argType="com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse" />
+        <action
+            android:id="@+id/action_navigation_status_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_payment"
@@ -106,6 +113,9 @@
         <action
             android:id="@+id/action_navigation_checkout_to_navigation_payment"
             app:destination="@id/navigation_payment" />
+        <action
+            android:id="@+id/action_navigation_checkout_to_navigation_status"
+            app:destination="@id/navigation_status" />
     </fragment>
 
     <dialog

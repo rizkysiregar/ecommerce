@@ -1,9 +1,13 @@
 package com.rizkysiregar.ecommerce.data.network.api
 
+import com.rizkysiregar.ecommerce.data.model.FulFillmentRequestModel
+import com.rizkysiregar.ecommerce.data.model.RatingModel
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
+import com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse
 import com.rizkysiregar.ecommerce.data.network.response.PaymentResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProductResponse
 import com.rizkysiregar.ecommerce.data.network.response.ProfileResponse
+import com.rizkysiregar.ecommerce.data.network.response.RatingResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
@@ -76,5 +80,12 @@ interface ApiService {
     // payment method
     @GET("payment")
     fun getPayment(): Call<PaymentResponse>
+
+    // fulfillment
+    @POST("fulfillment")
+    fun postFullFil(@Body body: FulFillmentRequestModel): Call<FulFillmentResponse>
+
+    @POST("rating")
+    fun postRating(@Body body: RatingModel): Call<RatingResponse>
 
 }

@@ -1,7 +1,9 @@
 package com.rizkysiregar.ecommerce
 
 import android.os.Bundle
+import android.text.Layout.Alignment
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -23,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.materialToolbar)
         setupNavigation()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.top_app_bar, menu)
@@ -71,6 +72,17 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
+                R.id.navigation_checkout -> {
+                    navView.visibility = View.GONE
+                    binding.materialToolbar.title = "Checkout"
+                    binding.materialToolbar.navigationIcon =
+                        ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                }
+                R.id.navigation_status -> {
+                    navView.visibility = View.GONE
+                    binding.materialToolbar.title = "Status"
+                    binding.materialToolbar.textAlignment = Gravity.CENTER_HORIZONTAL
+                }
 
                 else -> {
                     navView.visibility = View.VISIBLE
@@ -87,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.menu_cart -> {
                 findNavController(R.id.nav_host_fragment_container).navigate(R.id.navigation_cart)
-                Log.d("BUG", "KEPANGGIL KAH")
                 return true
             }
 
@@ -102,6 +113,5 @@ class MainActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
-
 
 }

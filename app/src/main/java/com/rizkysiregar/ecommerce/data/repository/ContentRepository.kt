@@ -6,13 +6,18 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.rizkysiregar.ecommerce.data.local.db.EcommerceDao
+import com.rizkysiregar.ecommerce.data.model.FulFillmentRequestModel
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
+import com.rizkysiregar.ecommerce.data.model.RatingModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailProductResponse
+import com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
 import com.rizkysiregar.ecommerce.data.network.response.PaymentResponse
+import com.rizkysiregar.ecommerce.data.network.response.RatingResponse
+import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
 import com.rizkysiregar.ecommerce.data.paging.ProductPagingSource
@@ -21,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -75,7 +81,7 @@ class ContentRepository(
         ecommerceDao.updateIsProductSelected(cartEntity)
     }
 
-    suspend fun setProductQuantity(cartEntity: CartEntity){
+    suspend fun setProductQuantity(cartEntity: CartEntity) {
         ecommerceDao.updateQuantityProduct(cartEntity)
     }
 
@@ -172,5 +178,41 @@ class ContentRepository(
                 onResponse(false, null, t.message.toString())
             }
         })
+    }
+
+    fun fulFillment(
+        request: FulFillmentRequestModel,
+        onResponse: (Boolean, FulFillmentResponse?, throwable: String?) -> Unit
+    ) {
+        apiService.postFullFil(request).enqueue(object : Callback<FulFillmentResponse> {
+            override fun onResponse(
+                call: Call<FulFillmentResponse>,
+                response: Response<FulFillmentResponse>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody, null)
+            }
+
+            override fun onFailure(call: Call<FulFillmentResponse>, t: Throwable) {
+                onResponse(false, null, t.message.toString())
+            }
+        })
+    }
+
+    fun ratingProduct(
+        request: RatingModel,
+        onResponse: (Boolean, RatingResponse?, throwable: String?) -> Unit
+    ) {
+       apiService.postRating(request). enqueue(object: Callback<RatingResponse> {
+           override fun onResponse(call: Call<RatingResponse>, response: Response<RatingResponse>) {
+               val responseBody = response.body()
+               onResponse(response.isSuccessful, responseBody, null)
+           }
+
+           override fun onFailure(call: Call<RatingResponse>, t: Throwable) {
+               onResponse(false, null, t.message.toString())
+           }
+
+       })
     }
 }
