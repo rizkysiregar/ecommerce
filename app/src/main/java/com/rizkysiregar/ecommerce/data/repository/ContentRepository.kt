@@ -20,6 +20,7 @@ import com.rizkysiregar.ecommerce.data.network.response.RatingResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
+import com.rizkysiregar.ecommerce.data.network.response.TransactionResponse
 import com.rizkysiregar.ecommerce.data.paging.ProductPagingSource
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
@@ -203,16 +204,37 @@ class ContentRepository(
         request: RatingModel,
         onResponse: (Boolean, RatingResponse?, throwable: String?) -> Unit
     ) {
-       apiService.postRating(request). enqueue(object: Callback<RatingResponse> {
-           override fun onResponse(call: Call<RatingResponse>, response: Response<RatingResponse>) {
-               val responseBody = response.body()
-               onResponse(response.isSuccessful, responseBody, null)
-           }
+        apiService.postRating(request).enqueue(object : Callback<RatingResponse> {
+            override fun onResponse(
+                call: Call<RatingResponse>,
+                response: Response<RatingResponse>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody, null)
+            }
 
-           override fun onFailure(call: Call<RatingResponse>, t: Throwable) {
-               onResponse(false, null, t.message.toString())
-           }
+            override fun onFailure(call: Call<RatingResponse>, t: Throwable) {
+                onResponse(false, null, t.message.toString())
+            }
 
-       })
+        })
+    }
+
+    fun getTransaction(onResponse: (Boolean, TransactionResponse?, throwable: String?) -> Unit) {
+        apiService.getTransaction().enqueue(object : Callback<TransactionResponse> {
+            override fun onResponse(
+                call: Call<TransactionResponse>,
+                response: Response<TransactionResponse>
+            ) {
+                val responseBody = response.body()
+                onResponse(response.isSuccessful, responseBody, null)
+            }
+
+            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
+                onResponse(false, null, t.message.toString())
+            }
+
+        })
+
     }
 }

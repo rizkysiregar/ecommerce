@@ -11,6 +11,7 @@ import com.rizkysiregar.ecommerce.data.network.response.RatingResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.network.response.ResponseReview
 import com.rizkysiregar.ecommerce.data.network.response.SearchResponse
+import com.rizkysiregar.ecommerce.data.network.response.TransactionResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -87,5 +88,8 @@ interface ApiService {
 
     @POST("rating")
     fun postRating(@Body body: RatingModel): Call<RatingResponse>
+
+    @GET("transaction")
+    fun getTransaction(): Call<TransactionResponse>
 
 }

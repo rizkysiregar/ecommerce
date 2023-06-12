@@ -11,6 +11,7 @@ import com.rizkysiregar.ecommerce.ui.review.ReviewViewModel
 import com.rizkysiregar.ecommerce.ui.search.SearchViewModel
 import com.rizkysiregar.ecommerce.ui.status.StatusViewModel
 import com.rizkysiregar.ecommerce.ui.store.StoreViewModel
+import com.rizkysiregar.ecommerce.ui.transaction.TransactionViewModel
 import com.rizkysiregar.ecommerce.ui.wishlist.WishlistViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -28,4 +29,5 @@ val viewModelModule = module {
     viewModel { PaymentViewModel(get()) }
     viewModel { CheckoutViewModel(get()) }
     viewModel { StatusViewModel(get()) }
+    viewModel { TransactionViewModel(get()) }
 }

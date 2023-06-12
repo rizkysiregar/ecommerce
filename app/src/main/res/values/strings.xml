@@ -114,4 +114,9 @@
     <string name="pay_method">Metode Pembayaran</string>
     <string name="done">selesai</string>
 
+    <!--  Transaction  -->
+    <string name="shopping">Belanja</string>
+    <string name="review">Ulas</string>
+    <string name="total_spending">Total Belanja</string>
+
 </resources>
