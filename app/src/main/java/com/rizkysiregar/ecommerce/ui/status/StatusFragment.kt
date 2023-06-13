@@ -10,12 +10,14 @@ import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.RatingModel
 import com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse
 import com.rizkysiregar.ecommerce.databinding.FragmentCheckoutBinding
 import com.rizkysiregar.ecommerce.databinding.FragmentStatusBinding
 import com.rizkysiregar.ecommerce.ui.checkout.CheckoutViewModel
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -25,6 +27,7 @@ class StatusFragment : Fragment() {
     private val binding get() = _binding!!
     private val args: StatusFragmentArgs by navArgs()
     private val statusViewModel: StatusViewModel by viewModel()
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -47,16 +50,19 @@ class StatusFragment : Fragment() {
         val review = binding.review.text.toString()
         val rating = binding.ratingbarStatus.rating.toInt()
         binding.btnDoneStatus.setOnClickListener {
-            val model = RatingModel(review,rating, dataStatus.data.invoiceId)
+            val model = RatingModel(review, rating, dataStatus.data.invoiceId)
             statusViewModel.postStatusOrder(model)
 
             statusViewModel.data.observe(viewLifecycleOwner) {
                 Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 val navController = view.findNavController()
                 navController.navigate(R.id.action_navigation_status_to_navigation_home)
+
+                val buttonClick = Bundle().apply {
+                    putString(FirebaseAnalytics.Param.ITEMS, it.message)
+                }
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, buttonClick)
             }
         }
-
     }
-
 }

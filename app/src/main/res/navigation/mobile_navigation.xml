@@ -29,9 +29,6 @@
         android:label="@string/store"
         tools:layout="@layout/fragment_store">
 
-        <argument
-            android:name="filter"
-            app:argType="string[]" />
         <action
             android:id="@+id/action_navigation_store_to_navigation_search"
             app:destination="@id/navigation_search" />
@@ -41,6 +38,7 @@
         <action
             android:id="@+id/action_navigation_store_to_navigation_detail"
             app:destination="@id/navigation_detail" />
+
 
     </fragment>
 
@@ -80,14 +78,14 @@
 
         <action
             android:id="@+id/action_navigation_cart_to_checkout"
-            app:destination="@id/navigation_checkout"/>
+            app:destination="@id/navigation_checkout" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_status"
         android:name="com.rizkysiregar.ecommerce.ui.status.StatusFragment"
         android:label="Status"
-        tools:layout="@layout/fragment_status" >
+        tools:layout="@layout/fragment_status">
         <argument
             android:name="statusTransaction"
             app:argType="com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse" />
@@ -126,6 +124,7 @@
         <action
             android:id="@+id/action_modelBottomSheet_to_navigation_store"
             app:destination="@id/navigation_store" />
+
     </dialog>
 
 

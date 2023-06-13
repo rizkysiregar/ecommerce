@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
@@ -14,23 +15,28 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.chip.Chip
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.databinding.FragmentStoreBinding
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductClickListener {
+
+class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener {
 
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
     private val storeViewModel: StoreViewModel by viewModel()
     private lateinit var shimmer: ShimmerFrameLayout
     val adapter = ProductListAdapter()
-    var baseQueryFilter: QueryProductModel = QueryProductModel(null, null, null, null, null)
-
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // empty query
+        getData(QueryProductModel())
 
         // start shimmer
         shimmer = binding.shimmerStore
@@ -39,15 +45,19 @@ class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductCl
         // fetch data from api
         binding.rvItem.layoutManager = LinearLayoutManager(requireContext())
 
-        // hit product without query
-        getData(baseQueryFilter)
-
         // set query search
         setFragmentResultListener("RESULT") { _, bundle ->
             val receivedData = bundle.getString("bundle")
-            val query = QueryProductModel(receivedData.toString(), null, null, null, null)
+            val query = QueryProductModel(search = receivedData.toString())
             getData(query)
             binding.edtSearch.setText(receivedData)
+        }
+
+        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) {_, bundle ->
+            val receivedFilter = bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
+            receivedFilter?.let {
+                getData(it)
+            }
         }
 
         // when search clicked
@@ -128,7 +138,7 @@ class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductCl
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
-            getData(baseQueryFilter)
+            getData(QueryProductModel())
             binding.swipeRefresh.isRefreshing = false
         }
     }
@@ -136,11 +146,10 @@ class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductCl
     private fun callBottomSheet() {
         val fragmentManager = childFragmentManager
         val modalBottomSheet = ModelBottomSheet()
-        modalBottomSheet.setOnDataPassedListener(this)
         modalBottomSheet.show(fragmentManager, "ModalBottomSheet")
     }
 
-    override fun onDataPassed(data: QueryProductModel) {
+    fun setChipBaseOnQuery(data: QueryProductModel) {
         // hit product with query filter
         if (data.brand!!.isNotEmpty()) {
             getData(data)
@@ -184,6 +193,10 @@ class StoreFragment : Fragment(), DataPassed, ProductListAdapter.OnItemProductCl
     }
 
     override fun onItemClick(id: String) {
+        val selectedItem = bundleOf().apply {
+            putString(FirebaseAnalytics.Param.INDEX, id)
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, selectedItem)
         val navController = view?.findNavController()
         val bundle = Bundle().apply {
             putString("itemId", id)

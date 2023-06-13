@@ -12,9 +12,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/rv_item"
-        app:layout_constraintEnd_toEndOf="@+id/rv_item"
-        app:layout_constraintStart_toStartOf="@+id/rv_item"
+        app:layout_constraintBottom_toBottomOf="@+id/swipeRefresh"
+        app:layout_constraintEnd_toEndOf="@+id/swipeRefresh"
+        app:layout_constraintStart_toStartOf="@+id/swipeRefresh"
         app:layout_constraintTop_toTopOf="@+id/scrollView">
 
         <LinearLayout
@@ -63,23 +63,22 @@
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="25dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
+        app:layout_constraintEnd_toStartOf="@+id/divider_filter"
         app:layout_constraintStart_toStartOf="@+id/input_layout_search"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_search">
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chip_group"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             app:singleLine="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/action_chip"
                 style="@style/Widget.Material3.Chip.Input"
-                app:closeIconEnabled="false"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:text="@string/chip_filter"
@@ -89,9 +88,18 @@
                 app:chipIconTint="@color/black"
                 app:chipStartPadding="8dp"
                 app:chipStrokeColor="@color/grey_divider"
-                app:chipStrokeWidth="1dp" />
+                app:chipStrokeWidth="1dp"
+                app:closeIconEnabled="false" />
         </com.google.android.material.chip.ChipGroup>
     </ScrollView>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_filter"
+        android:layout_width="2dp"
+        android:layout_height="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/list_rv"
+        app:layout_constraintEnd_toStartOf="@+id/list_rv"
+        app:layout_constraintTop_toTopOf="@+id/list_rv" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/list_rv"
@@ -101,7 +109,6 @@
         android:src="@drawable/baseline_list_alt_24"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView"
         app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
-        app:layout_constraintStart_toEndOf="@+id/scrollView"
         app:layout_constraintTop_toTopOf="@+id/scrollView" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout

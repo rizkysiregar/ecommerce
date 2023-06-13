@@ -9,18 +9,22 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private val registerViewModel: RegisterViewModel by viewModel()
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
@@ -60,6 +64,11 @@ class RegisterActivity : AppCompatActivity() {
         val edtEmail = binding.edtEmail.text.toString()
         val edtPassword = binding.edtPassword.text.toString()
         val data = RegisterModel(edtEmail, edtPassword)
+
+        val bundleEmail = bundleOf().apply {
+            putString(FirebaseAnalytics.Param.ITEM_ID, "Email")
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundleEmail)
         registerViewModel.registerNewUser(data)
     }
 

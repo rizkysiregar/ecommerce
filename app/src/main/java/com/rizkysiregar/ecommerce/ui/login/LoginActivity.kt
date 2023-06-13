@@ -9,18 +9,23 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityLoginBinding
 import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModel()
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -31,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         // event to mainActivity
         val btnLogin = binding.btnMasukLogin
         btnLogin.setOnClickListener {
+
             try {
                 login()
                 setPreference()
@@ -58,8 +64,14 @@ class LoginActivity : AppCompatActivity() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
         val modelData = RegisterModel(email, password)
+
+        val bundleEmail = bundleOf().apply {
+            putString(FirebaseAnalytics.Param.ITEM_ID, "Email")
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundleEmail)
         loginViewModel.loginUser(modelData)
     }
+
     private fun setPreference() {
         loginViewModel.data.observe(this) {
             PreferenceManager.setAccessToken(this, it.data.accessToken)

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.FulFillmentRequestModel
 import com.rizkysiregar.ecommerce.data.model.ItemModel
@@ -21,6 +22,7 @@ import com.rizkysiregar.ecommerce.data.network.response.ItemsPayment
 import com.rizkysiregar.ecommerce.data.network.response.ListSelectedProducts
 import com.rizkysiregar.ecommerce.databinding.FragmentCheckoutBinding
 import com.rizkysiregar.ecommerce.ui.payment.PaymentFragment
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -32,6 +34,7 @@ class CheckoutFragment : Fragment() {
     private val args: CheckoutFragmentArgs by navArgs()
     private var _selectedPayment: ItemsPayment = ItemsPayment("", "", false)
     private val checkoutViewModel: CheckoutViewModel by viewModel()
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,8 +46,18 @@ class CheckoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         // get selectedProduct from checkout
         val selectedProduct: ListSelectedProducts = args.selectedProducts
+
+        // Begin Checkout Firebase
+        val bundleBeginCheckout = Bundle().apply {
+            putParcelable(FirebaseAnalytics.Param.ITEMS, selectedProduct)
+        }
+
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.BEGIN_CHECKOUT, bundleBeginCheckout)
+
+        // setRecyclerview
         setRecyclerview(selectedProduct.selectedProducts)
 
         // selected payment method
@@ -57,6 +70,11 @@ class CheckoutFragment : Fragment() {
             receivedData?.let {
                 _selectedPayment = it
             }
+            // Begin Checkout Firebase
+            val paymentInfoBundle = Bundle().apply {
+                putParcelable(FirebaseAnalytics.Param.ITEMS, receivedData)
+            }
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO, paymentInfoBundle)
         }
 
         binding.cardPayment.setOnClickListener {
@@ -87,6 +105,11 @@ class CheckoutFragment : Fragment() {
                 val action =
                     CheckoutFragmentDirections.actionNavigationCheckoutToNavigationStatus(it)
                 navController?.navigate(action)
+
+                val purchaseBundle = Bundle().apply {
+                    putParcelable(FirebaseAnalytics.Param.ITEMS, it)
+                }
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.PURCHASE, purchaseBundle)
             }
         }
     }

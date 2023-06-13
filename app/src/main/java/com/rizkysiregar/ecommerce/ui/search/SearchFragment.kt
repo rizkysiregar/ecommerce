@@ -9,12 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.databinding.FragmentSearchBinding
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -25,6 +28,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchAdapter: SearchAdapter
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,6 +62,11 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
             recyclerView.adapter = searchAdapter
             recyclerView.layoutManager = LinearLayoutManager(requireContext())
             recyclerView.hasFixedSize()
+
+            val bundleSearch = bundleOf().apply {
+                putString(FirebaseAnalytics.Param.ITEM_ID, "SearchResult")
+            }
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_SEARCH_RESULTS, bundleSearch)
         }
     }
 

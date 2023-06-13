@@ -215,6 +215,7 @@
                 android:layout_width="160dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
+                android:text="0"
                 android:hint="@string/hint_lowest"
                 android:inputType="number" />
 
@@ -230,6 +231,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_tertinggi"
                 android:layout_width="160dp"
+                android:text="0"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_highest"
                 android:inputType="number" />

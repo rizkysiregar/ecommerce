@@ -1,7 +1,9 @@
 package com.rizkysiregar.ecommerce
 
 import android.app.Application
+import com.google.firebase.FirebaseApp
 import com.rizkysiregar.ecommerce.data.di.databaseModule
+import com.rizkysiregar.ecommerce.data.di.firebaseAnalyticsModule
 import com.rizkysiregar.ecommerce.data.di.networkModule
 import com.rizkysiregar.ecommerce.data.di.repositoryModule
 import com.rizkysiregar.ecommerce.data.di.viewModelModule
@@ -13,6 +15,7 @@ import org.koin.core.logger.Level
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        FirebaseApp.initializeApp(this)
         startKoin {
             androidLogger(Level.NONE)
             androidContext(this@MyApplication)
@@ -21,7 +24,8 @@ class MyApplication : Application() {
                     networkModule,
                     viewModelModule,
                     repositoryModule,
-                    databaseModule
+                    databaseModule,
+                    firebaseAnalyticsModule
                 )
             )
         }

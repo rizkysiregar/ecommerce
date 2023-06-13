@@ -4,6 +4,9 @@ import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import com.rizkysiregar.ecommerce.BuildConfig
 import com.rizkysiregar.ecommerce.data.local.db.AppExecutors
@@ -33,6 +36,10 @@ val databaseModule = module {
         ).fallbackToDestructiveMigration()
             .build()
     }
+}
+
+val firebaseAnalyticsModule = module {
+    single { FirebaseAnalytics.getInstance(get()) }
 }
 
 val networkModule = module {

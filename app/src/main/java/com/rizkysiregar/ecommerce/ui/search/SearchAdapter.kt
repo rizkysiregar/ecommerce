@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkysiregar.ecommerce.databinding.ListSearchBinding
-import com.rizkysiregar.ecommerce.ui.store.DataPassed
 
 class SearchAdapter(private val data: List<String>) :
     RecyclerView.Adapter<SearchAdapter.ViewHolder>() {

@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.ListSelectedProducts
 import com.rizkysiregar.ecommerce.databinding.FragmentCartBinding
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
@@ -20,6 +22,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     private val binding get() = _binding!!
     private val cartViewModel: CartViewModel by viewModel()
     private lateinit var cartAdapter: CartAdapter
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +64,13 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
 
     override fun onDeleteIconClick(cartEntity: CartEntity) {
         cartViewModel.delete(cartEntity)
+        val itemProduct = Bundle().apply {
+            putString(FirebaseAnalytics.Param.ITEM_ID, cartEntity.productId)
+            putString(FirebaseAnalytics.Param.ITEM_NAME, cartEntity.productName)
+            putString(FirebaseAnalytics.Param.ITEM_BRAND, cartEntity.brand)
+            putInt(FirebaseAnalytics.Param.PRICE, cartEntity.productPrice)
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.REMOVE_FROM_CART, itemProduct)
     }
 
     override fun onButtonCounterClick(cartEntity: CartEntity) {

@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.databinding.ModalBottomSheetContentBinding
 
 class ModelBottomSheet : BottomSheetDialogFragment() {
-
     private lateinit var binding: ModalBottomSheetContentBinding
-    private var onDataPassedListener: DataPassed? = null
 
     var search: String = ""
     var brand: String = ""
@@ -24,7 +23,7 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ModalBottomSheetContentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -70,15 +69,32 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
                 lowest = binding.edtTerendah.text.toString().toInt()
                 highest = binding.edtTertinggi.text.toString().toInt()
                 val data = QueryProductModel(search, brand, lowest, highest, sort)
-                onDataPassedListener?.onDataPassed(data)
-                dismiss()
+                // nav args
+                selectedProducts(queryProductModel = data)
             } catch (e: Exception) {
-                Toast.makeText(requireActivity(),e.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), e.toString(), Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    fun setOnDataPassedListener(listener: DataPassed) {
-        onDataPassedListener = listener
+
+    private fun selectedProducts(queryProductModel: QueryProductModel) {
+        val data = QueryProductModel(
+            search = queryProductModel.search,
+            brand = queryProductModel.brand,
+            lowest = queryProductModel.lowest,
+            highest = queryProductModel.highest,
+            sort = queryProductModel.sort
+        )
+        val bundle = Bundle().apply {
+            putParcelable(BUNDLE_FILTER, data)
+        }
+        setFragmentResult(RESULT_FILTER, bundle)
+        dismiss()
+    }
+
+    companion object {
+        const val BUNDLE_FILTER = "bundleFilter"
+        const val RESULT_FILTER = "resultFilter"
     }
 }
