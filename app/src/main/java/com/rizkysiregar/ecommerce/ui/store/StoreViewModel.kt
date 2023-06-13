@@ -14,8 +14,6 @@ import com.rizkysiregar.ecommerce.data.repository.ContentRepository
 class StoreViewModel(private val contentRepository: ContentRepository) : ViewModel() {
 //    fun product(queryProductModel: QueryProductModel): LiveData<PagingData<ItemsItem>> =
 //        contentRepository.getDataProduct(queryProductModel).cachedIn(viewModelScope)
-    private var baseQueryFilter: QueryProductModel = QueryProductModel(null, null, null, null, null)
-
 
     private var _query = MutableLiveData<QueryProductModel>()
     private val _result = _query.switchMap { query ->

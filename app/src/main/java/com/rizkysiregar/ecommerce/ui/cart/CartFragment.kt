@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.ListSelectedProducts
 import com.rizkysiregar.ecommerce.databinding.FragmentCartBinding
@@ -27,7 +24,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCartBinding.inflate(inflater, container, false)
         return binding.root
     }

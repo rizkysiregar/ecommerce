@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -18,10 +19,13 @@ import com.google.android.material.chip.Chip
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
+import com.rizkysiregar.ecommerce.data.network.api.queryErrorState
 import com.rizkysiregar.ecommerce.databinding.FragmentStoreBinding
 import kotlinx.coroutines.launch
+import okio.IOException
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import retrofit2.HttpException
 
 
 class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener {
@@ -53,8 +57,9 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
             binding.edtSearch.setText(receivedData)
         }
 
-        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) {_, bundle ->
-            val receivedFilter = bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
+        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) { _, bundle ->
+            val receivedFilter =
+                bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
             receivedFilter?.let {
                 getData(it)
             }
@@ -128,11 +133,44 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
         }
 
         lifecycleScope.launch {
-            adapter.addLoadStateListener {
+            adapter.addLoadStateListener { loadState ->
+                val errorState = when {
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+
                 shimmer.visibility =
-                    if (it.refresh is LoadState.Loading) View.VISIBLE else View.GONE
-                binding.containerLayoutErorr.visibility =
-                    if (it.refresh is LoadState.Error) View.VISIBLE else View.GONE
+                    if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+
+                when (val throwable = errorState?.error) {
+                    is IOException -> {
+                        if (throwable.localizedMessage == "Failed to connect to $queryErrorState") {
+                            binding.containerLayoutErorr.visibility = View.VISIBLE
+                            binding.errorLayout.tvTitleError.text = "Connection"
+                            binding.errorLayout.descError.text = "Your connection lost"
+                        }
+                    }
+
+                    is HttpException -> {
+                        if (throwable.code() == 401) {
+                            Toast.makeText(
+                                requireContext(),
+                                "Your Token is Expires",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            binding.containerLayoutErorr.visibility = View.VISIBLE
+                            binding.errorLayout.tvTitleError.text = "401 Unauthorized"
+                            binding.errorLayout.descError.text =
+                                "Your Token is Expires pleas login again"
+                        } else {
+                            binding.containerLayoutErorr.visibility = View.VISIBLE
+                            binding.errorLayout.tvTitleError.text = "500 Internal Server Error"
+                            binding.errorLayout.descError.text = "Something went wrong"
+                        }
+                    }
+                }
             }
         }
 

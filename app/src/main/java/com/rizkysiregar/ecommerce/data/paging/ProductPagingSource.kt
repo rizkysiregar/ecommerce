@@ -5,6 +5,8 @@ import androidx.paging.PagingState
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
 import com.rizkysiregar.ecommerce.data.network.response.ItemsItem
+import retrofit2.HttpException
+import java.io.IOException
 
 class ProductPagingSource(
     private val apiService: ApiService,
@@ -34,7 +36,11 @@ class ProductPagingSource(
             val nextKey = if (page < responseData.data.totalPages) page + 1 else null
 
             return LoadResult.Page(item, prevKey, nextKey)
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            return LoadResult.Error(e)
+        } catch (e: HttpException){
+            return LoadResult.Error(e)
+        } catch (e: Exception){
             return LoadResult.Error(e)
         }
     }
@@ -45,6 +51,4 @@ class ProductPagingSource(
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
-
-
 }
