@@ -16,9 +16,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() =_binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,11 +25,15 @@ class HomeFragment : Fragment() {
                 PreferenceManager.setRefreshToken(requireContext(), "")
                 PreferenceManager.setAccessToken(requireContext(),  "")
                 PreferenceManager.setIsLogin(requireContext(), false)
-
                 startActivity(Intent(requireContext(), LoginActivity::class.java))
                 requireActivity().finish()
             }
         }
+
+        binding.btnCrash.setOnClickListener {
+            throw RuntimeException("Test Crash")
+        }
+
     }
 
     override fun onCreateView(

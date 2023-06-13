@@ -1,9 +1,8 @@
 package com.rizkysiregar.ecommerce
 
+import android.graphics.Color
+import android.graphics.Rect
 import android.os.Bundle
-import android.text.Layout.Alignment
-import android.util.Log
-import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -11,21 +10,38 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.badge.BadgeUtils
+import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.rizkysiregar.ecommerce.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
+    private val mainActivityViewModel: MainActivityViewModel by viewModel()
+    @ExperimentalBadgeUtils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.materialToolbar)
         setupNavigation()
-    }
+        mainActivityViewModel.getItemCountWishList.observe(this) {
+            binding.navView.getOrCreateBadge(R.id.navigation_wishlist).number = it
+        }
 
+        mainActivityViewModel.getItemCountCart.observe(this) { itemCount ->
+            binding.materialToolbar.viewTreeObserver.addOnGlobalLayoutListener {
+                val badged = BadgeDrawable.create(this).apply {
+                    isVisible = itemCount != 0
+                    number = itemCount
+                }
+                BadgeUtils.attachBadgeDrawable(badged, binding.materialToolbar, R.id.navigation_cart)
+            }
+        }
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.top_app_bar, menu)
         return true
@@ -44,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                     navView.visibility = View.GONE
                     binding.appBarLayout.visibility = View.GONE
                 }
+
                 R.id.navigation_detail -> {
                     binding.materialToolbar.setNavigationOnClickListener {
                         findNavController(R.id.nav_host_fragment_container).navigateUp()
@@ -53,6 +70,7 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
+
                 R.id.navigation_review -> {
                     binding.materialToolbar.setNavigationOnClickListener {
                         findNavController(R.id.nav_host_fragment_container).navigateUp()
@@ -63,25 +81,29 @@ class MainActivity : AppCompatActivity() {
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
 //                    binding.materialToolbar.menu.clear()
                 }
+
                 R.id.navigation_cart -> {
                     navView.visibility = View.GONE
                 }
+
                 R.id.navigation_payment -> {
                     navView.visibility = View.GONE
                     binding.materialToolbar.title = "Pilih Pembayaran"
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
+
                 R.id.navigation_checkout -> {
                     navView.visibility = View.GONE
                     binding.materialToolbar.title = "Checkout"
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
+
                 R.id.navigation_status -> {
                     navView.visibility = View.GONE
                     binding.materialToolbar.title = "Status"
-                    binding.materialToolbar.textAlignment = Gravity.CENTER_HORIZONTAL
+                    binding.materialToolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 }
 
                 else -> {

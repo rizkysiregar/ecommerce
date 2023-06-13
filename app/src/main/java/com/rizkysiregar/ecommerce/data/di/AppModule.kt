@@ -1,5 +1,6 @@
 package com.rizkysiregar.ecommerce.data.di
 
+import com.rizkysiregar.ecommerce.MainActivityViewModel
 import com.rizkysiregar.ecommerce.ui.cart.CartViewModel
 import com.rizkysiregar.ecommerce.ui.checkout.CheckoutViewModel
 import com.rizkysiregar.ecommerce.ui.detail.DetailProductViewModel
@@ -30,4 +31,5 @@ val viewModelModule = module {
     viewModel { CheckoutViewModel(get()) }
     viewModel { StatusViewModel(get()) }
     viewModel { TransactionViewModel(get()) }
+    viewModel { MainActivityViewModel(get()) }
 }

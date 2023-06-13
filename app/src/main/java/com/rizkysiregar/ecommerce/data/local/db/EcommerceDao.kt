@@ -41,6 +41,12 @@ interface EcommerceDao {
     fun getCountOfFalseValues(): LiveData<Int>
 
     @Query("SELECT COUNT(*) FROM tbl_cart")
+    fun getItemCountCart(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tbl_wishlist")
+    fun getCountItemWishlist(): LiveData<Int>
+
+    @Query("SELECT COUNT(*) FROM tbl_cart")
     fun getTotalRowCount(): LiveData<Int>
     @Delete
     fun deleteWishlist(data: DetailEntity)

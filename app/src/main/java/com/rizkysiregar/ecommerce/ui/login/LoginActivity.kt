@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
+import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
 import com.rizkysiregar.ecommerce.data.model.RegisterModel
 import com.rizkysiregar.ecommerce.databinding.ActivityLoginBinding
 import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
@@ -30,14 +31,19 @@ class LoginActivity : AppCompatActivity() {
         // event to mainActivity
         val btnLogin = binding.btnMasukLogin
         btnLogin.setOnClickListener {
-            val email = binding.edtEmail.text.toString()
-            val password = binding.edtPassword.text.toString()
-
-            val modelData = RegisterModel(email, password)
             try {
-                loginViewModel.loginUser(modelData)
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
+                login()
+                setPreference()
+                loginViewModel.data.observe(this) {
+                    if (it.message == "OK") {
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                        PreferenceManager.setIsLogin(this, true)
+                        startActivity(Intent(this, MainActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
             } catch (e: Exception) {
                 Toast.makeText(this, "Error: ${e.message.toString()}", Toast.LENGTH_SHORT).show()
             }
@@ -45,6 +51,19 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnDaftarLogin.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+    }
+
+    private fun login() {
+        val email = binding.edtEmail.text.toString()
+        val password = binding.edtPassword.text.toString()
+        val modelData = RegisterModel(email, password)
+        loginViewModel.loginUser(modelData)
+    }
+    private fun setPreference() {
+        loginViewModel.data.observe(this) {
+            PreferenceManager.setAccessToken(this, it.data.accessToken)
+            PreferenceManager.setRefreshToken(this, it.data.refreshToken)
         }
     }
 
@@ -116,9 +135,6 @@ class LoginActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 //
             }
-
         })
-
     }
-
 }

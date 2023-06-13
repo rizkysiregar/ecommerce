@@ -90,6 +90,13 @@ class ContentRepository(
         return ecommerceDao.getCountOfFalseValues()
     }
 
+    fun getItemCountCart(): LiveData<Int> {
+        return ecommerceDao.getItemCountCart()
+    }
+    fun getCountWishlist(): LiveData<Int> {
+        return ecommerceDao.getCountItemWishlist()
+    }
+
     fun getDataProduct(query: QueryProductModel): LiveData<PagingData<ItemsItem>> {
         return Pager(
             config = PagingConfig(

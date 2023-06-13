@@ -37,9 +37,8 @@ class RegisterActivity : AppCompatActivity() {
                     if (isRegisterSuccess == "OK") {
                         Toast.makeText(this, "Welcome", Toast.LENGTH_SHORT)
                             .show()
+                        PreferenceManager.setIsLogin(this, true)
                         startActivity(Intent(this, ProfileActivity::class.java))
-//                        val intent = Intent(this, ProfileActivity::class.java)
-//                        startActivityForResult(intent, Activity.RESULT_OK)
                         finish()
                     } else {
                         Toast.makeText(this, it.message, Toast.LENGTH_SHORT)
