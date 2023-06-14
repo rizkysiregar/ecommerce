@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.rizkysiregar.ecommerce.data.model.RegisterModel
+import com.rizkysiregar.ecommerce.data.model.RegisterLoginModel
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ class LoginViewModel(private val userRepository: UserRepository) : ViewModel() {
     private val _data = MutableLiveData<RegisterResponse>()
     val data: MutableLiveData<RegisterResponse> = _data
 
-    fun loginUser(data: RegisterModel) {
+    fun loginUser(data: RegisterLoginModel) {
         viewModelScope.launch {
             val requestBodyString = Gson().toJson(data)
             val mediaType = "application/json".toMediaTypeOrNull()

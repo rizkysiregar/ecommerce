@@ -24,6 +24,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.rizkysiregar.ecommerce.ui.notification.NotificationFragment"
+        tools:layout="@layout/fragment_notification"
+        />
+
+    <fragment
         android:id="@+id/navigation_store"
         android:name="com.rizkysiregar.ecommerce.ui.store.StoreFragment"
         android:label="@string/store"

@@ -4,16 +4,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
-import com.rizkysiregar.ecommerce.data.model.RegisterModel
+import com.rizkysiregar.ecommerce.data.model.RegisterLoginModel
 import com.rizkysiregar.ecommerce.databinding.ActivityRegisterBinding
 import com.rizkysiregar.ecommerce.ui.login.LoginActivity
 import com.rizkysiregar.ecommerce.ui.profile.ProfileActivity
@@ -63,13 +67,26 @@ class RegisterActivity : AppCompatActivity() {
     private fun register() {
         val edtEmail = binding.edtEmail.text.toString()
         val edtPassword = binding.edtPassword.text.toString()
-        val data = RegisterModel(edtEmail, edtPassword)
+
+        // firebase token
+        Firebase.messaging.token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "Fetching FCM registration FAILED", task.exception)
+                    return@OnCompleteListener
+                }
+
+                // Get new registration token
+                val token = task.result
+                val data = RegisterLoginModel(edtEmail, edtPassword, token)
+                registerViewModel.registerNewUser(data)
+            }
+        )
 
         val bundleEmail = bundleOf().apply {
             putString(FirebaseAnalytics.Param.ITEM_ID, "Email")
         }
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundleEmail)
-        registerViewModel.registerNewUser(data)
     }
 
     private fun setPreference() {
@@ -153,6 +170,10 @@ class RegisterActivity : AppCompatActivity() {
                 //
             }
         })
+    }
+
+    companion object {
+        private const val TAG = "RegisterActivity"
     }
 
 }

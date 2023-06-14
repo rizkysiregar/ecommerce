@@ -20,4 +20,5 @@
     <color name="shimmer_color">#DDDDDD</color>
     <color name="chip_color">#E8DEF8</color>
     <color name="color_fab">#EADDFF</color>
+    <color name="notification_unseen">#FEF7FF</color>
 </resources>

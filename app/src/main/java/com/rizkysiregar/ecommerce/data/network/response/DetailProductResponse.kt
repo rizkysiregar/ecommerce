@@ -177,6 +177,6 @@ data class CartEntity(
 
 
 @Parcelize
-data class ListSelectedProducts(
+data class ListSelectedProducts (
     val selectedProducts: List<CartEntity>
 ): Parcelable

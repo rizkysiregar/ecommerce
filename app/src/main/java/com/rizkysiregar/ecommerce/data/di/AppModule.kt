@@ -5,6 +5,7 @@ import com.rizkysiregar.ecommerce.ui.cart.CartViewModel
 import com.rizkysiregar.ecommerce.ui.checkout.CheckoutViewModel
 import com.rizkysiregar.ecommerce.ui.detail.DetailProductViewModel
 import com.rizkysiregar.ecommerce.ui.login.LoginViewModel
+import com.rizkysiregar.ecommerce.ui.notification.NotificationViewModel
 import com.rizkysiregar.ecommerce.ui.payment.PaymentViewModel
 import com.rizkysiregar.ecommerce.ui.profile.ProfileViewModel
 import com.rizkysiregar.ecommerce.ui.register.RegisterViewModel
@@ -32,4 +33,5 @@ val viewModelModule = module {
     viewModel { StatusViewModel(get()) }
     viewModel { TransactionViewModel(get()) }
     viewModel { MainActivityViewModel(get()) }
+    viewModel { NotificationViewModel(get()) }
 }

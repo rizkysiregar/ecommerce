@@ -4,17 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.rizkysiregar.ecommerce.MainActivity
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.local.preference.PreferenceManager
-import com.rizkysiregar.ecommerce.data.model.RegisterModel
+import com.rizkysiregar.ecommerce.data.model.RegisterLoginModel
 import com.rizkysiregar.ecommerce.databinding.ActivityLoginBinding
 import com.rizkysiregar.ecommerce.ui.register.RegisterActivity
 import org.koin.android.ext.android.inject
@@ -63,13 +67,26 @@ class LoginActivity : AppCompatActivity() {
     private fun login() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPassword.text.toString()
-        val modelData = RegisterModel(email, password)
+
+        Firebase.messaging.token.addOnCompleteListener(
+            OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "Fetching FCM registration FAILED", task.exception)
+                    return@OnCompleteListener
+                }
+                // Get new registration token
+                val token = task.result
+                Log.d("TOKEN FIREBASE: " , token)
+                val modelData = RegisterLoginModel(email, password,token )
+                loginViewModel.loginUser(modelData)
+            }
+        )
 
         val bundleEmail = bundleOf().apply {
             putString(FirebaseAnalytics.Param.ITEM_ID, "Email")
         }
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, bundleEmail)
-        loginViewModel.loginUser(modelData)
+
     }
 
     private fun setPreference() {
@@ -148,5 +165,9 @@ class LoginActivity : AppCompatActivity() {
                 //
             }
         })
+    }
+
+    companion object {
+        private const val TAG = "LoginActivity"
     }
 }

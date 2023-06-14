@@ -3,9 +3,11 @@ package com.rizkysiregar.ecommerce
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
@@ -14,6 +16,8 @@ import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.badge.BadgeUtils
 import com.google.android.material.badge.ExperimentalBadgeUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.ktx.messaging
 import com.rizkysiregar.ecommerce.databinding.ActivityMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,6 +45,18 @@ class MainActivity : AppCompatActivity() {
                 BadgeUtils.attachBadgeDrawable(badged, binding.materialToolbar, R.id.navigation_cart)
             }
         }
+
+        // [START subscribe_topics]
+        Firebase.messaging.subscribeToTopic("promo")
+            .addOnCompleteListener { task ->
+                var msg = getString(R.string.msg_subscribed)
+                if (!task.isSuccessful) {
+                    msg = getString(R.string.msg_subscribe_failed)
+                }
+                Log.d(TAG, msg)
+                Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+            }
+        // [END subscribe_topics]
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.top_app_bar, menu)
@@ -125,6 +141,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.menu_notification -> {
+                findNavController(R.id.nav_host_fragment_container).navigate(R.id.navigation_notification)
                 return true
             }
 
@@ -134,6 +151,10 @@ class MainActivity : AppCompatActivity() {
 
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 
 }

@@ -9,6 +9,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.gson.GsonBuilder
 import com.rizkysiregar.ecommerce.BuildConfig
+import com.rizkysiregar.ecommerce.MyFirebaseMessagingService
 import com.rizkysiregar.ecommerce.data.local.db.AppExecutors
 import com.rizkysiregar.ecommerce.data.local.db.EcommerceDatabase
 import com.rizkysiregar.ecommerce.data.network.api.ApiService

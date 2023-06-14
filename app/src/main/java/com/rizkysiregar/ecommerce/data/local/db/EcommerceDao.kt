@@ -7,6 +7,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.rizkysiregar.ecommerce.data.model.NotificationEntity
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DataDetail
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
@@ -33,6 +34,10 @@ interface EcommerceDao {
     suspend fun updateIsProductSelected(cartEntity: CartEntity)
     @Update
     suspend fun updateQuantityProduct(cartEntity: CartEntity)
+
+    @Update
+    suspend fun updateIsRead(notificationEntity: NotificationEntity)
+
     @Query("SELECT EXISTS(SELECT * FROM tbl_wishlist WHERE productId = :productId)")
     fun isRecordExistsProductId(productId: String): LiveData<Boolean>
 
@@ -53,4 +58,12 @@ interface EcommerceDao {
 
     @Delete
     fun deleteCart(cartEntity: CartEntity)
+
+
+    // Notification
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertNotification(notificationEntity: NotificationEntity)
+
+    @Query("SELECT * FROM tbl_notification")
+    fun getAllNotification(): LiveData<List<NotificationEntity>>
 }

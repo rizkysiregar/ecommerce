@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.liveData
 import com.rizkysiregar.ecommerce.data.local.db.EcommerceDao
 import com.rizkysiregar.ecommerce.data.model.FulFillmentRequestModel
+import com.rizkysiregar.ecommerce.data.model.NotificationEntity
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.data.model.RatingModel
 import com.rizkysiregar.ecommerce.data.network.api.ApiService
@@ -84,6 +85,11 @@ class ContentRepository(
 
     suspend fun setProductQuantity(cartEntity: CartEntity) {
         ecommerceDao.updateQuantityProduct(cartEntity)
+    }
+
+    suspend fun setReadNotification(notificationEntity: NotificationEntity, state: Boolean) {
+        notificationEntity.isRead = state
+        ecommerceDao.updateIsRead(notificationEntity)
     }
 
     fun getCountOfFalseValues(): LiveData<Int> {
@@ -242,6 +248,9 @@ class ContentRepository(
             }
 
         })
-
     }
+
+    // notification
+    fun getAllNotification(): LiveData<List<NotificationEntity>> = ecommerceDao.getAllNotification()
+
 }

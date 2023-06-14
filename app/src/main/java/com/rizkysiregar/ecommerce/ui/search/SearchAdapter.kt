@@ -36,11 +36,6 @@ class SearchAdapter(private val data: List<String>) :
         holder.itemView.setOnClickListener {
             listener?.onItemClick(item)
         }
-
-//        holder.itemView.setOnClickListener {
-//            val navController = holder.itemView.findNavController()
-//            navController.popBackStack()
-//        }
     }
 
     class ViewHolder(binding: ListSearchBinding) :

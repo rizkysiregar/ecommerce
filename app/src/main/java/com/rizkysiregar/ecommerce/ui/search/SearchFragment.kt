@@ -30,6 +30,14 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
     private lateinit var searchAdapter: SearchAdapter
     private val firebaseAnalytics: FirebaseAnalytics by inject()
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,13 +78,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     private fun showKeyboard() {
         val imm =
@@ -87,6 +88,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClickListener {
     private fun showLoading(isLoading: Boolean) {
         binding.progressCircularSearch.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     override fun onItemClick(item: String) {
         val navController = view?.findNavController()
         val bundle = Bundle().apply {
