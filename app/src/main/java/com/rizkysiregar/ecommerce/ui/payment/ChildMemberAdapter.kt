@@ -3,6 +3,7 @@ package com.rizkysiregar.ecommerce.ui.payment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.bumptech.glide.Glide
@@ -37,13 +38,19 @@ class ChildMemberAdapter(
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemInnerPaymentLayoutBinding.bind(itemView)
         fun bind(dataItem: ItemsPayment) {
+            binding.itemPaymentContainer.alpha = if (dataItem.status) 1f else 0.5f
+
             Glide.with(itemView.context)
                 .load(dataItem.image)
                 .into(binding.imgItemPayment)
 
             binding.tvTitleItemPayment.text = dataItem.label
             binding.root.setOnClickListener {
-                onItemClick(adapterPosition)
+                if (!dataItem.status) {
+                    Toast.makeText(itemView.context, "Cannot be choose", Toast.LENGTH_SHORT).show()
+                } else {
+                    onItemClick(adapterPosition)
+                }
             }
         }
     }

@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val mainActivityViewModel: MainActivityViewModel by viewModel()
+    private val badge by lazy { BadgeDrawable.create(this@MainActivity) }
+
     @ExperimentalBadgeUtils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +35,17 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.materialToolbar)
         setupNavigation()
         mainActivityViewModel.getItemCountWishList.observe(this) {
-            binding.navView.getOrCreateBadge(R.id.navigation_wishlist).number = it
+            binding.navView.getOrCreateBadge(R.id.navigation_wishlist).apply {
+                isVisible = it != 0
+                number = it
+            }
         }
 
         mainActivityViewModel.getItemCountCart.observe(this) { itemCount ->
             binding.materialToolbar.viewTreeObserver.addOnGlobalLayoutListener {
-                val badged = BadgeDrawable.create(this).apply {
-                    isVisible = itemCount != 0
-                    number = itemCount
-                }
-                BadgeUtils.attachBadgeDrawable(badged, binding.materialToolbar, R.id.navigation_cart)
+                badge.isVisible =  itemCount != 0
+                badge.number = itemCount
+                BadgeUtils.attachBadgeDrawable(badge, binding.materialToolbar, R.id.navigation_cart)
             }
         }
 
@@ -58,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
         // [END subscribe_topics]
     }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.top_app_bar, menu)
         return true

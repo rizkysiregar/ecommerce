@@ -3,6 +3,7 @@ package com.rizkysiregar.ecommerce.data.network.response
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import retrofit2.http.Field
 
 data class PaymentResponse(
 
@@ -35,5 +36,8 @@ data class DataItem(
 	val item: List<ItemsPayment>,
 
 	@field:SerializedName("title")
-	val title: String
+	val title: String,
+
+	@field:SerializedName("status")
+	val status: Boolean,
 )

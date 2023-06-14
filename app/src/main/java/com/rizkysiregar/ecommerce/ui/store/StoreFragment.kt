@@ -176,7 +176,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
 
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
-            getData(QueryProductModel())
+            adapter.refresh()
             binding.swipeRefresh.isRefreshing = false
         }
     }

@@ -5,11 +5,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -160,12 +162,13 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         val requestCode = 0
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(
-            this,
-            requestCode,
-            intent,
-            PendingIntent.FLAG_IMMUTABLE,
-        )
+
+        val pendingIntent = NavDeepLinkBuilder(applicationContext)
+            .setGraph(R.navigation.mobile_navigation)
+            .setDestination(R.id.navigation_notification)
+            .createPendingIntent()
+
+        var ringtoneUri = Uri.parse("android.resource://${packageName}/${R.raw.bbm_msgr}")
 
         val channelId = getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -185,7 +188,9 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
                 channelId,
                 "Channel human readable title",
                 NotificationManager.IMPORTANCE_DEFAULT,
+
             )
+
             notificationManager.createNotificationChannel(channel)
         }
 
