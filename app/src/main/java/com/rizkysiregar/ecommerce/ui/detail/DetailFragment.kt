@@ -10,7 +10,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
@@ -18,8 +17,8 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
+import com.rizkysiregar.ecommerce.data.network.response.ListSelectedProducts
 import com.rizkysiregar.ecommerce.databinding.FragmentDetailBinding
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -69,40 +68,49 @@ class DetailFragment : Fragment() {
         // add to wishlist
         check()
         getProduct()
+
+
+    }
+
+    private fun directBuy(listProduct: List<CartEntity>) {
+        val navController = view?.findNavController()
+        val data = ListSelectedProducts(listProduct)
+        val action = DetailFragmentDirections.actionNavigationDetailToNavigationCheckout(selectedProducts = data)
+        navController?.navigate(action)
     }
 
     private fun bindData() {
-        detailProductViewModel.data.observe(viewLifecycleOwner) {
+        detailProductViewModel.data.observe(viewLifecycleOwner) { response ->
             // firebase measure ecommerce
             val itemProduct = Bundle().apply {
-                putString(FirebaseAnalytics.Param.ITEM_ID, it.data.productId)
-                putString(FirebaseAnalytics.Param.ITEM_NAME, it.data.productName)
+                putString(FirebaseAnalytics.Param.ITEM_ID, response.data.productId)
+                putString(FirebaseAnalytics.Param.ITEM_NAME, response.data.productName)
                 putString(
                     FirebaseAnalytics.Param.ITEM_VARIANT,
-                    it.data.productVariant[0].variantName
+                    response.data.productVariant[0].variantName
                 )
-                putString(FirebaseAnalytics.Param.ITEM_BRAND, it.data.brand)
-                putInt(FirebaseAnalytics.Param.PRICE, it.data.productPrice)
+                putString(FirebaseAnalytics.Param.ITEM_BRAND, response.data.brand)
+                putInt(FirebaseAnalytics.Param.PRICE, response.data.productPrice)
             }
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, itemProduct)
 
             val viewPager = binding.viewpagerDetail
-            viewPager.adapter = DetailAdapter(it.data.image)
+            viewPager.adapter = DetailAdapter(response.data.image)
             val dotsIndicator = binding.indicatorDetail
             dotsIndicator.attachTo(viewPager)
 
             binding.tvPriceProductDetail.text =
-                getString(R.string.price_format, it.data.productPrice.toString())
-            binding.tvTitleProductDetail.text = it.data.productName
-            binding.tvSoldDetail.text = "Terjual ${it.data.sale}"
-            binding.tvRatingDetail.text = "${it.data.productRating} (${it.data.totalReview})"
-            binding.tvProductDescription.text = it.data.description
-            binding.tvReviewBuyer.text = it.data.productRating.toString()
-            binding.tvReviewPerValue.text = "5.0"
-            binding.tvSatisfiedBuyer.text = "${it.data.totalSatisfaction} merasa puas"
-            binding.tvRatingCount.text = "${it.data.totalRating}.${it.data.totalReview}"
+                getString(R.string.price_format, response.data.productPrice.toString())
+            binding.tvTitleProductDetail.text = response.data.productName
+            binding.tvSoldDetail.text = "Terjual ${response.data.sale}"
+            binding.tvRatingDetail.text = "${response.data.productRating} ${response.data.totalReview})"
+            binding.tvProductDescription.text = response.data.description
+            binding.tvReviewBuyer.text = response.data.productRating.toString()
+            binding.tvReviewPerValue.text = "/5.0"
+            binding.tvSatisfiedBuyer.text = "${response.data.totalSatisfaction} pembeli merasa puas"
+            binding.tvRatingCount.text = "${response.data.totalRating} rating . ${response.data.totalReview} ulasan"
 
-            for (variant in it.data.productVariant) {
+            for (variant in response.data.productVariant) {
                 val chipGroup = binding.chipGroupVariant
                 val chip = Chip(requireContext())
                 chip.text = variant.variantName
@@ -116,13 +124,13 @@ class DetailFragment : Fragment() {
                     val chip = group.getChildAt(i) as Chip
                     if (chip.id == checkedId) {
                         chip.setChipBackgroundColorResource(R.color.chip_color)
-                        val price = it.data.productPrice + it.data.productVariant[1].variantPrice
+                        val price = response.data.productPrice + response.data.productVariant[1].variantPrice
                         binding.tvPriceProductDetail.text =
                             getString(R.string.price_format, price.toString())
                     } else {
                         chip.setChipBackgroundColorResource(R.color.white)
                         binding.tvPriceProductDetail.text =
-                            getString(R.string.price_format, it.data.productPrice.toString())
+                            getString(R.string.price_format, response.data.productPrice.toString())
                     }
                 }
             }
@@ -130,6 +138,29 @@ class DetailFragment : Fragment() {
             // colored the first child of variant group
             val firstChip = chipGroup.getChildAt(0) as Chip
             firstChip.setChipBackgroundColorResource(R.color.chip_color)
+
+            // direct buy
+            binding.btnBuyDirectly.setOnClickListener {
+                val cartEntity = CartEntity(
+                    image = response.data.image[0],
+                    productId = response.data.productId,
+                    description = response.data.description,
+                    totalRating = response.data.totalRating,
+                    productName = response.data.productName,
+                    totalSatisfaction = response.data.totalSatisfaction,
+                    totalReview = response.data.totalReview,
+                    variantName = response.data.productVariant[0].variantName,
+                    brand = response.data.brand,
+                    sale = response.data.sale,
+                    stock = response.data.stock,
+                    productPrice = response.data.productPrice,
+                    productRating = response.data.productRating.toString(),
+                    store = response.data.store
+                )
+                val listEntity: List<CartEntity> = listOf(cartEntity)
+
+                directBuy(listEntity)
+            }
         }
     }
 

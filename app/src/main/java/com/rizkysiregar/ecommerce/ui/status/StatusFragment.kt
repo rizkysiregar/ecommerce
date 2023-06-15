@@ -1,12 +1,12 @@
 package com.rizkysiregar.ecommerce.ui.status
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,9 +14,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.RatingModel
 import com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse
-import com.rizkysiregar.ecommerce.databinding.FragmentCheckoutBinding
 import com.rizkysiregar.ecommerce.databinding.FragmentStatusBinding
-import com.rizkysiregar.ecommerce.ui.checkout.CheckoutViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,8 +34,25 @@ class StatusFragment : Fragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val callbackAction = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backToHome()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callbackAction)
+    }
+
+    fun backToHome() {
+        val navController = findNavController()
+        navController.navigate(R.id.navigation_home)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val dataStatus: FulFillmentResponse = args.statusTransaction
         binding.tvStatus.text = if (dataStatus.data.status) "Berhasil" else "Gagal"
@@ -65,4 +80,6 @@ class StatusFragment : Fragment() {
             }
         }
     }
+
+
 }

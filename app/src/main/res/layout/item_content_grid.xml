@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -18,7 +19,8 @@
             android:layout_width="186dp"
             android:layout_height="186dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/thumbnail"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,19 +37,23 @@
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@+id/img_item"
             app:layout_constraintStart_toStartOf="@+id/img_item"
-            app:layout_constraintTop_toBottomOf="@+id/img_item" />
+            app:layout_constraintTop_toBottomOf="@+id/img_item"
+            tools:text="Lenovo Legion 7 16 I7 11800 16GB 1TB SSD RTX3070 8GB" />
 
         <TextView
             android:id="@+id/text_price"
             android:layout_width="170dp"
             android:layout_height="16dp"
             android:layout_marginTop="6dp"
+            android:includeFontPadding="false"
+            android:maxLines="1"
             android:textColor="@color/text_content"
             android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/tv_title_content"
             app:layout_constraintStart_toStartOf="@+id/tv_title_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title_content" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_content"
+            tools:text="Rp23.499.000" />
 
         <ImageView
             android:id="@+id/img_profile_content_grid"
@@ -69,7 +75,8 @@
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="@+id/img_profile_content_grid"
             app:layout_constraintStart_toEndOf="@+id/img_profile_content_grid"
-            app:layout_constraintTop_toTopOf="@+id/img_profile_content_grid" />
+            app:layout_constraintTop_toTopOf="@+id/img_profile_content_grid"
+            tools:text="ProStoreComputer" />
 
         <ImageView
             android:id="@+id/img_star_content_grid"
@@ -93,7 +100,8 @@
             android:textSize="10sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_star_content_grid"
-            app:layout_constraintTop_toTopOf="@+id/img_star_content_grid" />
+            app:layout_constraintTop_toTopOf="@+id/img_star_content_grid"
+            tools:text="5.0 | Terjual 10" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

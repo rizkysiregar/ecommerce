@@ -11,8 +11,8 @@
         android:id="@+id/progress_circular_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:layout_gravity="center"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -176,8 +176,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_variant">
 
                 <com.google.android.material.chip.ChipGroup
-                    style="@style/Widget.Material3.ChipGroup"
                     android:id="@+id/chip_group_variant"
+                    style="@style/Widget.Material3.ChipGroup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:singleSelection="true">
@@ -241,11 +241,11 @@
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/poppins_regular"
                 android:includeFontPadding="false"
+                android:text="@string/buyer_review"
                 android:textColor="@color/text_content"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/tv_product_description"
-                app:layout_constraintTop_toBottomOf="@+id/divider_view_3"
-                tools:text="@string/buyer_review" />
+                app:layout_constraintTop_toBottomOf="@+id/divider_view_3" />
 
             <TextView
                 android:id="@+id/tv_show_all_review"
@@ -266,7 +266,7 @@
                 android:id="@+id/container_buyer_review"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="12dp"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/tv_show_all_review"
                 app:layout_constraintStart_toStartOf="@+id/tv_buyer_review_title"
@@ -360,7 +360,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_weight="1"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_black"
                     android:fontFamily="@font/poppins_medium"
                     android:includeFontPadding="false"
                     android:text="@string/btn_buy_directly"

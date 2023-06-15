@@ -13,13 +13,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <item name="chipStyle">@style/CustomChipStyle</item>
+<!--        <item name="chipStyle">@style/CustomChipStyle</item>-->
     </style>
 
-    <style name="CustomChipStyle" parent="Widget.Material3.Chip.Suggestion">
-        <item name="chipBackgroundColor">@color/white</item>
-    </style>
-
+<!--    <style name="CustomChipStyle" parent="Widget.Material3.Chip.Suggestion">-->
+<!--        <item name="chipBackgroundColor">@color/white</item>-->
+<!--    </style>-->
 
     <style name="Widget.App.Button.OutlinedButton.IconOnly" parent="Widget.Material3.Button.OutlinedButton">
         <item name="iconPadding">0dp</item>
@@ -31,6 +30,7 @@
         <item name="android:minWidth">26dp</item>
         <item name="android:minHeight">0dp</item>
     </style>
+
 
 
 </resources>

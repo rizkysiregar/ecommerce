@@ -107,7 +107,7 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     private fun selectedProducts(listProduct: List<CartEntity>) {
         val navController = view?.findNavController()
         val data = ListSelectedProducts(listProduct)
-        val action = CartFragmentDirections.actionNavigationCartToCheckout(data)
+        val action = CartFragmentDirections.actionNavigationCartToCheckout(selectedProducts = data)
         navController?.navigate(action)
     }
 }

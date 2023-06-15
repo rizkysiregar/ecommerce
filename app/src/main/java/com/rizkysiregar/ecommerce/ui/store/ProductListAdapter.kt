@@ -96,12 +96,12 @@ class ProductListAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bindOK(data: ItemsItem) {
             Glide.with(itemView.context)
-                .load(R.drawable.thumbnail)
+                .load(data.image)
                 .into(binding.imgItem)
 
             binding.tvTitleContent.text = data.productName
             binding.tvSeller.text = data.store
-            binding.textPrice.text = data.productPrice.toString()
+            binding.textPrice.text = "Rp.${data.productPrice}"
             binding.tvRatingContent.text = "${data.productRating} | ${data.sale}"
         }
     }

@@ -59,7 +59,6 @@ interface EcommerceDao {
     @Delete
     fun deleteCart(cartEntity: CartEntity)
 
-
     // Notification
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertNotification(notificationEntity: NotificationEntity)

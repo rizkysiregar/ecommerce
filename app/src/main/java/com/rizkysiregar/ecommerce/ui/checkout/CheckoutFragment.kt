@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -47,8 +48,11 @@ class CheckoutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        // get selectedProduct from checkout
+        // get selectedProduct from cart
         val selectedProduct: ListSelectedProducts = args.selectedProducts
+
+        // selected from direct buy (detail)
+
 
         // Begin Checkout Firebase
         val bundleBeginCheckout = Bundle().apply {
@@ -70,12 +74,19 @@ class CheckoutFragment : Fragment() {
             receivedData?.let {
                 _selectedPayment = it
             }
+
+            receivedData?.let {
+                binding.btnPurchasedCheckout.isEnabled = it.label.isNotEmpty()
+            }
+
             // Begin Checkout Firebase
             val paymentInfoBundle = Bundle().apply {
                 putParcelable(FirebaseAnalytics.Param.ITEMS, receivedData)
             }
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.ADD_PAYMENT_INFO, paymentInfoBundle)
         }
+
+
 
         binding.cardPayment.setOnClickListener {
             val navController = view.findNavController()

@@ -40,7 +40,7 @@
     <!-- Store -->
     <string name="hint_search">Search</string>
     <string name="chip_filter">Filter</string>
-    <string name="price_format">Rp%s</string>
+    <string name="price_format">Rp %s</string>
     <string name="rating_format" formatted="false">%s | Terjual %s</string>
 
     <!-- Filter -->
@@ -121,9 +121,8 @@
 
     <!-- FCM  -->
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
-    <string name="msg_subscribed" translatable="false">Subscribed to promo topic</string>
+    <string name="msg_subscribed" translatable="false">Subscribed to Firebase promo topic</string>
     <string name="msg_subscribe_failed" translatable="false">Failed to subscribe to promo topic</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 </resources>

@@ -1,7 +1,5 @@
 package com.rizkysiregar.ecommerce
 
-import android.graphics.Color
-import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -30,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     @ExperimentalBadgeUtils
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.materialToolbar)
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         mainActivityViewModel.getItemCountCart.observe(this) { itemCount ->
             binding.materialToolbar.viewTreeObserver.addOnGlobalLayoutListener {
-                badge.isVisible =  itemCount != 0
+                badge.isVisible = itemCount != 0
                 badge.number = itemCount
                 BadgeUtils.attachBadgeDrawable(badge, binding.materialToolbar, R.id.navigation_cart)
             }
@@ -104,6 +104,9 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.navigation_cart -> {
                     navView.visibility = View.GONE
+                    binding.materialToolbar.title = "Cart"
+                    binding.materialToolbar.navigationIcon =
+                        ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
                 }
 
                 R.id.navigation_payment -> {
@@ -111,6 +114,9 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.title = "Pilih Pembayaran"
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                    binding.materialToolbar.setNavigationOnClickListener {
+                        findNavController(R.id.nav_host_fragment_container).navigateUp()
+                    }
                 }
 
                 R.id.navigation_checkout -> {
@@ -118,6 +124,9 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.title = "Checkout"
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                    binding.materialToolbar.setNavigationOnClickListener {
+                        findNavController(R.id.nav_host_fragment_container).navigateUp()
+                    }
                 }
 
                 R.id.navigation_status -> {
@@ -126,12 +135,20 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.textAlignment = View.TEXT_ALIGNMENT_CENTER
                 }
 
+                R.id.navigation_notification -> {
+                    binding.materialToolbar.title = "Notification"
+                    binding.materialToolbar.navigationIcon =
+                        ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                    binding.materialToolbar.setNavigationOnClickListener {
+                        findNavController(R.id.nav_host_fragment_container).navigateUp()
+                    }
+                    navView.visibility = View.GONE
+                }
+
                 else -> {
                     navView.visibility = View.VISIBLE
                     binding.appBarLayout.visibility = View.VISIBLE
                     binding.materialToolbar.title = "RizkySiregar"
-                    binding.materialToolbar.navigationIcon =
-                        ContextCompat.getDrawable(this, R.drawable.account_circle_fill)
                 }
             }
         }
@@ -156,6 +173,7 @@ class MainActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
 
     companion object {
         private const val TAG = "MainActivity"

@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResult
+import androidx.navigation.findNavController
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.chip.Chip
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.QueryProductModel
 import com.rizkysiregar.ecommerce.databinding.ModalBottomSheetContentBinding
+import org.koin.android.ext.android.inject
 
 class ModelBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding: ModalBottomSheetContentBinding
@@ -19,6 +23,8 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
     var lowest: Int = 0
     var highest: Int = 0
     var sort: String = ""
+    private var onDataPassedListener: DataPassed? = null
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +37,6 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // declaration variable
-
 
         binding.btnReset.setOnClickListener {
             binding.chipApple.isChecked = false
@@ -52,9 +57,15 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
                 val selectedValue = chip.text.toString()
                 sort = selectedValue
             }
+
+            val paymentInfoBundle = Bundle().apply {
+                putString(FirebaseAnalytics.Param.ITEMS, checkChipIds.toString())
+            }
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, paymentInfoBundle)
         }
 
         binding.chipGroupCategory1.setOnCheckedChangeListener { group, checkedId ->
+
             val checkIds = binding.chipGroupCategory1.checkedChipIds
             for (chipId in checkIds) {
                 val chip = binding.chipGroupCategory1.findViewById<Chip>(chipId)
@@ -62,6 +73,11 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
                 search = selectedValue
                 brand = selectedValue
             }
+
+            val paymentInfoBundle = Bundle().apply {
+                putString(FirebaseAnalytics.Param.ITEMS, checkIds.toString())
+            }
+            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM, paymentInfoBundle)
         }
 
         binding.btnShowProduct.setOnClickListener {
@@ -77,7 +93,6 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
         }
     }
 
-
     private fun selectedProducts(queryProductModel: QueryProductModel) {
         val data = QueryProductModel(
             search = queryProductModel.search,
@@ -86,10 +101,11 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             highest = queryProductModel.highest,
             sort = queryProductModel.sort
         )
-        val bundle = Bundle().apply {
-            putParcelable(BUNDLE_FILTER, data)
-        }
-        setFragmentResult(RESULT_FILTER, bundle)
+        onDataPassedListener?.onDataPassed(data)
+//        val bundle = Bundle().apply {
+//            putParcelable(BUNDLE_FILTER, data)
+//        }
+//        setFragmentResult(RESULT_FILTER, bundle)
         dismiss()
     }
 

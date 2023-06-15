@@ -18,16 +18,13 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_navigation_search_to_navigation_store"
-            app:destination="@id/navigation_store">
-
-        </action>
+            app:destination="@id/navigation_store"></action>
     </fragment>
 
     <fragment
         android:id="@+id/navigation_notification"
         android:name="com.rizkysiregar.ecommerce.ui.notification.NotificationFragment"
-        tools:layout="@layout/fragment_notification"
-        />
+        tools:layout="@layout/fragment_notification" />
 
     <fragment
         android:id="@+id/navigation_store"
@@ -44,8 +41,6 @@
         <action
             android:id="@+id/action_navigation_store_to_navigation_detail"
             app:destination="@id/navigation_detail" />
-
-
     </fragment>
 
     <fragment
@@ -65,6 +60,11 @@
         android:name="com.rizkysiregar.ecommerce.ui.detail.DetailFragment"
         android:label="detail"
         tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_navigation_detail_to_navigation_checkout"
+            app:destination="@+id/navigation_checkout"
+            />
+
         <action
             android:id="@+id/action_navigation_detail_to_navigation_review"
             app:destination="@id/navigation_review" />
@@ -130,8 +130,6 @@
         <action
             android:id="@+id/action_modelBottomSheet_to_navigation_store"
             app:destination="@id/navigation_store" />
-
     </dialog>
-
 
 </navigation>

@@ -29,6 +29,9 @@ class NotificationFragment : Fragment(), NotificationAdapter.OnItemClickListener
     private lateinit var notificationAdapter: NotificationAdapter
     private val firebaseAnalytics: FirebaseAnalytics by inject()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

@@ -2,10 +2,7 @@ package com.rizkysiregar.ecommerce
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.media.AudioAttributes
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
@@ -16,16 +13,15 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.ktx.remoteMessage
 import com.rizkysiregar.ecommerce.data.local.db.EcommerceDao
 import com.rizkysiregar.ecommerce.data.model.NotificationEntity
 import com.rizkysiregar.ecommerce.data.utils.MyWorker
-import kotlinx.coroutines.coroutineScope
 import org.koin.android.ext.android.inject
 
-class MyFirebaseMessagingService() : FirebaseMessagingService() {
+class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private val ecommerceDao: EcommerceDao by inject()
+
     /**
      * Called when message is received.
      *
@@ -58,21 +54,6 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
         // insert to notification
         ecommerceDao.insertNotification(notificationEntity)
 
-
-
-        // title body, image url , re
-        // [START_EXCLUDE]
-        // There are two types of messages data messages and notification messages. Data messages are handled
-        // here in onMessageReceived whether the app is in the foreground or background. Data messages are the type
-        // traditionally used with GCM. Notification messages are only received here in onMessageReceived when the app
-        // is in the foreground. When the app is in the background an automatically generated notification is displayed.
-        // When the user taps on the notification they are returned to the app. Messages containing both notification
-        // and data payloads are treated as notification messages. The Firebase console always sends notification
-        // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
-        // [END_EXCLUDE]
-
-        // TODO(developer): Handle FCM messages here.
-        // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
         Log.d(TAG, "From: ${remoteMessage.from}")
 
         // Check if message contains a data payload.
@@ -159,16 +140,14 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
      * @param messageBody FCM message body received.
      */
     private fun sendNotification(messageBody: String?, title: String?) {
-        val requestCode = 0
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        val pendingIntent = NavDeepLinkBuilder(applicationContext)
+        val pendingIntent = NavDeepLinkBuilder(this@MyFirebaseMessagingService)
             .setGraph(R.navigation.mobile_navigation)
             .setDestination(R.id.navigation_notification)
             .createPendingIntent()
 
-        var ringtoneUri = Uri.parse("android.resource://${packageName}/${R.raw.bbm_msgr}")
+        val ringtoneUri =
+            Uri.parse("android.resource://${applicationContext.packageName}/${R.raw.bbm_msgr}")
 
         val channelId = getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
@@ -177,10 +156,11 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
             .setContentTitle(title)
             .setContentText(messageBody)
             .setAutoCancel(true)
-            .setSound(defaultSoundUri)
+            .setSound(ringtoneUri)
             .setContentIntent(pendingIntent)
 
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Since android Oreo notification channel is needed.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -188,9 +168,7 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
                 channelId,
                 "Channel human readable title",
                 NotificationManager.IMPORTANCE_DEFAULT,
-
             )
-
             notificationManager.createNotificationChannel(channel)
         }
 
@@ -199,8 +177,6 @@ class MyFirebaseMessagingService() : FirebaseMessagingService() {
     }
 
     companion object {
-
         private const val TAG = "MyFirebaseMsgService"
     }
-
 }

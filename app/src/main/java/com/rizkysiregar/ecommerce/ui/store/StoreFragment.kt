@@ -28,7 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.HttpException
 
 
-class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener {
+class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener, DataPassed {
 
     private var _binding: FragmentStoreBinding? = null
     private val binding get() = _binding!!
@@ -36,6 +36,15 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
     private lateinit var shimmer: ShimmerFrameLayout
     val adapter = ProductListAdapter()
     private val firebaseAnalytics: FirebaseAnalytics by inject()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentStoreBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -57,13 +66,10 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
             binding.edtSearch.setText(receivedData)
         }
 
-        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) { _, bundle ->
-            val receivedFilter =
-                bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
-            receivedFilter?.let {
-                getData(it)
-            }
-        }
+//        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) { _, bundle ->
+//            val receivedFilter =
+//                bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
+//        }
 
         // when search clicked
         binding.edtSearch.setOnFocusChangeListener { _, hasFocus ->
@@ -112,13 +118,6 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentStoreBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     private fun getData(queryProductModel: QueryProductModel) {
         storeViewModel.setQuery(queryProductModel)
@@ -150,6 +149,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
                             binding.containerLayoutErorr.visibility = View.VISIBLE
                             binding.errorLayout.tvTitleError.text = "Connection"
                             binding.errorLayout.descError.text = "Your connection lost"
+                            shimmer.visibility = View.GONE
                         }
                     }
 
@@ -164,16 +164,25 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
                             binding.errorLayout.tvTitleError.text = "401 Unauthorized"
                             binding.errorLayout.descError.text =
                                 "Your Token is Expires pleas login again"
+                            shimmer.visibility = View.GONE
                         } else {
                             binding.containerLayoutErorr.visibility = View.VISIBLE
                             binding.errorLayout.tvTitleError.text = "500 Internal Server Error"
                             binding.errorLayout.descError.text = "Something went wrong"
+                            shimmer.visibility = View.GONE
                         }
                     }
                 }
             }
         }
 
+        // when button error refresh clicked
+        binding.errorLayout.btnAction.setOnClickListener {
+            adapter.refresh()
+            binding.containerLayoutErorr.visibility = View.GONE
+        }
+
+        // on swipe refresh pulled
         binding.swipeRefresh.setOnRefreshListener {
             binding.swipeRefresh.isRefreshing = true
             adapter.refresh()
@@ -187,12 +196,29 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
         modalBottomSheet.show(fragmentManager, "ModalBottomSheet")
     }
 
-    fun setChipBaseOnQuery(data: QueryProductModel) {
-        // hit product with query filter
-        if (data.brand!!.isNotEmpty()) {
-            getData(data)
-        }
 
+    override fun onDestroy() {
+        shimmer.stopShimmer()
+        shimmer.clearAnimation()
+        super.onDestroy()
+        _binding = null
+    }
+
+    override fun onItemClick(id: String) {
+        val selectedItem = bundleOf().apply {
+            putString(FirebaseAnalytics.Param.INDEX, id)
+        }
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, selectedItem)
+        val navController = view?.findNavController()
+        val bundle = Bundle().apply {
+            putString("itemId", id)
+        }
+        setFragmentResult("ITEM_ID", bundle)
+        navController?.navigate(R.id.action_navigation_store_to_navigation_detail, bundle)
+    }
+
+    override fun onDataPassed(data: QueryProductModel) {
+        getData(data)
         // add chip to chip group filter
         if (data.brand!!.isNotEmpty()) {
             val chipGroup = binding.chipGroup
@@ -221,25 +247,5 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener 
             chip.text = data.lowest.toString()
             chipGroup.addView(chip)
         }
-    }
-
-    override fun onDestroy() {
-        shimmer.stopShimmer()
-        shimmer.clearAnimation()
-        super.onDestroy()
-        _binding = null
-    }
-
-    override fun onItemClick(id: String) {
-        val selectedItem = bundleOf().apply {
-            putString(FirebaseAnalytics.Param.INDEX, id)
-        }
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM_LIST, selectedItem)
-        val navController = view?.findNavController()
-        val bundle = Bundle().apply {
-            putString("itemId", id)
-        }
-        setFragmentResult("ITEM_ID", bundle)
-        navController?.navigate(R.id.action_navigation_store_to_navigation_detail, bundle)
     }
 }
