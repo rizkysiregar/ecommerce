@@ -57,30 +57,38 @@ class CheckoutAdapter(
                 tvVariantCheckout.text = data.variantName
                 tvStockCheckout.text = "Stock: ${data.stock}"
                 tvPriceCheckout.text = "Rp.${data.productPrice}"
+                button2.text = data.quantity.toString()
 
                 toggleButtonCount.addOnButtonCheckedListener { group, checkedId, isChecked ->
                     group.clearChecked()
                 }
 
                 button1.setOnClickListener {
-                    if (button2.text.toString().toInt() <= 1) {
+                    if (data.quantity > 1) {
+                        val cartEntity: CartEntity = data
+                        cartEntity.quantity -= 1
+                        listener?.onButtonReduceClick(cartEntity)
+                    } else if (data.quantity == 1) {
+                        button2.text = "1"
                         Toast.makeText(
                             itemView.context,
-                            "Mininum Purchase is 1",
+                            "Minimum purchase is 1",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
                 }
 
                 button3.setOnClickListener {
-                    if (button2.text.toString().toInt() <= data.stock) {
-                        binding.button2.text = "${button2.text.toString().toInt() + 1}"
-                    } else {
+                    if (data.quantity >= data.stock) {
                         Toast.makeText(
                             itemView.context,
-                            "Maximum Purchase by stock",
+                            "Maximum purchase limited by stock",
                             Toast.LENGTH_SHORT
                         ).show()
+                    } else {
+                        val cartEntity: CartEntity = data
+                        cartEntity.quantity += 1
+                        listener?.onButtonCounterClick(cartEntity)
                     }
                 }
             }

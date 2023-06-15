@@ -27,7 +27,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class CheckoutFragment : Fragment() {
+class CheckoutFragment : Fragment(), CheckoutAdapter.OnItemClickListener {
 
     private var _binding: FragmentCheckoutBinding? = null
     private val binding get() = _binding!!
@@ -96,7 +96,9 @@ class CheckoutFragment : Fragment() {
 
     private fun setRecyclerview(data: List<CartEntity>) {
         recyclerview = binding.rvCheckout
-        recyclerview.adapter = CheckoutAdapter(data)
+        val adapter = CheckoutAdapter(data)
+        adapter.setOnItemClickListener(this)
+        recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
         recyclerview.hasFixedSize()
         var totalPrice = 0
@@ -123,5 +125,21 @@ class CheckoutFragment : Fragment() {
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.PURCHASE, purchaseBundle)
             }
         }
+    }
+
+    override fun onItemClick(cartEntity: CartEntity, isChecked: Boolean) {
+       //
+    }
+
+    override fun onDeleteIconClick(cartEntity: CartEntity) {
+        //
+    }
+
+    override fun onButtonCounterClick(cartEntity: CartEntity) {
+        checkoutViewModel.setQuantityProduct(cartEntity)
+    }
+
+    override fun onButtonReduceClick(cartEntity: CartEntity) {
+        checkoutViewModel.setQuantityProduct(cartEntity)
     }
 }

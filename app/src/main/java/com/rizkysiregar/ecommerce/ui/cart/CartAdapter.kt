@@ -59,7 +59,6 @@ class CartAdapter(private val cartEntity: List<CartEntity>) :
                 tvStockCart.text = "Sisa ${data.stock}"
                 tvPriceCart.text = "Rp. ${data.productPrice}"
                 button2.text = data.quantity.toString()
-                button2.text = data.quantity.toString()
                 checkbox.isChecked = data.isChecked
 
                 checkbox.setOnCheckedChangeListener { button, isChecked ->

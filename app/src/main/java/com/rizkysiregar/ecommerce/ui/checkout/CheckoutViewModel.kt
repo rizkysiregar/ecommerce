@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.rizkysiregar.ecommerce.data.model.FulFillmentRequestModel
+import com.rizkysiregar.ecommerce.data.network.response.CartEntity
 import com.rizkysiregar.ecommerce.data.network.response.FulFillmentResponse
 import com.rizkysiregar.ecommerce.data.network.response.RegisterResponse
 import com.rizkysiregar.ecommerce.data.repository.ContentRepository
@@ -27,6 +28,19 @@ class CheckoutViewModel(private val contentRepository: ContentRepository) : View
                     //
                 }
             }
+        }
+    }
+
+    fun setSelectedProduct(cartEntity: CartEntity, state: Boolean) {
+        viewModelScope.launch {
+            contentRepository.setProductCartSelected(cartEntity, state)
+        }
+    }
+
+    // update quantity of product
+    fun setQuantityProduct(cartEntity: CartEntity){
+        viewModelScope.launch {
+            contentRepository.setProductQuantity(cartEntity)
         }
     }
 }

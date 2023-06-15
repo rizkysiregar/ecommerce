@@ -41,7 +41,7 @@
     <!-- Store -->
     <string name="hint_search">Search</string>
     <string name="chip_filter">Filter</string>
-    <string name="price_format">Rp%s</string>
+    <string name="price_format">Rp %s</string>
     <string name="rating_format">%s | Sold %s</string>
 
     <!-- Filter -->
