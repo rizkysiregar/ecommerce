@@ -24,8 +24,8 @@ class StoreViewModel(private val contentRepository: ContentRepository) : ViewMod
 
 
     // for set productId
-    fun setQuery(query: QueryProductModel){
-        if (query == _query.value){
+    fun setQuery(query: QueryProductModel) {
+        if (query == _query.value) {
             return
         }
         _query.value = query

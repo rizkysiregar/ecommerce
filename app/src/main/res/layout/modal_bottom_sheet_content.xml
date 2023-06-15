@@ -65,36 +65,51 @@
                 android:id="@+id/chip_ulasan"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:text="@string/text_rating"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_penjualan"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:text="@string/text_sale"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_harga_terendah"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
+                android:checkable="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:text="@string/text_lowest_price"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_harga_tertinggi"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="@string/text_highest_price"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
         </com.google.android.material.chip.ChipGroup>
 
@@ -132,36 +147,36 @@
                 android:id="@+id/chip_asus"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="@string/asus"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_lenovo"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="@string/lenovo"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_apple"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="@string/apple"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_dell"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:text="@string/dell"
-                app:chipStrokeColor="@color/grey_divider"
+                app:chipBackgroundColor="@color/bg_chip_state"
                 app:chipStrokeWidth="2dp" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -179,13 +194,11 @@
         app:layout_constraintStart_toStartOf="@+id/container_category"
         app:layout_constraintTop_toBottomOf="@+id/container_category" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container_filtet_harga"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/container_category"
         app:layout_constraintStart_toStartOf="@+id/tv_harga"
         app:layout_constraintTop_toBottomOf="@+id/tv_harga">
@@ -193,12 +206,17 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput_terendah"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.5">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_terendah"
-                android:layout_width="160dp"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:hint="@string/hint_lowest"
@@ -210,13 +228,15 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textinput_tetinggi"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_tertinggi"
-                android:layout_width="160dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_highest"
                 android:inputType="number"
@@ -224,7 +244,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_show_product"

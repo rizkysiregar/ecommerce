@@ -38,6 +38,14 @@ class TransactionFragment : Fragment() {
 
     private fun setDataReviewToAdapter() {
         transactionViewModel.data.observe(viewLifecycleOwner) {
+            if (it.data.isEmpty()) {
+                binding.containerLayoutErrorTransaction.visibility = View.VISIBLE
+                binding.errorLayout.tvTitleError.text = "Empty"
+                binding.errorLayout.descError.text = "Your request data is unavailable"
+            } else {
+                binding.containerLayoutErrorTransaction.visibility = View.GONE
+            }
+
             recyclerView = binding.rvTransaction
             val transactionAdapter = TransactionAdapter(it.data)
             recyclerView.adapter = transactionAdapter

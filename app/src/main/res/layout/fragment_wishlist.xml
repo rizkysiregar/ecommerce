@@ -8,6 +8,7 @@
     android:layout_marginBottom="?attr/actionBarSize"
     tools:context=".ui.wishlist.WishlistFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_wishlist"
         android:layout_width="0dp"
@@ -19,4 +20,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/card_item_wishlish_linear" />
+
+    <LinearLayout
+        android:id="@+id/container_layout_erorr_wishlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/rv_wishlist"
+        app:layout_constraintStart_toStartOf="@+id/rv_wishlist"
+        app:layout_constraintTop_toTopOf="@+id/rv_wishlist">
+
+        <include
+            android:id="@+id/error_layout"
+            layout="@layout/error_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

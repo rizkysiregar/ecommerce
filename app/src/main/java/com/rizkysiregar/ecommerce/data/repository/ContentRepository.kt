@@ -253,4 +253,6 @@ class ContentRepository(
     // notification
     fun getAllNotification(): LiveData<List<NotificationEntity>> = ecommerceDao.getAllNotification()
 
+    // log out
+
 }

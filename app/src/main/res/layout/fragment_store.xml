@@ -63,34 +63,48 @@
         android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toStartOf="@+id/divider_filter"
         app:layout_constraintStart_toStartOf="@+id/input_layout_search"
         app:layout_constraintTop_toBottomOf="@+id/input_layout_search">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chip_group"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:singleLine="true">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/action_chip"
-                style="@style/Widget.Material3.Chip.Input"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_filter"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="@string/chip_filter"
-                app:chipBackgroundColor="@color/white"
-                app:chipEndPadding="8dp"
-                app:chipIcon="@drawable/baseline_tune_24"
-                app:chipIconTint="@color/black"
-                app:chipStartPadding="8dp"
-                app:chipStrokeColor="@color/grey_divider"
-                app:chipStrokeWidth="1dp"
-                app:closeIconEnabled="false" />
-        </com.google.android.material.chip.ChipGroup>
+                android:layout_height="55dp"
+                android:layout_marginEnd="4dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/action_chip"
+                    style="@style/Widget.Material3.Chip.Input"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="@string/chip_filter"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipEndPadding="8dp"
+                    app:chipIcon="@drawable/baseline_tune_24"
+                    app:chipIconTint="@color/black"
+                    app:chipStartPadding="8dp"
+                    app:chipStrokeColor="@color/grey_divider"
+                    app:chipStrokeWidth="1dp"
+                    app:closeIconEnabled="false" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.divider.MaterialDivider
@@ -115,10 +129,10 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         app:layout_constraintTop_toBottomOf="@+id/scrollView">
 
         <androidx.recyclerview.widget.RecyclerView

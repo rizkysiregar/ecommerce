@@ -32,6 +32,7 @@ class NotificationFragment : Fragment(), NotificationAdapter.OnItemClickListener
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,6 +50,15 @@ class NotificationFragment : Fragment(), NotificationAdapter.OnItemClickListener
     private fun setRecyclerview() {
         recyclerView = binding.rvNotification
         notificationViewModel.getAllDataNotification.observe(viewLifecycleOwner) {
+
+            if (it.isNullOrEmpty()) {
+                binding.containerLayoutErrorNotification.visibility = View.VISIBLE
+                binding.errorLayout.tvTitleError.text = "Empty"
+                binding.errorLayout.descError.text = "Your request data is unavailable"
+            } else {
+                binding.containerLayoutErrorNotification.visibility = View.GONE
+            }
+
             notificationAdapter = NotificationAdapter(it)
             notificationAdapter.setOnItemClickListener(this)
             recyclerView.adapter = notificationAdapter
@@ -58,9 +68,9 @@ class NotificationFragment : Fragment(), NotificationAdapter.OnItemClickListener
     }
 
     override fun onItemClick(item: NotificationEntity) {
-        if (item.isRead){
-            Toast.makeText(requireContext(),"Has been read", Toast.LENGTH_SHORT).show()
-        }else{
+        if (item.isRead) {
+            Toast.makeText(requireContext(), "Has been read", Toast.LENGTH_SHORT).show()
+        } else {
             notificationViewModel.setIsRead(item, true)
         }
     }

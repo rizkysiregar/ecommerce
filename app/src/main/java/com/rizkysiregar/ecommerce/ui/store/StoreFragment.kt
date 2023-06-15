@@ -125,6 +125,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
     private fun getData(queryProductModel: QueryProductModel) {
         storeViewModel.setQuery(queryProductModel)
+
         binding.rvItem.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
@@ -137,6 +138,15 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
         lifecycleScope.launch {
             adapter.addLoadStateListener { loadState ->
+
+                val isEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                if (isEmpty) {
+                    shimmer.visibility = View.GONE
+                    binding.containerLayoutErorr.visibility = View.VISIBLE
+                    binding.errorLayout.tvTitleError.text = "Empty"
+                    binding.errorLayout.descError.text = "Your request data is unavailable"
+                }
+
                 val errorState = when {
                     loadState.append is LoadState.Error -> loadState.append as LoadState.Error
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
@@ -224,7 +234,8 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
     override fun onDataPassed(data: QueryProductModel) {
         getData(data)
-        Log.d("onDataPassed: " , data.toString())
+        Log.d("onDataPassed: ", data.toString())
+        binding.chipGroup.removeAllViews()
         // add chip to chip group filter
         if (data.brand!!.isNotEmpty()) {
             val chipGroup = binding.chipGroup

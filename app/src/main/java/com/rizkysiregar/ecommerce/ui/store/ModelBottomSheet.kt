@@ -50,6 +50,8 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
             binding.chipUlasan.isChecked = false
             binding.chipHargaTertinggi.isChecked = false
             binding.chipHargaTerendah.isChecked = false
+            binding.edtTerendah.text?.clear()
+            binding.edtTertinggi.text?.clear()
         }
 
         binding.chipGroupOrdered.setOnCheckedChangeListener { group, checkedId ->
@@ -96,7 +98,6 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
                 }else{
                     binding.edtTertinggi.text.toString().toInt()
                 }
-
 
                 val data = QueryProductModel(search, brand, lowest, highest, sort)
                 Log.d("FILTER", data.toString())

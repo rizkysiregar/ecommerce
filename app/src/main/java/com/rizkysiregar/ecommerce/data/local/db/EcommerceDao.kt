@@ -65,4 +65,13 @@ interface EcommerceDao {
 
     @Query("SELECT * FROM tbl_notification")
     fun getAllNotification(): LiveData<List<NotificationEntity>>
+
+    @Query("DELETE FROM tbl_notification")
+    fun clearTblNotification()
+
+    @Query("DELETE FROM tbl_wishlist")
+    fun clearTblWishlist()
+
+    @Query("DELETE FROM tbl_cart")
+    fun clearTblCart()
 }

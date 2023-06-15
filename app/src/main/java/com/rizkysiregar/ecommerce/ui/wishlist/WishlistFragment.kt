@@ -11,7 +11,7 @@ import com.rizkysiregar.ecommerce.databinding.FragmentWishlistBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class WishlistFragment : Fragment(), WishlistAdapter.OnItemClickListener{
+class WishlistFragment : Fragment(), WishlistAdapter.OnItemClickListener {
     private var _binding: FragmentWishlistBinding? = null
     private val binding get() = _binding!!
     private val wishlistViewModel: WishlistViewModel by viewModel()
@@ -30,6 +30,13 @@ class WishlistFragment : Fragment(), WishlistAdapter.OnItemClickListener{
 
         val recyclerView = binding.rvWishlist
         wishlistViewModel.getAllWishList.observe(viewLifecycleOwner) {
+            if (it.isNullOrEmpty()) {
+                binding.containerLayoutErorrWishlist.visibility = View.VISIBLE
+                binding.errorLayout.tvTitleError.text = "Empty"
+                binding.errorLayout.descError.text = "Your request data is unavailable"
+            } else {
+                binding.containerLayoutErorrWishlist.visibility = View.GONE
+            }
             wishlistAdapter = WishlistAdapter(it)
             wishlistAdapter.setOnItemClickListener(this)
             recyclerView.adapter = wishlistAdapter
