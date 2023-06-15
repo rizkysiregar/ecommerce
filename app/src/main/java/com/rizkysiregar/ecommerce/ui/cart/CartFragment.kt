@@ -94,6 +94,13 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
     }
 
     private fun whenItemIsStillFalse() {
+
+        cartViewModel.getCountOfTrueValue.observe(viewLifecycleOwner) {
+            if (it == 0){
+                binding.checkbox.isChecked = false
+            }
+        }
+
         cartViewModel.getCountOfFalseValue.observe(viewLifecycleOwner) { value ->
             binding.checkbox.isChecked = (value == 0)
             if (value == 1) {
@@ -103,6 +110,8 @@ class CartFragment : Fragment(), CartAdapter.OnItemClickListener {
             }
         }
     }
+
+
 
     private fun selectedProducts(listProduct: List<CartEntity>) {
         val navController = view?.findNavController()

@@ -12,6 +12,7 @@ class CartViewModel(private val contentRepository: ContentRepository) : ViewMode
 
     // get count
     val getCountOfFalseValue = contentRepository.getCountOfFalseValues()
+    val getCountOfTrueValue = contentRepository.getCountOfTrueValues()
 
 
     // get product that selected

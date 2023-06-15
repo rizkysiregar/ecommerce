@@ -96,6 +96,10 @@ class ContentRepository(
         return ecommerceDao.getCountOfFalseValues()
     }
 
+    fun getCountOfTrueValues(): LiveData<Int> {
+        return ecommerceDao.getCountOfTrueValues()
+    }
+
     fun getItemCountCart(): LiveData<Int> {
         return ecommerceDao.getItemCountCart()
     }

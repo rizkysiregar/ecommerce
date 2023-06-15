@@ -45,6 +45,9 @@ interface EcommerceDao {
     @Query("SELECT COUNT(*) FROM tbl_cart WHERE isChecked = 0")
     fun getCountOfFalseValues(): LiveData<Int>
 
+    @Query("SELECT COUNT(*) FROM tbl_cart WHERE isChecked = 1")
+    fun getCountOfTrueValues(): LiveData<Int>
+
     @Query("SELECT COUNT(*) FROM tbl_cart")
     fun getItemCountCart(): LiveData<Int>
 
