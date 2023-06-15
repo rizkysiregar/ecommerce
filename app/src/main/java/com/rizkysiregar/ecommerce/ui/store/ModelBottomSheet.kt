@@ -1,6 +1,7 @@
 package com.rizkysiregar.ecommerce.ui.store
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,9 +21,11 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
 
     var search: String = ""
     var brand: String = ""
-    var lowest: Int = 0
-    var highest: Int = 0
+    var lowest: Int? = null
+    var highest: Int? = null
     var sort: String = ""
+
+
     private var onDataPassedListener: DataPassed? = null
     private val firebaseAnalytics: FirebaseAnalytics by inject()
     override fun onCreateView(
@@ -82,9 +85,21 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
 
         binding.btnShowProduct.setOnClickListener {
             try {
-                lowest = binding.edtTerendah.text.toString().toInt()
-                highest = binding.edtTertinggi.text.toString().toInt()
+                lowest = if (binding.edtTerendah.text.isNullOrEmpty()){
+                    null
+                }else{
+                    binding.edtTerendah.text.toString().toInt()
+                }
+
+                highest = if (binding.edtTertinggi.text.isNullOrEmpty()){
+                    null
+                }else{
+                    binding.edtTertinggi.text.toString().toInt()
+                }
+
+
                 val data = QueryProductModel(search, brand, lowest, highest, sort)
+                Log.d("FILTER", data.toString())
                 // nav args
                 selectedProducts(queryProductModel = data)
             } catch (e: Exception) {
@@ -94,19 +109,16 @@ class ModelBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun selectedProducts(queryProductModel: QueryProductModel) {
-        val data = QueryProductModel(
-            search = queryProductModel.search,
-            brand = queryProductModel.brand,
-            lowest = queryProductModel.lowest,
-            highest = queryProductModel.highest,
-            sort = queryProductModel.sort
-        )
-        onDataPassedListener?.onDataPassed(data)
+        onDataPassedListener?.onDataPassed(queryProductModel)
 //        val bundle = Bundle().apply {
-//            putParcelable(BUNDLE_FILTER, data)
+//            putParcelable(BUNDLE_FILTER, queryProductModel)
 //        }
 //        setFragmentResult(RESULT_FILTER, bundle)
         dismiss()
+    }
+
+    fun setOnDataPassedListener(listener: DataPassed) {
+        onDataPassedListener = listener
     }
 
     companion object {

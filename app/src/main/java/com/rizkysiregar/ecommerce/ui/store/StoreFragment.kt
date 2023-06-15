@@ -1,6 +1,7 @@
 package com.rizkysiregar.ecommerce.ui.store
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,10 +67,13 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
             binding.edtSearch.setText(receivedData)
         }
 
-//        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) { _, bundle ->
-//            val receivedFilter =
-//                bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
-//        }
+        setFragmentResultListener(ModelBottomSheet.RESULT_FILTER) { _, bundle ->
+            val receivedFilter =
+                bundle.getParcelable<QueryProductModel>(ModelBottomSheet.BUNDLE_FILTER)
+            receivedFilter?.let {
+                getData(it)
+            }
+        }
 
         // when search clicked
         binding.edtSearch.setOnFocusChangeListener { _, hasFocus ->
@@ -193,6 +197,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
     private fun callBottomSheet() {
         val fragmentManager = childFragmentManager
         val modalBottomSheet = ModelBottomSheet()
+        modalBottomSheet.setOnDataPassedListener(this)
         modalBottomSheet.show(fragmentManager, "ModalBottomSheet")
     }
 
@@ -219,6 +224,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
     override fun onDataPassed(data: QueryProductModel) {
         getData(data)
+        Log.d("onDataPassed: " , data.toString())
         // add chip to chip group filter
         if (data.brand!!.isNotEmpty()) {
             val chipGroup = binding.chipGroup
@@ -234,14 +240,14 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
             chipGroup.addView(chip)
         }
 
-        if (data.highest != 0) {
+        if (data.highest != null) {
             val chipGroup = binding.chipGroup
             val chip = Chip(requireActivity())
             chip.text = data.highest.toString()
             chipGroup.addView(chip)
         }
 
-        if (data.lowest != 0) {
+        if (data.lowest != null) {
             val chipGroup = binding.chipGroup
             val chip = Chip(requireActivity())
             chip.text = data.lowest.toString()

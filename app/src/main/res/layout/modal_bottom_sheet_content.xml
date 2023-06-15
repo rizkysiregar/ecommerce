@@ -203,7 +203,7 @@
                 android:layout_marginEnd="4dp"
                 android:hint="@string/hint_lowest"
                 android:inputType="number"
-                android:text="0" />
+                android:text="" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -220,7 +220,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_highest"
                 android:inputType="number"
-                android:text="0" />
+                android:text="" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
