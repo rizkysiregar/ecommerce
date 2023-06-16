@@ -13,8 +13,8 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/swipeRefresh"
-        app:layout_constraintEnd_toEndOf="@+id/swipeRefresh"
-        app:layout_constraintStart_toStartOf="@+id/swipeRefresh"
+        app:layout_constraintEnd_toEndOf="@+id/input_layout_search"
+        app:layout_constraintStart_toStartOf="@+id/input_layout_search"
         app:layout_constraintTop_toTopOf="@+id/scrollView">
 
         <LinearLayout
@@ -127,7 +127,7 @@
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
@@ -142,7 +142,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="?attr/actionBarSize"
-            android:clipToPadding="false"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             tools:listitem="@layout/item_content_grid" />

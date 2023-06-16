@@ -29,8 +29,9 @@
         android:id="@+id/img_profile"
         android:layout_width="128dp"
         android:layout_height="128dp"
+        android:background="@drawable/circle_image_profile"
         android:scaleType="centerCrop"
-        android:src="@drawable/baseline_person_pin_24"
+        android:src="@drawable/round_person_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/container_title_register" />

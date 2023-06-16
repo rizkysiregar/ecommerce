@@ -87,7 +87,7 @@ class ProductListAdapter :
 
             binding.tvTitleContent.text = data.productName
             binding.tvSeller.text = data.store
-            binding.textPrice.text = data.productPrice.toString()
+            binding.textPrice.text = "Rp.${data.productPrice}"
             binding.tvRatingContent.text = "${data.productRating} | ${data.sale}"
         }
     }

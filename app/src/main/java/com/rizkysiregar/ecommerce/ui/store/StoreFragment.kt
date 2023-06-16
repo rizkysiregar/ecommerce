@@ -215,7 +215,6 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
             adapter.refresh()
             binding.swipeRefresh.isRefreshing = false
             binding.rvItem.visibility = View.VISIBLE
-            binding.containerLayoutErorr.visibility = View.VISIBLE
             binding.chipGroup.removeAllViews()
         }
     }
