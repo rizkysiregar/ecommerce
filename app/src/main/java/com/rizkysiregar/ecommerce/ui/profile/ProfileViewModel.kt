@@ -27,7 +27,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : ViewModel()
     fun postProfile(data: ProfileModel) {
         viewModelScope.launch {
             val userName = data.userName.toRequestBody()
-            data.userImage.let {
+            data.userImage?.let {
                 val requestBody = it.asRequestBody("image/*".toMediaTypeOrNull())
                 filePart = MultipartBody.Part.createFormData(
                     "userImage",

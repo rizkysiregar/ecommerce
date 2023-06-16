@@ -4,5 +4,5 @@ import java.io.File
 
 data class ProfileModel(
     val userName: String,
-    val userImage: File
+    val userImage: File? = null
 )

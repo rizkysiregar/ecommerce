@@ -125,7 +125,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
     private fun getData(queryProductModel: QueryProductModel) {
         storeViewModel.setQuery(queryProductModel)
-
+        binding.rvItem.visibility = View.VISIBLE
         binding.rvItem.adapter = adapter.withLoadStateFooter(
             footer = LoadingStateAdapter {
                 adapter.retry()
@@ -134,11 +134,11 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
         storeViewModel.product.observe(viewLifecycleOwner) {
             adapter.submitData(lifecycle, it)
+
         }
 
         lifecycleScope.launch {
             adapter.addLoadStateListener { loadState ->
-
                 val isEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
                 if (isEmpty) {
                     shimmer.visibility = View.GONE
@@ -146,6 +146,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
                     binding.errorLayout.tvTitleError.text = "Empty"
                     binding.errorLayout.descError.text = "Your request data is unavailable"
                 }
+
 
                 val errorState = when {
                     loadState.append is LoadState.Error -> loadState.append as LoadState.Error
@@ -156,6 +157,9 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
 
                 shimmer.visibility =
                     if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+
+                shimmer.visibility =
+                    if (loadState.refresh is LoadState.NotLoading) View.GONE else View.VISIBLE
 
                 when (val throwable = errorState?.error) {
                     is IOException -> {
@@ -174,11 +178,19 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
                                 "Your Token is Expires",
                                 Toast.LENGTH_SHORT
                             ).show()
+
                             binding.containerLayoutErorr.visibility = View.VISIBLE
                             binding.errorLayout.tvTitleError.text = "401 Unauthorized"
                             binding.errorLayout.descError.text =
                                 "Your Token is Expires pleas login again"
                             shimmer.visibility = View.GONE
+                        } else if (throwable.code() == 404) {
+                            binding.containerLayoutErorr.visibility = View.VISIBLE
+                            binding.errorLayout.tvTitleError.text = "404 Not Found"
+                            binding.errorLayout.descError.text =
+                                "Your request unavailable"
+                            shimmer.visibility = View.GONE
+
                         } else {
                             binding.containerLayoutErorr.visibility = View.VISIBLE
                             binding.errorLayout.tvTitleError.text = "500 Internal Server Error"
@@ -194,6 +206,7 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
         binding.errorLayout.btnAction.setOnClickListener {
             adapter.refresh()
             binding.containerLayoutErorr.visibility = View.GONE
+            binding.rvItem.visibility = View.VISIBLE
         }
 
         // on swipe refresh pulled
@@ -201,6 +214,9 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
             binding.swipeRefresh.isRefreshing = true
             adapter.refresh()
             binding.swipeRefresh.isRefreshing = false
+            binding.rvItem.visibility = View.VISIBLE
+            binding.containerLayoutErorr.visibility = View.VISIBLE
+            binding.chipGroup.removeAllViews()
         }
     }
 
@@ -210,7 +226,6 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
         modalBottomSheet.setOnDataPassedListener(this)
         modalBottomSheet.show(fragmentManager, "ModalBottomSheet")
     }
-
 
     override fun onDestroy() {
         shimmer.stopShimmer()

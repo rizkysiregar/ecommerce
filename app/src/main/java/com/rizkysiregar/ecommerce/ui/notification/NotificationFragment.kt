@@ -6,17 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.rizkysiregar.ecommerce.R
 import com.rizkysiregar.ecommerce.data.model.NotificationEntity
 import com.rizkysiregar.ecommerce.databinding.FragmentNotificationBinding
-import com.rizkysiregar.ecommerce.databinding.FragmentSearchBinding
-import com.rizkysiregar.ecommerce.ui.search.SearchAdapter
-import com.rizkysiregar.ecommerce.ui.search.SearchViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -50,15 +44,14 @@ class NotificationFragment : Fragment(), NotificationAdapter.OnItemClickListener
     private fun setRecyclerview() {
         recyclerView = binding.rvNotification
         notificationViewModel.getAllDataNotification.observe(viewLifecycleOwner) {
-
             if (it.isNullOrEmpty()) {
                 binding.containerLayoutErrorNotification.visibility = View.VISIBLE
                 binding.errorLayout.tvTitleError.text = "Empty"
                 binding.errorLayout.descError.text = "Your request data is unavailable"
+                binding.errorLayout.btnAction.visibility = View.GONE
             } else {
                 binding.containerLayoutErrorNotification.visibility = View.GONE
             }
-
             notificationAdapter = NotificationAdapter(it)
             notificationAdapter.setOnItemClickListener(this)
             recyclerView.adapter = notificationAdapter

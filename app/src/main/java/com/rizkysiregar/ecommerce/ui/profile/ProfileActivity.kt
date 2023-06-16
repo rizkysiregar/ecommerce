@@ -60,7 +60,6 @@ class ProfileActivity : AppCompatActivity() {
                     .load(imageUri)
                     .apply(RequestOptions.circleCropTransform())
                     .into(binding.imgProfile)
-                Toast.makeText(this, imageUri.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -73,9 +72,9 @@ class ProfileActivity : AppCompatActivity() {
         binding.btnProfile.setOnClickListener {
             try {
                 val edtUserName = binding.edtName.text.toString()
-                var userImageUri = image
+                val userImageUri = image
                 val userImageFile = convertUriToFile(this, userImageUri!!)
-                val provideModel = ProfileModel(edtUserName, userImageFile!!)
+                val provideModel = ProfileModel(edtUserName, userImageFile)
                 // call profile viewmodel
                 profileViewModel.postProfile(provideModel)
                 profileViewModel.data.observe(this) {
@@ -87,7 +86,6 @@ class ProfileActivity : AppCompatActivity() {
                         Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
-
             } catch (e: Exception) {
                 Toast.makeText(this, "Error Image; $e", Toast.LENGTH_SHORT).show()
             }

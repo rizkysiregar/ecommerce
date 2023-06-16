@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.rizkysiregar.ecommerce.data.network.response.DetailEntity
 import com.rizkysiregar.ecommerce.databinding.FragmentWishlistBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,6 +36,7 @@ class WishlistFragment : Fragment(), WishlistAdapter.OnItemClickListener {
                 binding.containerLayoutErorrWishlist.visibility = View.VISIBLE
                 binding.errorLayout.tvTitleError.text = "Empty"
                 binding.errorLayout.descError.text = "Your request data is unavailable"
+                binding.errorLayout.btnAction.visibility = View.GONE
             } else {
                 binding.containerLayoutErorrWishlist.visibility = View.GONE
             }
@@ -47,5 +50,10 @@ class WishlistFragment : Fragment(), WishlistAdapter.OnItemClickListener {
 
     override fun onItemClick(item: DetailEntity) {
         wishlistViewModel.deleteWishlist(item)
+    }
+
+    override fun onBtnAddToCartClick(item: DetailEntity) {
+        wishlistViewModel.insertWishlistToCart(item)
+        Snackbar.make(requireView(), "Add to cart", Snackbar.LENGTH_SHORT).show()
     }
 }

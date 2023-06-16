@@ -14,11 +14,12 @@ class WishlistAdapter(private val dataWishlist: List<DetailEntity>) :
 
     interface OnItemClickListener {
         fun onItemClick(item: DetailEntity)
+        fun onBtnAddToCartClick(item: DetailEntity)
     }
 
     private var listener: OnItemClickListener? = null
 
-    fun setOnItemClickListener(listener: OnItemClickListener){
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 
@@ -40,8 +41,8 @@ class WishlistAdapter(private val dataWishlist: List<DetailEntity>) :
     inner class ViewHolder(item: View) : RecyclerView.ViewHolder(item) {
         private val binding = CardItemWishlishLinearBinding.bind(item)
 
-        fun bind(data: DetailEntity){
-            with(binding){
+        fun bind(data: DetailEntity) {
+            with(binding) {
                 Glide.with(itemView.context)
                     .load(data.image)
                     .into(imgWishlistLinear)
@@ -53,6 +54,10 @@ class WishlistAdapter(private val dataWishlist: List<DetailEntity>) :
 
                 imgButtonTrashWishlist.setOnClickListener {
                     listener?.onItemClick(data)
+                }
+
+                btnToCartViaWishlist.setOnClickListener {
+                    listener?.onBtnAddToCartClick(data)
                 }
             }
         }

@@ -107,6 +107,9 @@ class MainActivity : AppCompatActivity() {
                     binding.materialToolbar.title = "Cart"
                     binding.materialToolbar.navigationIcon =
                         ContextCompat.getDrawable(this, R.drawable.baseline_arrow_back_24)
+                    binding.materialToolbar.setNavigationOnClickListener {
+                        findNavController(R.id.nav_host_fragment_container).navigateUp()
+                    }
                 }
 
                 R.id.navigation_payment -> {
