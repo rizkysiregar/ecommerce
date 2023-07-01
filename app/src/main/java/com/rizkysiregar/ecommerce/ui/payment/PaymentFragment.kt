@@ -36,7 +36,7 @@ class PaymentFragment : Fragment(), ParentAdapter.OnItemClickListener {
     private val binding get() = _binding!!
     private lateinit var adapter: ParentAdapter
     private lateinit var recyclerView: RecyclerView
-    private val paymentViewModel: PaymentViewModel by viewModel()
+//    private val paymentViewModel: PaymentViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -86,7 +86,7 @@ class PaymentFragment : Fragment(), ParentAdapter.OnItemClickListener {
 
     private fun setRecyclerview(data : List<DataItem>) {
         recyclerView = binding.parentRecyclerview
-            recyclerView.layoutManager = LinearLayoutManager(requireContext())
+            recyclerView.layoutManager = LinearLayoutManager(requireActivity())
             adapter = ParentAdapter(data)
             adapter.setOnItemClickListener(this)
             recyclerView.adapter = adapter
@@ -99,7 +99,6 @@ class PaymentFragment : Fragment(), ParentAdapter.OnItemClickListener {
         }
         setFragmentResult(RESULT_KEY, bundle)
         navController?.navigateUp()
-        val ripple = view?.findViewById<CardView>(R.id.item_payment_container)
     }
 
     companion object {

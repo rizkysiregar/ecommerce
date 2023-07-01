@@ -44,7 +44,7 @@ class TransactionAdapter(private val data: List<DataItemTransaction>) :
 
             binding.tvTitleProductTranscation.text = dataItem.name
             binding.tvAmountProduct.text = "${dataItem.items[0].quantity} Barang"
-            binding.tvTotalPriceTransaction.text = dataItem.total.toString()
+            binding.tvTotalPriceTransaction.text = "Rp. ${dataItem.total}"
         }
     }
 }
