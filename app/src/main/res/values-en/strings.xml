@@ -23,7 +23,9 @@
     <!-- Login -->
     <string name="text_login">Login</string>
     <string name="text_another_register">or register with</string>
-    <string name="terms_and_conditions_login">By logging in here, you agree to the Terms &amp; Conditions and Privacy Policy of TokoPhincon.</string>
+    <string name="terms_and_conditions_login">
+        <![CDATA[By logging in here, you agree to the <font color="#6750A4">Terms &amp; Conditions</font> and <font color="#6750A4">Privacy Policy</font> of TokoPhincon]]>.
+    </string>
 
     <!-- Register -->
     <string name="text_register">Register</string>

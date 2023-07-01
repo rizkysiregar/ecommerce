@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.HtmlCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
@@ -35,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        coloredText()
         checkInput()
 
         // event to mainActivity
@@ -76,8 +78,8 @@ class LoginActivity : AppCompatActivity() {
                 }
                 // Get new registration token
                 val token = task.result
-                Log.d("TOKEN FIREBASE: " , token)
-                val modelData = RegisterLoginModel(email, password,token )
+                Log.d("TOKEN FIREBASE: ", token)
+                val modelData = RegisterLoginModel(email, password, token)
                 loginViewModel.loginUser(modelData)
             }
         )
@@ -165,6 +167,13 @@ class LoginActivity : AppCompatActivity() {
                 //
             }
         })
+    }
+
+    private fun coloredText() {
+        val coloredText = getString(R.string.terms_and_conditions_login)
+        binding.tvTermsLogin.text = HtmlCompat.fromHtml(coloredText,
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
     }
 
     companion object {

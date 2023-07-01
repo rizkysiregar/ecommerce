@@ -22,7 +22,9 @@
     <!-- Login -->
     <string name="text_login">Masuk</string>
     <string name="text_another_register">atau daftar dengan</string>
-    <string name="terms_and_conditions_login">Dengan masuk disini, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TokoPhincon.</string>
+    <string name="terms_and_conditions_login">
+        <![CDATA[Dengan daftar disini, kamu menyetujui <font color="#6750A4">Syarat &amp; Ketentuan</font> serta <font color="#6750A4">Kebijakan Privasi</font> TokoPhincon.]]>
+    </string>
 
     <!-- Register -->
     <string name="text_register">Daftar</string>

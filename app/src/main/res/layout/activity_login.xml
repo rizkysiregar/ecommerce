@@ -19,11 +19,11 @@
             android:id="@+id/tv_title_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
             android:includeFontPadding="false"
-            android:textColor="@color/black"
             android:text="@string/button_login"
+            android:textColor="@color/black"
             android:textSize="22sp" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -46,8 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
-            android:maxLines="1"
-            android:hint="@string/hint_email" />
+            android:hint="@string/hint_email"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -55,10 +55,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:visibility="gone"
-        android:textColor="@color/text_error"
         android:layout_marginTop="4dp"
         android:text="@string/error_email"
+        android:textColor="@color/text_error"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout_email"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email" />
 
@@ -76,9 +76,9 @@
             android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
+            android:hint="@string/hint_password"
             android:inputType="textPassword"
-            android:hint="@string/hint_password" />
+            android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,11 +86,11 @@
         android:id="@+id/tv_password_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:textColor="@color/text_error"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
         android:text="@string/error_password"
+        android:textColor="@color/text_error"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout_password"
         app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password" />
 
@@ -99,11 +99,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:textAllCaps="false"
+        android:background="@drawable/button_filled"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:text="@string/button_login"
-        android:background="@drawable/button_filled"
+        android:textAllCaps="false"
         app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/text_input_layout_password"
         app:layout_constraintStart_toStartOf="@+id/text_input_layout_password"
@@ -131,8 +131,8 @@
             android:id="@+id/tv_divider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/poppins_regular"
             android:text="@string/text_another_register" />
 
         <View
@@ -148,12 +148,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="@string/button_register"
-        app:cornerRadius="100dp"
-        android:textColor="@color/indicator_filled"
         android:background="@drawable/button_border"
-        android:textAllCaps="false"
         android:fontFamily="@font/poppins_regular"
+        android:text="@string/button_register"
+        android:textAllCaps="false"
+        android:textColor="@color/indicator_filled"
+        app:cornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="@+id/btn_masuk_login"
         app:layout_constraintStart_toStartOf="@+id/btn_masuk_login"
         app:layout_constraintTop_toBottomOf="@+id/container_divider" />
@@ -162,13 +162,13 @@
         android:id="@+id/tv_terms_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/terms_and_conditions_login"
         android:layout_marginTop="24dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/btn_daftar_login"
         app:layout_constraintStart_toStartOf="@+id/btn_daftar_login"
-        app:layout_constraintTop_toBottomOf="@+id/btn_daftar_login" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_daftar_login"
+        tools:text="@string/terms_and_conditions_login" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
