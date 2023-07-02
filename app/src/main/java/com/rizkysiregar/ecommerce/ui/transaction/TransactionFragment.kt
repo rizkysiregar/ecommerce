@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rizkysiregar.ecommerce.R
@@ -14,14 +15,17 @@ import com.rizkysiregar.ecommerce.databinding.FragmentReviewBinding
 import com.rizkysiregar.ecommerce.databinding.FragmentTransactionBinding
 import com.rizkysiregar.ecommerce.ui.review.ReviewAdapter
 import com.rizkysiregar.ecommerce.ui.review.ReviewViewModel
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class TransactionFragment : Fragment() {
 
+    private val transactionViewModel: TransactionViewModel by viewModel()
     private var _binding: FragmentTransactionBinding? = null
     private val binding get() = _binding!!
     private lateinit var recyclerView: RecyclerView
-    private val transactionViewModel: TransactionViewModel by viewModel()
     private lateinit var transactionAdapter: TransactionAdapter
 
     override fun onCreateView(
@@ -35,38 +39,38 @@ class TransactionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val swipeRefresh = binding.swipeRefreshTransaction
         // display list transaction
         setDataReviewToAdapter()
 
         // update display when swipe refresh
-        binding.swipeRefreshTransaction.setOnRefreshListener {
-            transactionViewModel.getTransaction()
+        swipeRefresh.setOnRefreshListener {
+            swipeRefresh.isRefreshing = true
+            transactionViewModel.getTransactionList()
+            swipeRefresh.isRefreshing = false
         }
     }
 
     private fun setDataReviewToAdapter() {
-        transactionViewModel.data.observe(viewLifecycleOwner) {
-            when (it.code) {
-                404 -> {
-                    binding.containerLayoutErrorTransaction.visibility = View.VISIBLE
-                    binding.errorLayout.tvTitleError.text = "Empty"
-                    binding.errorLayout.descError.text = "Your request data is unavailable"
-                }
-                200 -> {
-                    binding.containerLayoutErrorTransaction.visibility = View.GONE
-                    recyclerView = binding.rvTransaction
-                    transactionAdapter = TransactionAdapter(it.data)
-                    recyclerView.adapter = transactionAdapter
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                    recyclerView.hasFixedSize()
-                }
-                else -> {
-                    binding.containerLayoutErrorTransaction.visibility = View.VISIBLE
-                    binding.errorLayout.tvTitleError.text = "Error"
-                    binding.errorLayout.descError.text = "Something went wrong"
+        lifecycleScope.launch {
+            transactionViewModel.data.collect {
+                when (it?.code) {
+                    404 -> {
+                        binding.containerLayoutErrorTransaction.visibility = View.VISIBLE
+                        binding.errorLayout.tvTitleError.text = "Empty"
+                        binding.errorLayout.descError.text = "Your request data is unavailable"
+                    }
+
+                    200 -> {
+                        binding.containerLayoutErrorTransaction.visibility = View.GONE
+                        recyclerView = binding.rvTransaction
+                        transactionAdapter = TransactionAdapter(it.data)
+                        recyclerView.adapter = transactionAdapter
+                        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                        recyclerView.hasFixedSize()
+                    }
                 }
             }
-            binding.swipeRefreshTransaction.isRefreshing = false
         }
     }
 }

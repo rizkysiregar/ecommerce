@@ -27,6 +27,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -103,6 +105,7 @@ class ContentRepository(
     fun getItemCountCart(): LiveData<Int> {
         return ecommerceDao.getItemCountCart()
     }
+
     fun getCountWishlist(): LiveData<Int> {
         return ecommerceDao.getCountItemWishlist()
     }
@@ -237,8 +240,13 @@ class ContentRepository(
         })
     }
 
-    fun getTransactionList() {
-        // flow
+    fun getTransactionList(): Flow<TransactionResponse> = flow {
+        val response = apiService.getTransaction()
+        if (response.isSuccessful) {
+            response.body()?.let { emit(it) }
+        }else{
+            // error handle
+        }
     }
 
     // notification
