@@ -28,7 +28,6 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import retrofit2.HttpException
 
-
 class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener, DataPassed {
 
     private var _binding: FragmentStoreBinding? = null
@@ -158,8 +157,6 @@ class StoreFragment : Fragment(), ProductListAdapter.OnItemProductClickListener,
                 shimmer.visibility =
                     if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
 
-                shimmer.visibility =
-                    if (loadState.refresh is LoadState.NotLoading) View.GONE else View.VISIBLE
 
                 when (val throwable = errorState?.error) {
                     is IOException -> {

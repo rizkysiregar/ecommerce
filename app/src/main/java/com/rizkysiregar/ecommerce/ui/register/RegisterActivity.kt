@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.text.HtmlCompat
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.ktx.Firebase
@@ -33,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        coloredText()
         checkInput()
 
         binding.btnDaftarRegister.setOnClickListener {
@@ -170,6 +171,13 @@ class RegisterActivity : AppCompatActivity() {
                 //
             }
         })
+    }
+
+    private fun coloredText() {
+        val coloredText = getString(R.string.terms_and_conditions_login)
+        binding.tvTerms.text = HtmlCompat.fromHtml(coloredText,
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
     }
 
     companion object {

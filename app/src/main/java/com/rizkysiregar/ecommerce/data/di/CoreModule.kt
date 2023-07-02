@@ -89,7 +89,6 @@ val networkModule = module {
             .build()
         retrofitAuthService.create(ApiService::class.java)
     }
-
 }
 
 val repositoryModule = module {

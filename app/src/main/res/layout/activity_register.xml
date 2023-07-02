@@ -173,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="@+id/btn_masuk_register"
         app:layout_constraintStart_toStartOf="@+id/btn_masuk_register"
         app:layout_constraintTop_toBottomOf="@+id/btn_masuk_register"
-        android:text="@string/terms_and_conditions_register" />
+        tools:text="@string/terms_and_conditions_register" />
 
     <ProgressBar
         android:id="@+id/pb_register"

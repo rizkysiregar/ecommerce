@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.core.widget.doOnTextChanged
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -67,7 +68,7 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        coloredText()
 
         binding.btnProfile.setOnClickListener {
             try {
@@ -184,7 +185,12 @@ class ProfileActivity : AppCompatActivity() {
         }
         return fileName
     }
-
+    private fun coloredText() {
+        val coloredText = getString(R.string.terms_and_conditions_login)
+        binding.tvBottomBtnDoneProfile.text = HtmlCompat.fromHtml(coloredText,
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+    }
 
     private fun navigateToHome() {
         startActivity(Intent(this, MainActivity::class.java))
