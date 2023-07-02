@@ -27,6 +27,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -103,6 +105,7 @@ class ContentRepository(
     fun getItemCountCart(): LiveData<Int> {
         return ecommerceDao.getItemCountCart()
     }
+
     fun getCountWishlist(): LiveData<Int> {
         return ecommerceDao.getCountItemWishlist()
     }
@@ -237,21 +240,13 @@ class ContentRepository(
         })
     }
 
-    fun getTransaction(onResponse: (Boolean, TransactionResponse?, throwable: String?) -> Unit) {
-        apiService.getTransaction().enqueue(object : Callback<TransactionResponse> {
-            override fun onResponse(
-                call: Call<TransactionResponse>,
-                response: Response<TransactionResponse>
-            ) {
-                val responseBody = response.body()
-                onResponse(response.isSuccessful, responseBody, null)
-            }
-
-            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
-                onResponse(false, null, t.message.toString())
-            }
-
-        })
+    fun getTransactionList(): Flow<TransactionResponse> = flow {
+        val response = apiService.getTransaction()
+        if (response.isSuccessful) {
+            response.body()?.let { emit(it) }
+        }else{
+            // error handle
+        }
     }
 
     // notification
