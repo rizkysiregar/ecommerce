@@ -237,21 +237,8 @@ class ContentRepository(
         })
     }
 
-    fun getTransaction(onResponse: (Boolean, TransactionResponse?, throwable: String?) -> Unit) {
-        apiService.getTransaction().enqueue(object : Callback<TransactionResponse> {
-            override fun onResponse(
-                call: Call<TransactionResponse>,
-                response: Response<TransactionResponse>
-            ) {
-                val responseBody = response.body()
-                onResponse(response.isSuccessful, responseBody, null)
-            }
-
-            override fun onFailure(call: Call<TransactionResponse>, t: Throwable) {
-                onResponse(false, null, t.message.toString())
-            }
-
-        })
+    fun getTransactionList() {
+        // flow
     }
 
     // notification
